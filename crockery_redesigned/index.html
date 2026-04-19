@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ẑilāl — Ancient Crockery & Ceramics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NOISE TEXTURE OVERLAY -->
+  <div class="noise-overlay"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-ornament">❧</span>
+      <span class="logo-text">Ẑilāl</span>
+      <span class="logo-ornament">❧</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cart" onclick="toggleCart()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Est. Ancient Traditions — Modern Craft</div>
+      <h1 class="hero-title">
+        <span class="title-line">Where Clay</span>
+        <span class="title-line italic">Meets Eternity</span>
+      </h1>
+      <p class="hero-desc">Handcrafted crockery inspired by ancient civilisations — each piece a vessel of history, fired in the breath of tradition.</p>
+      <div class="hero-cta-group">
+        <a href="#collection" class="btn btn-primary">Explore Collection</a>
+        <a href="#about" class="btn btn-ghost">Our Heritage</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+    <div class="hero-stamp">
+      <div class="stamp-ring">
+        <span>HANDCRAFTED · ANCIENT CRAFT · TIMELESS ·</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE BAND -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <span>Terracotta Pottery</span><span class="sep">◆</span>
+      <span>Hand-Thrown Ceramics</span><span class="sep">◆</span>
+      <span>Ancient Kiln Techniques</span><span class="sep">◆</span>
+      <span>Raku Glazing</span><span class="sep">◆</span>
+      <span>Slip-Cast Porcelain</span><span class="sep">◆</span>
+      <span>Wabi-Sabi Bowls</span><span class="sep">◆</span>
+      <span>Terracotta Pottery</span><span class="sep">◆</span>
+      <span>Hand-Thrown Ceramics</span><span class="sep">◆</span>
+      <span>Ancient Kiln Techniques</span><span class="sep">◆</span>
+      <span>Raku Glazing</span><span class="sep">◆</span>
+    </div>
+  </div>
+
+  <!-- COLLECTION -->
+  <section class="collection" id="collection">
+    <div class="section-header">
+      <div class="section-ornament">✦ ✦ ✦</div>
+      <h2 class="section-title">The Collection</h2>
+      <p class="section-sub">Each piece whispers tales of civilisations long past</p>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Pieces</button>
+      <button class="filter-btn" data-filter="bowls">Bowls</button>
+      <button class="filter-btn" data-filter="plates">Plates</button>
+      <button class="filter-btn" data-filter="vases">Vases</button>
+      <button class="filter-btn" data-filter="mugs">Mugs</button>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid" id="productGrid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ABOUT / STORY -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-visual">
+        <div class="about-img-frame">
+          <div class="about-img-inner">
+            <div class="kiln-art">
+              <div class="kiln-vessel v1"></div>
+              <div class="kiln-vessel v2"></div>
+              <div class="kiln-vessel v3"></div>
+              <div class="flame f1"></div>
+              <div class="flame f2"></div>
+              <div class="flame f3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="about-quote">"In clay, the ancients recorded their dreams."</div>
+      </div>
+      <div class="about-text">
+        <div class="section-ornament left">— Origin —</div>
+        <h2 class="section-title left">Our Story</h2>
+        <p>Ẑilāl was born from a reverence for the ancients — the potters of Mesopotamia, the kiln-masters of Tang Dynasty China, the terracotta artisans of the Indus Valley.</p>
+        <p>Every bowl we shape holds memory. Every glaze carries the spirit of a technique passed down across centuries. We do not merely make crockery — we keep ancient fire alive.</p>
+        <p>Our workshop sits where the old city meets the river, and our hands follow the rhythm that hands before ours followed for ten thousand years.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-num">10,000+</span>
+            <span class="stat-label">Years of Tradition</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">300+</span>
+            <span class="stat-label">Unique Designs</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">40+</span>
+            <span class="stat-label">Glaze Techniques</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-header">
+      <div class="section-ornament">✦ ✦ ✦</div>
+      <h2 class="section-title">Voices of Patrons</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"These pieces transported me. I placed the terracotta bowl on my table and my whole home felt ancient and alive."</p>
+        <div class="testi-author">— Amara N., Cairo</div>
+      </div>
+      <div class="testimonial-card featured">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The craftsmanship is unlike anything I've owned. I can feel the hands that shaped it. Truly a relic of devotion."</p>
+        <div class="testi-author">— Ravi P., Mumbai</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"I bought the Indus set as a gift. My mother wept. These are not dishes — they are art, they are memory."</p>
+        <div class="testi-author">— Layla H., Lahore</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="section-ornament left">— Reach Us —</div>
+        <h2 class="section-title left">Commission a Piece</h2>
+        <p>Every great crockery story begins with a conversation. Tell us your vision — we will bring it to life in clay and fire.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <span class="contact-icon">◈</span>
+            <span>The Old Kiln Quarter, Lahore</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">◈</span>
+            <span>craft@zilal.pk</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">◈</span>
+            <span>+92 300 0000000</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <input type="text" id="fname" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" id="femail" placeholder="Your Email" required />
+          </div>
+          <div class="form-group">
+            <select id="ftype">
+              <option value="">Type of Enquiry</option>
+              <option value="commission">Commission a Piece</option>
+              <option value="wholesale">Wholesale Order</option>
+              <option value="general">General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea id="fmessage" rows="4" placeholder="Describe your vision..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full">Send Message</button>
+          <div class="form-success" id="formSuccess">✦ Your message has been received. We shall respond within two sunrises.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <span class="logo-ornament">❧</span>
+        <span class="logo-text">Ẑilāl</span>
+        <span class="logo-ornament">❧</span>
+      </div>
+      <p class="footer-tagline">Vessels of Time. Fired in Tradition.</p>
+    </div>
+    <div class="footer-divider">✦ ✦ ✦</div>
+    <div class="footer-bottom">
+      <span>© 2025 Ẑilāl Ceramics — All Rights Reserved</span>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Returns</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your Selection</h3>
+      <button onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">Your cart is empty, yet the kiln awaits.</div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">Rs. 0</span>
+      </div>
+      <button class="btn btn-primary full" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+  <div class="product-modal" id="productModal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-inner" id="modalContent"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

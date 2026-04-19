@@ -571,15 +571,28 @@ window.addEventListener('scroll', () => {
 });
 
 function toggleMenu() {
-  const links = document.querySelector('.nav-links');
-  const isOpen = links.style.display === 'flex';
-  Object.assign(links.style, {
-    display: isOpen ? 'none' : 'flex',
-    flexDirection: 'column', position: 'absolute',
-    top: '100%', left: '0', right: '0',
-    background: 'var(--cream)', padding: '1.5rem 2rem',
-    borderBottom: '1px solid var(--parchment-d)', gap: '1rem', zIndex: '99'
-  });
+  const links   = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  if (!links || !overlay) return;
+  const isOpen = links.classList.contains('mobile-open');
+  if (isOpen) {
+    closeMenu();
+  } else {
+    links.classList.add('mobile-open');
+    overlay.style.display = 'block';
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeMenu() {
+  const links   = document.getElementById('navLinks');
+  const overlay = document.getElementById('navOverlay');
+  if (!links || !overlay) return;
+  links.classList.remove('mobile-open');
+  overlay.classList.remove('open');
+  setTimeout(() => { overlay.style.display = 'none'; }, 320);
+  document.body.style.overflow = '';
 }
 
 let toastTimer;
