@@ -1,47 +1,50 @@
 /* ═══════════════════════════════════════════════
-   Ẑilāl — Dark Copper Edition
-   Palette: near-black · copper · bronze · warm gold
-   Aesthetic: Dark · Classy · Ancient · Timeless
+   DeSi Paanday — Slate & Brass Edition
+   Palette: warm charcoal · antique brass · soft ivory
+   Aesthetic: Dark · Sophisticated · Gallery · Timeless
    ═══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italianno&display=swap');
 
 :root {
-  /* Rich warm-dark backgrounds */
-  --bg-deepest:    #1a0f08;
-  --bg-deep:       #d4c4aa;
-  --bg-mid:        #c8b596;
-  --bg-card:       #e8dcc8;
-  --bg-raised:     #f0e6d4;
+  /* Warm charcoal slate backgrounds — softer than pure black */
+  --bg-deepest:    #131316;   /* deepest charcoal — for footer, special dark */
+  --bg-deep:       #1C1C20;   /* slate base — body background */
+  --bg-mid:        #232328;   /* mid slate — sections */
+  --bg-card:       #2C2C32;   /* raised slate — cards */
+  --bg-raised:     #38383E;   /* most raised — modal/input bg */
 
-  /* Copper / Bronze / Gold — vivid & warm */
-  --copper:        #a0481a;
-  --copper-l:      #c46530;
-  --copper-ll:     #de8f58;
-  --bronze:        #8a5520;
-  --gold:          #b87016;
-  --gold-l:        #d08c28;
-  --gold-ll:       #e8ac48;
+  /* Antique brass as PRIMARY accent — warm metal */
+  --copper:        #B8924A;   /* deep antique brass (primary) */
+  --copper-l:      #D4B870;   /* mid brass highlight */
+  --copper-ll:     #E8D294;   /* light brass gleam */
+  --bronze:        #8A7240;   /* tarnished bronze */
 
-  /* Text — deep rich darks */
-  --text-primary:  #1a0f08;
-  --text-secondary:#4a2e14;
-  --text-muted:    #7a5535;
+  /* Brass / gold family — secondary highlights */
+  --gold:          #C9A961;   /* warm gold */
+  --gold-l:        #DCBA72;   /* sunlit gold */
+  --gold-ll:       #F0CC8C;   /* brightest gold gleam */
 
-  /* Borders */
-  --border:        rgba(160,72,26,0.22);
-  --border-l:      rgba(160,72,26,0.40);
-  --border-bright: rgba(160,72,26,0.65);
+  /* Text — soft warm ivory on charcoal */
+  --text-primary:  #E8E4DC;   /* soft warm white — main text */
+  --text-secondary:#B8B5AC;   /* warm mid-grey */
+  --text-muted:    #8A877F;   /* subdued warm grey */
 
-  /* Shadows */
-  --shadow:        rgba(26,15,8,0.18);
-  --shadow-deep:   rgba(26,15,8,0.35);
-  --glow:          rgba(160,72,26,0.20);
+  /* Borders — brass-tinted */
+  --border:        rgba(212,184,112,0.18);
+  --border-l:      rgba(212,184,112,0.38);
+  --border-bright: rgba(212,184,112,0.65);
 
-  /* Fonts */
-  --ff-display:  'Playfair Display', serif;
-  --ff-body:     'EB Garamond', serif;
-  --ff-accent:   'Libre Baskerville', serif;
+  /* Shadows — slate-dark with warm bloom */
+  --shadow:        rgba(0,0,0,0.40);
+  --shadow-deep:   rgba(0,0,0,0.65);
+  --glow:          rgba(212,184,112,0.22);
+
+  /* Fonts — sophisticated heritage pairing */
+  --ff-display:  'Cinzel', 'Cormorant Garamond', serif;      /* engraved Roman caps */
+  --ff-body:     'Cormorant Garamond', 'Georgia', serif;     /* elegant Renaissance serif */
+  --ff-accent:   'Cinzel', 'Libre Caslon Text', serif;       /* small caps eyebrow */
+  --ff-script:   'Italianno', cursive;                       /* ornate ceremonial script */
 
   /* Easing */
   --ease-silk:   cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -52,7 +55,7 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  background: var(--bg-card);
+  background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--ff-body);
   font-weight: 400;
@@ -63,14 +66,28 @@ body {
 /* Texture overlay */
 .noise-overlay {
   position: fixed; inset: 0; z-index: 1000; pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
 }
 
 /* ── TYPOGRAPHY ── */
-h1, h2, h3, h4 { font-family: var(--ff-display); font-weight: 400; letter-spacing: 0.03em; color: var(--text-primary); }
-.italic { font-style: italic; }
+h1, h2, h3, h4 {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+h1 { font-weight: 600; }
+.italic {
+  font-family: var(--ff-script);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 1.45em;     /* Italianno is calligraphic — needs to be larger */
+  line-height: 1;
+  color: var(--copper-l);
+}
 a { color: inherit; text-decoration: none; }
 
 /* ── BUTTONS ── */
@@ -114,15 +131,15 @@ a { color: inherit; text-decoration: none; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.5rem 5vw;
-  background: rgba(250,244,235,0.96);
+  background: rgba(28,28,32,0.78);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   transition: padding 0.4s var(--ease-silk), box-shadow 0.4s;
 }
 .nav.scrolled {
   padding: 0.9rem 5vw;
-  box-shadow: 0 4px 30px var(--shadow);
-  background: rgba(250,244,235,0.99);
+  box-shadow: 0 4px 30px var(--shadow-deep);
+  background: rgba(28,28,32,0.94);
 }
 
 .nav-logo {
@@ -164,10 +181,10 @@ a { color: inherit; text-decoration: none; }
   position: relative; overflow: hidden;
   padding: 9rem 5vw 5rem;
   background:
-    linear-gradient(135deg, rgba(250,244,235,0.92) 0%, rgba(237,227,211,0.88) 50%, rgba(250,244,235,0.95) 100%),
-    radial-gradient(ellipse at 80% 30%, rgba(181,98,42,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse at 10% 80%, rgba(158,104,53,0.12) 0%, transparent 55%),
-    var(--bg-card);
+    linear-gradient(135deg, rgba(28,28,32,0.85) 0%, rgba(19,19,22,0.92) 50%, rgba(28,28,32,0.88) 100%),
+    radial-gradient(ellipse at 80% 30%, rgba(212,184,112,0.16) 0%, transparent 60%),
+    radial-gradient(ellipse at 10% 80%, rgba(184,146,74,0.10) 0%, transparent 55%),
+    var(--bg-deep);
 }
 
 /* Animated copper glow shapes */
@@ -695,14 +712,14 @@ a { color: inherit; text-decoration: none; }
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 99;
-    background: #fdf6ee;
+    background: var(--bg-mid);
     border-bottom: 2px solid var(--copper);
     padding: 5.5rem 2rem 2rem;
     gap: 0;
     list-style: none;
     transform: translateY(-110%);
     transition: transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
-    box-shadow: 0 12px 40px rgba(26,15,8,0.25);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55);
   }
   .nav-links.mobile-open { transform: translateY(0); }
 
@@ -829,7 +846,7 @@ a { color: inherit; text-decoration: none; }
 .co-form .form-group input:focus,
 .co-form .form-group textarea:focus {
   border-color: var(--border-l); border-bottom-color: var(--copper);
-  background: #ffffff;
+  background: var(--bg-raised);
 }
 .co-form .form-group textarea { resize: vertical; }
 .co-form .btn-primary { margin-top: 0.3rem; }
@@ -1368,3 +1385,168 @@ body.lang-ur .hero-eyebrow::before {
   .sehat-cards-row { grid-template-columns: 1fr; }
   .sehat-banner { padding: 2rem 1.25rem 1.5rem; }
 }
+
+/* ═══════════════════════════════════════════════
+   SLATE & BRASS — FINAL POLISH OVERRIDES
+   Applied after all base rules to refine
+   the sophisticated dark aesthetic
+   ═══════════════════════════════════════════════ */
+
+/* Card hover — warm brass gleam on slate */
+.product-card { box-shadow: 0 4px 18px rgba(0,0,0,0.32); }
+.product-card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,0.50),
+              0 0 0 1px var(--border-l),
+              0 0 40px rgba(212,184,112,0.18);
+}
+
+/* Filter buttons — brass pill style on active */
+.filter-btn {
+  border-radius: 2px;
+  background: rgba(255,255,255,0.03);
+}
+.filter-btn:hover {
+  color: var(--copper-l);
+  background: rgba(212,184,112,0.06);
+  border-color: var(--border-l);
+}
+.filter-btn.active {
+  background: linear-gradient(180deg, var(--copper-l) 0%, var(--copper) 100%);
+  color: var(--bg-deepest);
+  border-color: var(--copper);
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(212,184,112,0.28),
+              inset 0 1px 0 rgba(255,255,255,0.20);
+}
+
+/* Hero title — Cinzel needs presence on slate */
+.hero-title {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  text-shadow: 0 2px 30px rgba(0,0,0,0.45);
+}
+
+/* The italic line ("Meets Eternity") — Italianno in brass */
+.hero-title .italic {
+  display: block;
+  margin-top: -0.15em;
+  color: var(--copper-l);
+}
+
+/* Section titles — engraved look */
+.section-title {
+  font-family: var(--ff-display);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+/* Eyebrow text — Cinzel small caps */
+.hero-eyebrow,
+.section-ornament,
+.card-category,
+.testi-author,
+.marquee-track span,
+.btn,
+.filter-btn {
+  font-family: var(--ff-accent);
+  font-weight: 500;
+}
+
+/* Body paragraphs in Cormorant */
+p { font-family: var(--ff-body); }
+
+/* Marquee — brass separator */
+.sep { color: var(--copper-l); }
+
+/* Testimonial cards — brass-tinted */
+.testimonial-card { background: rgba(212,184,112,0.04); }
+.testimonial-card.featured { background: rgba(212,184,112,0.09); }
+.testimonial-card:hover { background: rgba(212,184,112,0.08); }
+
+/* Cart sidebar — slate */
+.cart-sidebar { background: var(--bg-card); }
+.cart-header { background: var(--bg-deepest); }
+
+/* Product modal — slate */
+.product-modal { background: var(--bg-card); }
+.modal-img { background: var(--bg-raised); }
+
+/* Checkout modal — slate hierarchy */
+.checkout-modal { background: var(--bg-card); }
+.co-header { background: var(--bg-deepest); }
+
+/* Form inputs — dark slate with brass underline */
+.form-group input,
+.form-group textarea,
+.form-group select,
+.co-form .form-group input,
+.co-form .form-group textarea {
+  background: rgba(255,255,255,0.03);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border-l);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+.co-form .form-group input::placeholder,
+.co-form .form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-group select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+/* Footer — deepest charcoal */
+.footer { background: var(--bg-deepest); }
+.footer-tagline { color: var(--text-secondary); font-style: italic; }
+.footer-bottom a:hover { color: var(--copper-l); }
+
+/* Card price — luminous brass */
+.card-price {
+  color: var(--copper-l);
+  font-weight: 600;
+}
+
+/* Scrollbar — brass gilded */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-deepest); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--copper-l) 0%, var(--copper) 100%);
+  border-radius: 4px;
+  border: 2px solid var(--bg-deepest);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--copper-l); }
+
+/* Selection — brass on slate */
+::selection {
+  background: var(--copper);
+  color: var(--bg-deepest);
+}
+
+/* Hero stamp — brass on slate */
+.stamp-text { fill: var(--copper-l); font-family: var(--ff-accent); }
+.stamp-center-top, .stamp-center-bot { fill: var(--copper-l); }
+
+/* About quote — calligraphic brass */
+.about-quote {
+  font-family: var(--ff-script);
+  font-size: 1.6em;
+  color: var(--copper-l);
+  font-style: normal;
+  line-height: 1.2;
+}
+
+/* Toast — slate glass with brass border */
+.toast {
+  background: var(--bg-card);
+  border: 1px solid var(--copper);
+  color: var(--text-primary);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+}
+
+/* WhatsApp tooltip — dark slate */
+.whatsapp-tooltip { background: var(--bg-deepest); color: var(--text-primary); }

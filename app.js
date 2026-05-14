@@ -111,7 +111,7 @@ const PRODUCT_SEED = [
     technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Thaal: 35cm, Katoris: 10cm'
   },
   {
-    id: 7, category: 'mugs', badge: null,
+    id: 7, category: 'spoons', badge: null,
     image: 'images/34.jpg',
     name: 'Copper Tea Spoon',
     shortDesc: 'Single hand-finished copper spoon',
@@ -120,7 +120,7 @@ const PRODUCT_SEED = [
     technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length'
   },
   {
-    id: 8, category: 'mugs', badge: null,
+    id: 8, category: 'spoons', badge: null,
     image: 'images/32.jpg',
     name: 'Copper Spoon Pair',
     shortDesc: 'Two matching copper-finish spoons',
@@ -129,7 +129,7 @@ const PRODUCT_SEED = [
     technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length'
   },
   {
-    id: 9, category: 'mugs', badge: 'New',
+    id: 9, category: 'spoons', badge: 'New',
     image: 'images/37.jpg',
     name: 'Copper Spoon Set (12 pcs)',
     shortDesc: 'Full dozen copper-finish spoons',
@@ -144,10 +144,31 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
+  _seedVersion: 2,  // bump this whenever PRODUCT_SEED changes — forces localStorage refresh
   init() {
-    if (!localStorage.getItem(this._key)) {
+    const existing = localStorage.getItem(this._key);
+    let needSeed = !existing;
+    if (existing) {
+      try {
+        const parsed = JSON.parse(existing);
+        if (parsed._seedVersion !== this._seedVersion) needSeed = true;
+      } catch (e) { needSeed = true; }
+    }
+    if (needSeed) {
+      // Preserve orders & enquiries on re-seed, only refresh products
+      let preserved = { orders: [], enquiries: [], nextOrderId: 1 };
+      try {
+        const old = JSON.parse(existing || '{}');
+        preserved = {
+          orders: old.orders || [],
+          enquiries: old.enquiries || [],
+          nextOrderId: old.nextOrderId || 1
+        };
+      } catch (e) {}
       localStorage.setItem(this._key, JSON.stringify({
-        products: PRODUCT_SEED, orders: [], enquiries: [], nextOrderId: 1
+        _seedVersion: this._seedVersion,
+        products: PRODUCT_SEED,
+        ...preserved
       }));
     }
     return this;
