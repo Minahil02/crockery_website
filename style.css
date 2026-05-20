@@ -8,43 +8,43 @@
 
 :root {
   /* Warm charcoal slate backgrounds — softer than pure black */
-  --bg-deepest:    #131316;   /* deepest charcoal — for footer, special dark */
-  --bg-deep:       #1C1C20;   /* slate base — body background */
-  --bg-mid:        #232328;   /* mid slate — sections */
-  --bg-card:       #2C2C32;   /* raised slate — cards */
-  --bg-raised:     #38383E;   /* most raised — modal/input bg */
+  --bg-deepest:    #0E0E11;   /* deepest charcoal — richer black */
+  --bg-deep:       #161619;   /* slate base — body background */
+  --bg-mid:        #1E1E23;   /* mid slate — sections */
+  --bg-card:       #27272D;   /* raised slate — cards */
+  --bg-raised:     #323238;   /* most raised — modal/input bg */
 
   /* Antique brass as PRIMARY accent — warm metal */
-  --copper:        #B8924A;   /* deep antique brass (primary) */
-  --copper-l:      #D4B870;   /* mid brass highlight */
-  --copper-ll:     #E8D294;   /* light brass gleam */
-  --bronze:        #8A7240;   /* tarnished bronze */
+  --copper:        #C8A04E;   /* richer antique gold (primary) */
+  --copper-l:      #E2C876;   /* mid gold highlight */
+  --copper-ll:     #F5DFA0;   /* light gold gleam */
+  --bronze:        #9A8248;   /* tarnished bronze */
 
   /* Brass / gold family — secondary highlights */
-  --gold:          #C9A961;   /* warm gold */
-  --gold-l:        #DCBA72;   /* sunlit gold */
-  --gold-ll:       #F0CC8C;   /* brightest gold gleam */
+  --gold:          #D4B561;   /* warm gold */
+  --gold-l:        #E8C878;   /* sunlit gold */
+  --gold-ll:       #FAD898;   /* brightest gold gleam */
 
   /* Text — soft warm ivory on charcoal */
-  --text-primary:  #E8E4DC;   /* soft warm white — main text */
-  --text-secondary:#B8B5AC;   /* warm mid-grey */
-  --text-muted:    #8A877F;   /* subdued warm grey */
+  --text-primary:  #F2EEE4;   /* bright warm white — more readable */
+  --text-secondary:#C8C4BA;   /* warm mid-grey — lifted */
+  --text-muted:    #9A978F;   /* subdued warm grey */
 
   /* Borders — brass-tinted */
-  --border:        rgba(212,184,112,0.18);
-  --border-l:      rgba(212,184,112,0.38);
-  --border-bright: rgba(212,184,112,0.65);
+  --border:        rgba(228,200,120,0.15);
+  --border-l:      rgba(228,200,120,0.35);
+  --border-bright: rgba(228,200,120,0.65);
 
   /* Shadows — slate-dark with warm bloom */
-  --shadow:        rgba(0,0,0,0.40);
-  --shadow-deep:   rgba(0,0,0,0.65);
-  --glow:          rgba(212,184,112,0.22);
+  --shadow:        rgba(0,0,0,0.50);
+  --shadow-deep:   rgba(0,0,0,0.75);
+  --glow:          rgba(228,200,120,0.28);
 
   /* Fonts — sophisticated heritage pairing */
-  --ff-display:  'Cinzel', 'Cormorant Garamond', serif;      /* engraved Roman caps */
-  --ff-body:     'Cormorant Garamond', 'Georgia', serif;     /* elegant Renaissance serif */
-  --ff-accent:   'Cinzel', 'Libre Caslon Text', serif;       /* small caps eyebrow */
-  --ff-script:   'Italianno', cursive;                       /* ornate ceremonial script */
+  --ff-display:  'Cinzel', 'Cormorant Garamond', serif;
+  --ff-body:     'Cormorant Garamond', 'Georgia', serif;
+  --ff-accent:   'Cinzel', 'Libre Caslon Text', serif;
+  --ff-script:   'Italianno', cursive;
 
   /* Easing */
   --ease-silk:   cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -52,15 +52,17 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 18px; }
 
 body {
   background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--ff-body);
+  font-size: 1.15rem;
   font-weight: 400;
-  line-height: 1.8;
+  line-height: 1.9;
   overflow-x: hidden;
+  letter-spacing: 0.01em;
 }
 
 /* Texture overlay */
@@ -145,15 +147,15 @@ a { color: inherit; text-decoration: none; }
 .nav-logo {
   display: flex; align-items: center; gap: 0.6rem;
   font-family: var(--ff-display);
-  font-size: 1.4rem; letter-spacing: 0.1em;
+  font-size: 1.55rem; letter-spacing: 0.1em;
 }
-.logo-ornament { color: var(--copper); font-size: 0.95rem; }
+.logo-ornament { color: var(--copper); font-size: 1.05rem; }
 .logo-text { color: var(--text-primary); }
 
 .nav-links { display: flex; gap: 3rem; list-style: none; }
 .nav-links a {
   font-family: var(--ff-accent);
-  font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--text-secondary); position: relative; transition: color 0.3s;
 }
 .nav-links a::after {
@@ -181,10 +183,11 @@ a { color: inherit; text-decoration: none; }
   position: relative; overflow: hidden;
   padding: 9rem 5vw 5rem;
   background:
-    linear-gradient(135deg, rgba(28,28,32,0.85) 0%, rgba(19,19,22,0.92) 50%, rgba(28,28,32,0.88) 100%),
-    radial-gradient(ellipse at 80% 30%, rgba(212,184,112,0.16) 0%, transparent 60%),
-    radial-gradient(ellipse at 10% 80%, rgba(184,146,74,0.10) 0%, transparent 55%),
-    var(--bg-deep);
+    linear-gradient(135deg, rgba(14,14,17,0.92) 0%, rgba(10,10,13,0.96) 50%, rgba(14,14,17,0.90) 100%),
+    radial-gradient(ellipse at 75% 25%, rgba(228,200,120,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 75%, rgba(200,160,78,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(154,130,72,0.08) 0%, transparent 70%),
+    var(--bg-deepest);
 }
 
 /* Animated copper glow shapes */
@@ -242,9 +245,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-desc {
-  font-size: 1.2rem; color: var(--text-secondary);
-  max-width: 500px; margin-bottom: 3.2rem;
-  font-style: italic; line-height: 2;
+  font-size: 1.35rem; color: var(--text-secondary);
+  max-width: 520px; margin-bottom: 3.2rem;
+  font-style: italic; line-height: 2.1;
 }
 
 .hero-cta-group { display: flex; gap: 1.4rem; flex-wrap: wrap; }
@@ -307,7 +310,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-primary); letter-spacing: 0.04em; margin-bottom: 1rem;
 }
 .section-title.left { text-align: left; }
-.section-sub { font-size: 1.1rem; color: var(--text-secondary); font-style: italic; }
+.section-sub { font-size: 1.2rem; color: var(--text-secondary); font-style: italic; }
 
 /* ── COLLECTION ── */
 .collection {
@@ -374,32 +377,32 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.18em; text-transform: uppercase; padding: 0.32rem 0.8rem;
 }
 
-.card-body { padding: 1.6rem; }
+.card-body { padding: 1.8rem; }
 .card-category {
-  font-family: var(--ff-accent); font-size: 0.58rem;
+  font-family: var(--ff-accent); font-size: 0.62rem;
   letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.5rem;
 }
 .card-name {
-  font-family: var(--ff-display); font-size: 1.15rem;
+  font-family: var(--ff-display); font-size: 1.25rem;
   color: var(--text-primary); margin-bottom: 0.6rem; letter-spacing: 0.03em; font-weight: 500;
 }
 .card-desc {
-  font-size: 0.95rem; color: var(--text-secondary); font-style: italic;
-  margin-bottom: 1.4rem; line-height: 1.7;
+  font-size: 1.05rem; color: var(--text-secondary); font-style: italic;
+  margin-bottom: 1.4rem; line-height: 1.8;
 }
 .card-footer {
   display: flex; align-items: center; justify-content: space-between;
   padding-top: 1rem; border-top: 1px solid var(--border);
 }
 .card-price {
-  font-family: var(--ff-display); font-size: 1.15rem;
+  font-family: var(--ff-display); font-size: 1.25rem;
   color: var(--gold-l); font-weight: 500;
 }
 .card-add {
   background: none; border: 1px solid var(--copper); color: var(--copper);
-  font-family: var(--ff-accent); font-size: 0.58rem;
+  font-family: var(--ff-accent); font-size: 0.62rem;
   letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0.45rem 1rem; cursor: pointer; transition: all 0.35s;
+  padding: 0.5rem 1.1rem; cursor: pointer; transition: all 0.35s;
 }
 .card-add:hover { background: var(--copper); color: #0A0604; font-weight: 700; }
 
@@ -444,13 +447,13 @@ a { color: inherit; text-decoration: none; }
   font-family: var(--ff-display); font-style: italic; font-size: 1.05rem; color: var(--text-secondary);
   border-top: 1px solid var(--border); padding-top: 1.2rem;
 }
-.about-text p { font-size: 1.08rem; margin-bottom: 1.3rem; color: var(--text-secondary); line-height: 1.9; }
+.about-text p { font-size: 1.18rem; margin-bottom: 1.3rem; color: var(--text-secondary); line-height: 2; }
 .about-stats {
   display: flex; gap: 3rem; margin-top: 2.8rem; padding-top: 2.2rem; border-top: 1px solid var(--border);
 }
 .stat { display: flex; flex-direction: column; }
-.stat-num { font-family: var(--ff-display); font-size: 1.7rem; color: var(--copper-ll); font-weight: 500; }
-.stat-label { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-top: 0.25rem; }
+.stat-num { font-family: var(--ff-display); font-size: 1.9rem; color: var(--copper-ll); font-weight: 500; }
+.stat-label { font-size: 0.85rem; color: var(--text-muted); font-style: italic; margin-top: 0.25rem; }
 
 /* ── TESTIMONIALS ── */
 .testimonials {
@@ -474,9 +477,9 @@ a { color: inherit; text-decoration: none; }
 }
 .testimonial-card.featured { background: rgba(185,115,51,0.10); border-color: var(--copper); }
 .testimonial-card:hover { background: rgba(185,115,51,0.10); transform: translateY(-6px); }
-.testi-stars { color: var(--gold-l); font-size: 0.8rem; letter-spacing: 0.15em; margin-bottom: 1.2rem; }
-.testimonial-card p { font-size: 1.05rem; font-style: italic; line-height: 1.9; color: var(--text-primary); margin-bottom: 1.4rem; }
-.testi-author { font-family: var(--ff-accent); font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); }
+.testi-stars { color: var(--gold-l); font-size: 0.95rem; letter-spacing: 0.15em; margin-bottom: 1.2rem; }
+.testimonial-card p { font-size: 1.15rem; font-style: italic; line-height: 2; color: var(--text-primary); margin-bottom: 1.4rem; }
+.testi-author { font-family: var(--ff-accent); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); }
 
 /* ── CONTACT ── */
 .contact {
@@ -501,8 +504,8 @@ a { color: inherit; text-decoration: none; }
 .form-group textarea {
   width: 100%; background: var(--bg-card);
   border: 1px solid var(--border); border-bottom: 2px solid var(--border);
-  color: var(--text-primary); font-family: var(--ff-body); font-size: 1rem;
-  padding: 0.9rem 1.2rem; outline: none;
+  color: var(--text-primary); font-family: var(--ff-body); font-size: 1.1rem;
+  padding: 1rem 1.2rem; outline: none;
   transition: border-color 0.35s, background 0.35s; -webkit-appearance: none;
 }
 .form-group input::placeholder,

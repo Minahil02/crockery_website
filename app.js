@@ -23,7 +23,7 @@ const CONFIG = {
   // 1. Go to https://formspree.io → Sign Up free
   // 2. New Form → name it "Desi Panday Orders"
   // 3. Paste the endpoint below (looks like /f/xxxxxxxx)
-  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',  // ← paste here
+  formspreeEndpoint: 'https://formspree.io/f/xqejeppk',  // ← your endpoint
 
   // ── EMAILJS (customer gets confirmation email) ─
   // 1. Go to https://emailjs.com → Sign Up free
@@ -572,12 +572,35 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('[type="submit"]');
   btn.textContent = 'Sending…'; btn.disabled = true;
-  await API.submitEnquiry({
-    name:    document.getElementById('fname').value,
-    email:   document.getElementById('femail').value,
-    type:    document.getElementById('ftype').value,
-    message: document.getElementById('fmessage').value
-  });
+
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const phone   = document.querySelector('#contactForm [name="phone"]')?.value.trim() || '';
+  const type    = document.getElementById('ftype').value;
+  const message = document.getElementById('fmessage').value.trim();
+
+  // Save locally
+  DB.saveEnquiry({ name, email, type, message });
+
+  // Send to Formspree — real email to you
+  try {
+    const res = await fetch(CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name, email, phone,
+        enquiry_type: type || 'General',
+        message,
+        _subject: `New Enquiry from ${name} — DeSi Paanday`
+      })
+    });
+    if (!res.ok) throw new Error('Formspree failed');
+  } catch (err) {
+    // Fallback: open WhatsApp with the enquiry
+    const waMsg = `New Enquiry from website:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${type}\nMessage: ${message}`;
+    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
+  }
+
   btn.textContent = 'Send Message'; btn.disabled = false;
   document.getElementById('formSuccess').classList.add('show');
   e.target.reset();
