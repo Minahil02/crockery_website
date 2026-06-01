@@ -1935,3 +1935,57 @@ p { font-family: var(--ff-body); }
 .policy-header h3 { color: var(--text-primary); }
 .policy-body h4 { color: var(--copper); border-color: var(--border); }
 .policy-body p { color: var(--text-secondary); }
+/* ═══════════════════════════════════════════════
+   UTENSILS IMAGE — Nav & Footer
+   ═══════════════════════════════════════════════ */
+.nav-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  cursor: pointer;
+}
+.nav-utensils-img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(160,90,44,0.20));
+  transition: transform 0.3s, filter 0.3s;
+  flex-shrink: 0;
+}
+.nav-utensils-img:hover {
+  transform: scale(1.06);
+  filter: drop-shadow(0 4px 12px rgba(160,90,44,0.35));
+}
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.nav-brand-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1E0E04;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nav-brand-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  color: #A05A2C;
+  letter-spacing: 0.18em;
+  font-style: italic;
+}
+.footer-utensils-img {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.15) drop-shadow(0 2px 10px rgba(255,200,100,0.25));
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 900px) {
+  .nav-utensils-img { height: 48px; }
+  .nav-brand-name { font-size: 0.9rem; }
+  .nav-brand-tagline { font-size: 0.62rem; }
+  .footer-utensils-img { height: 75px; }
+}

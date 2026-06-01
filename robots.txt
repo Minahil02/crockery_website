@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+# Block admin/API endpoints from indexing
+Disallow: /api/
+Disallow: /api/orders
+Disallow: /api/enquiries
+
+# Allow product API (helps product crawlers)
+Allow: /api/products
+
+# Crawl delay
+Crawl-delay: 10
+
 Sitemap: https://www.desipanday.com/sitemap.xml

@@ -17,13 +17,13 @@ const CONFIG = {
   // No API needed — just put your number below.
   // Format: country code + number, no + or spaces
   // Pakistan example: 923241234567
-  whatsappNumber: '923248825813',   // ← your number
+  whatsappNumber: '923267727448',   // ← your number
 
   // ── FORMSPREE (you get order email) ──────────
   // 1. Go to https://formspree.io → Sign Up free
   // 2. New Form → name it "Desi Panday Orders"
   // 3. Paste the endpoint below (looks like /f/xxxxxxxx)
-  formspreeEndpoint: 'https://formspree.io/f/xqejeppk',  // ← your endpoint
+  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',  // ← paste here
 
   // ── EMAILJS (customer gets confirmation email) ─
   // 1. Go to https://emailjs.com → Sign Up free
@@ -144,18 +144,20 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 2,  // bump this whenever PRODUCT_SEED changes — forces localStorage refresh
+  _seedVersion: 5,  // bumped — forces localStorage refresh to reload products
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
     if (existing) {
       try {
         const parsed = JSON.parse(existing);
-        if (parsed._seedVersion !== this._seedVersion) needSeed = true;
+        // Force reseed if version mismatch OR products missing/empty
+        if (parsed._seedVersion !== this._seedVersion || !parsed.products || parsed.products.length === 0) {
+          needSeed = true;
+        }
       } catch (e) { needSeed = true; }
     }
     if (needSeed) {
-      // Preserve orders & enquiries on re-seed, only refresh products
       let preserved = { orders: [], enquiries: [], nextOrderId: 1 };
       try {
         const old = JSON.parse(existing || '{}');
@@ -170,6 +172,7 @@ const DB = {
         products: PRODUCT_SEED,
         ...preserved
       }));
+      console.log('✅ Products loaded:', PRODUCT_SEED.length);
     }
     return this;
   },
@@ -238,8 +241,8 @@ function openWhatsAppOrder(orderId, name, phone, address, note, items, total) {
 // ═══════════════════════════════════════════════
 // 2. FORMSPREE — sends order details to YOUR email
 // ═══════════════════════════════════════════════
-async function notifyShopByEmail(orderId, name, phone, address, deliveryTime, items, total, note) {
-  if (!CONFIG.formspreeEndpoint || CONFIG.formspreeEndpoint.includes('YOUR_FORM_ID')) return;
+async function notifyShopByEmail(orderId, name, phone, address, items, total) {
+  if (CONFIG.formspreeEndpoint.includes('YOUR_FORM_ID')) return;
   const itemLines = items.map(i =>
     `${i.name} x${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
   ).join('\n');
@@ -248,44 +251,16 @@ async function notifyShopByEmail(orderId, name, phone, address, deliveryTime, it
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        _subject: `🏺 NEW COD ORDER ${orderId} — Desi Panday`,
-        order_id:         orderId,
-        payment_method:   'Cash on Delivery',
-        customer_name:    name,
-        customer_phone:   phone,
+        _subject: `🏺 NEW ORDER ${orderId} — Desi Panday`,
+        order_id: orderId,
+        customer_name: name,
+        customer_phone: phone,
         delivery_address: address,
-        preferred_time:   deliveryTime,
-        items:            itemLines,
-        total:            `Rs. ${total.toLocaleString()}`,
-        note:             note || '—'
+        items: itemLines,
+        total: `Rs. ${total.toLocaleString()}`
       })
     });
   } catch (e) { console.log('Formspree error:', e); }
-}
-
-// Silent WhatsApp notification to shop owner (opens in background tab)
-function notifyShopWhatsApp(orderId, name, phone, address, deliveryTime, note, items, total) {
-  const itemLines = items.map(i =>
-    `  • ${i.name} ×${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
-  ).join('\n');
-
-  const msg =
-    `🏺 *NEW ORDER — Desi Panday*\n` +
-    `━━━━━━━━━━━━━━━━━━━━\n` +
-    `🆔 Order: *${orderId}*\n` +
-    `💵 Payment: *Cash on Delivery*\n\n` +
-    `📦 *Items:*\n${itemLines}\n` +
-    `💰 *Total: Rs. ${total.toLocaleString()}*\n\n` +
-    `👤 *Customer:*\n` +
-    `  Name: ${name}\n` +
-    `  Phone: ${phone}\n` +
-    `  Address: ${address}\n` +
-    `  Preferred Time: ${deliveryTime}` +
-    (note ? `\n  Note: ${note}` : '') +
-    `\n\n📞 _Please call to confirm delivery._`;
-
-  const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
 }
 
 // ═══════════════════════════════════════════════
@@ -387,74 +362,44 @@ function checkout() {
 
   document.getElementById('checkoutModalContent').innerHTML = `
     <div class="co-header">
-      <div class="co-header-left">
-        <div class="co-cod-badge">🚚 Cash on Delivery</div>
-        <h3>Complete Your Order</h3>
-      </div>
+      <h3>✦ Complete Your Order</h3>
       <button class="co-close" onclick="closeCheckoutModal()">✕</button>
     </div>
     <div class="co-body">
-
       <div class="co-summary">
-        <div class="co-summary-title">📦 Order Summary</div>
+        <div class="co-summary-title">Order Summary</div>
         ${cart.map(i => `
           <div class="co-item">
-            <span>${i.name} <span class="co-qty">×${i.qty}</span></span>
-            <span class="co-item-price">Rs. ${(i.price * i.qty).toLocaleString()}</span>
+            <span>${i.name} ×${i.qty}</span>
+            <span>Rs. ${(i.price * i.qty).toLocaleString()}</span>
           </div>
         `).join('')}
-        <div class="co-total">
-          <span>Total Payable on Delivery</span>
-          <span>Rs. ${total.toLocaleString()}</span>
-        </div>
-        <div class="co-cod-note">💵 Pay cash when your order arrives. No advance payment needed.</div>
+        <div class="co-total"><span>Total</span><span>Rs. ${total.toLocaleString()}</span></div>
       </div>
-
       <div class="co-form">
-        <div class="co-form-title">📋 Your Details</div>
-
+        <div class="co-form-title">Your Details</div>
         <div class="form-group">
-          <label class="co-label">Full Name *</label>
-          <input type="text" id="coName" placeholder="e.g. Ahmed Khan" />
+          <input type="text"  id="coName"    placeholder="Full Name *" />
         </div>
-
         <div class="form-group">
-          <label class="co-label">Phone Number *</label>
-          <input type="tel" id="coPhone" placeholder="e.g. 0300 1234567" />
-          <div class="co-field-hint">We'll call this number to confirm your order</div>
+          <input type="tel"   id="coPhone"   placeholder="WhatsApp / Phone Number *" />
         </div>
-
         <div class="form-group">
-          <label class="co-label">Delivery Address *</label>
-          <textarea id="coAddress" rows="3" placeholder="House/flat no., street, area, city…"></textarea>
+          <input type="email" id="coEmail"   placeholder="Email (for confirmation — optional)" />
         </div>
-
         <div class="form-group">
-          <label class="co-label">Preferred Delivery Time *</label>
-          <select id="coDeliveryTime">
-            <option value="">— Select a time slot —</option>
-            <option value="Morning (9am – 12pm)">🌅 Morning (9am – 12pm)</option>
-            <option value="Afternoon (12pm – 4pm)">☀️ Afternoon (12pm – 4pm)</option>
-            <option value="Evening (4pm – 8pm)">🌆 Evening (4pm – 8pm)</option>
-            <option value="Anytime">✅ Anytime — whatever suits you</option>
-          </select>
+          <textarea id="coAddress" rows="2"  placeholder="Delivery Address *"></textarea>
         </div>
-
         <div class="form-group">
-          <label class="co-label">Special Instructions <span style="opacity:0.6">(optional)</span></label>
-          <textarea id="coNote" rows="2" placeholder="Gift wrapping, fragile handling, landmark near address…"></textarea>
+          <textarea id="coNote"    rows="2"  placeholder="Special instructions? (optional)"></textarea>
         </div>
-
-        <button class="btn btn-primary full co-submit-btn" id="coBtn" onclick="confirmOrder()">
-          ✦ &nbsp; Place Order (Cash on Delivery)
+        <button class="btn btn-primary full" id="coBtn" onclick="confirmOrder()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
+               style="vertical-align:middle;margin-right:8px">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Order via WhatsApp
         </button>
-
-        <div class="co-reassurance">
-          <span>🔒 No payment now</span>
-          <span>📞 We call to confirm</span>
-          <span>🚚 Delivered to your door</span>
-        </div>
-
         <div id="coSuccess" class="co-success" style="display:none"></div>
       </div>
     </div>
@@ -465,22 +410,23 @@ function checkout() {
 }
 
 async function confirmOrder() {
-  const name         = document.getElementById('coName').value.trim();
-  const phone        = document.getElementById('coPhone').value.trim();
-  const address      = document.getElementById('coAddress').value.trim();
-  const deliveryTime = document.getElementById('coDeliveryTime').value;
-  const note         = document.getElementById('coNote').value.trim();
+  const name    = document.getElementById('coName').value.trim();
+  const phone   = document.getElementById('coPhone').value.trim();
+  const email   = document.getElementById('coEmail').value.trim();
+  const address = document.getElementById('coAddress').value.trim();
+  const note    = document.getElementById('coNote').value.trim();
 
-  if (!name)         { showToast('✦ Please enter your full name'); return; }
-  if (!phone)        { showToast('✦ Please enter your phone number'); return; }
-  if (!address)      { showToast('✦ Please enter your delivery address'); return; }
-  if (!deliveryTime) { showToast('✦ Please select a preferred delivery time'); return; }
+  if (!name || !phone || !address) {
+    showToast('✦ Please fill in your name, phone and address');
+    return;
+  }
 
   const btn = document.getElementById('coBtn');
   btn.disabled = true;
-  btn.innerHTML = '⏳ Placing your order…';
+  btn.innerHTML = 'Processing…';
 
-  const res = await API.placeOrder(cart, { name, phone, address, deliveryTime, note });
+  // Save order locally
+  const res = await API.placeOrder(cart, { name, phone, email, address, note });
 
   if (res.ok) {
     const orderedItems = [...cart];
@@ -488,32 +434,28 @@ async function confirmOrder() {
     saveCart();
     updateCartUI();
 
-    // Notify you (shop owner) via Formspree email
-    await notifyShopByEmail(res.orderId, name, phone, address, deliveryTime, orderedItems, res.total, note);
+    // 1. Notify shop via Formspree email
+    await notifyShopByEmail(res.orderId, name, phone, address, orderedItems, res.total);
 
-    // Also ping your WhatsApp silently with order details
-    notifyShopWhatsApp(res.orderId, name, phone, address, deliveryTime, note, orderedItems, res.total);
+    // 2. Send confirmation email to customer (if email given)
+    await sendConfirmationEmail(res.orderId, name, email, phone, orderedItems, res.total);
 
-    btn.style.display = 'none';
-    const successEl = document.getElementById('coSuccess');
-    successEl.style.display = 'block';
-    successEl.innerHTML = `
+    // 3. Open WhatsApp with pre-filled order message
+    openWhatsAppOrder(res.orderId, name, phone, address, note, orderedItems, res.total);
+
+    // Show success
+    document.getElementById('coSuccess').style.display = 'block';
+    document.getElementById('coSuccess').innerHTML = `
       <div class="co-success-inner">
         <div class="co-success-icon">✦</div>
-        <strong>Order ${res.orderId} Placed!</strong>
-        <p>Thank you, <strong>${name}</strong>! Your order has been received.</p>
-        <div class="co-success-details">
-          <div>📞 We'll call <strong>${phone}</strong> to confirm</div>
-          <div>🚚 Delivery: <strong>${deliveryTime}</strong></div>
-          <div>💵 Pay <strong>Rs. ${res.total.toLocaleString()}</strong> on delivery</div>
-        </div>
-        <button class="btn btn-ghost" onclick="closeCheckoutModal()" style="margin-top:1.2rem;width:100%">Done ✓</button>
+        <strong>Order ${res.orderId} Confirmed!</strong>
+        <p>WhatsApp is opening with your order details.</p>
+        <p>Just tap <strong>Send</strong> to complete your order.</p>
+        ${email ? `<p style="font-size:0.85rem;opacity:0.75">A confirmation email is being sent to ${email}</p>` : ''}
+        <button class="btn btn-ghost" onclick="closeCheckoutModal()" style="margin-top:1rem;width:100%">Close</button>
       </div>
     `;
-  } else {
-    btn.disabled = false;
-    btn.innerHTML = '✦ &nbsp; Place Order (Cash on Delivery)';
-    showToast('Something went wrong. Please try again.');
+    btn.style.display = 'none';
   }
 }
 
@@ -633,35 +575,12 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('[type="submit"]');
   btn.textContent = 'Sending…'; btn.disabled = true;
-
-  const name    = document.getElementById('fname').value.trim();
-  const email   = document.getElementById('femail').value.trim();
-  const phone   = document.querySelector('#contactForm [name="phone"]')?.value.trim() || '';
-  const type    = document.getElementById('ftype').value;
-  const message = document.getElementById('fmessage').value.trim();
-
-  // Save locally
-  DB.saveEnquiry({ name, email, type, message });
-
-  // Send to Formspree — real email to you
-  try {
-    const res = await fetch(CONFIG.formspreeEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        name, email, phone,
-        enquiry_type: type || 'General',
-        message,
-        _subject: `New Enquiry from ${name} — DeSi Paanday`
-      })
-    });
-    if (!res.ok) throw new Error('Formspree failed');
-  } catch (err) {
-    // Fallback: open WhatsApp with the enquiry
-    const waMsg = `New Enquiry from website:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${type}\nMessage: ${message}`;
-    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
-  }
-
+  await API.submitEnquiry({
+    name:    document.getElementById('fname').value,
+    email:   document.getElementById('femail').value,
+    type:    document.getElementById('ftype').value,
+    message: document.getElementById('fmessage').value
+  });
   btn.textContent = 'Send Message'; btn.disabled = false;
   document.getElementById('formSuccess').classList.add('show');
   e.target.reset();
