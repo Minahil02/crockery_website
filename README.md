@@ -1,41 +1,72 @@
-# ❧ Ẑilāl — Ancient Crockery & Ceramics Website
+# ❧ Desi Panday — Handcrafted Copper & Ceramics E-Commerce Website
 
-A full-stack crockery business website with an ancient, parchment-and-terracotta aesthetic.
+A full-stack e-commerce site for a handcrafted copper/brass utensils business, with an ancient parchment-and-terracotta aesthetic. Customers browse products, order via a WhatsApp-integrated checkout, and receive automatic email confirmations — sellers get instant WhatsApp notifications for every order and enquiry.
 
----
-
-## Stack
-
-| Layer    | Technology                        |
-|----------|-----------------------------------|
-| Frontend | HTML5 · CSS3 · Vanilla JavaScript |
-| Backend  | Node.js + Express.js              |
-| Database | SQLite (via better-sqlite3)       |
+**Live site:** https://desipanday.netlify.app
 
 ---
 
-## Quick Start
+## Features
 
-### Option A — Open Directly (no server needed)
-Just open `index.html` in your browser.  
-The frontend uses an in-browser mock backend + localStorage as the database.  
-Everything works: cart, orders, enquiries, filters, modal.
+- 🏺 Product catalog across multiple categories (bowls, plates, vases, mugs) with detail modals
+- 🛒 Shopping cart with quantity control and persistence
+- 🔍 Category filtering
+- 💬 WhatsApp-based checkout — order details sent as a pre-filled WhatsApp message to the seller
+- 📧 Automatic order confirmation emails to customers (EmailJS)
+- 📬 Contact/enquiry form with WhatsApp seller notifications
+- 🗄️ Dual database modes — works fully offline via `localStorage`, or with a persistent SQLite backend
+- 📱 Fully responsive, mobile-first design
+- ✨ Animated UI — floating shapes, marquee, scroll indicator, toast notifications
 
-### Option B — Run Full Backend Server
+---
 
-1. Install Node.js (v18+) from https://nodejs.org
+## Tech Stack
 
-2. Install dependencies:
+| Layer | Technology |
+|---|---|
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Backend | Node.js, Express.js |
+| Database | SQLite (via better-sqlite3) |
+| Integrations | WhatsApp API (wa.me), EmailJS, Formspree |
+
+---
+
+## How Ordering Works
+
+1. Customer browses products and adds items to cart
+2. Customer reviews cart and proceeds to checkout
+3. Customer fills in name, phone, email, and delivery address
+4. WhatsApp opens with a pre-filled order summary, ready to send to the seller
+5. If an email was provided, the customer automatically receives an order confirmation
+6. The order is saved to `localStorage`, and to the SQLite database if the server is running
+
+---
+
+## Getting Started
+
+### Option A — Open Directly (no install needed)
+Open `index.html` in any browser. The frontend uses `localStorage` as an in-browser database — cart, orders, enquiries, and filters all work immediately, fully offline.
+
+### Option B — Run with the Backend Server
 ```bash
 npm install
-```
-
-3. Start the server:
-```bash
 npm start
 ```
+Then open http://localhost:3000. This connects to a persistent SQLite database (`zilal.db`) and exposes a REST API for orders and enquiries.
 
-4. Open http://localhost:3000
+---
+
+## API Endpoints (Backend Mode)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/products` | All products |
+| GET | `/api/products?category=bowls` | Filter by category |
+| GET | `/api/products/:id` | Single product |
+| POST | `/api/orders` | Place an order |
+| GET | `/api/orders` | List all orders (admin) |
+| POST | `/api/enquiries` | Submit a contact enquiry |
+| GET | `/api/enquiries` | List enquiries (admin) |
 
 ---
 
@@ -43,45 +74,24 @@ npm start
 
 ```
 zilal/
-├── index.html       — Main page (all sections)
-├── style.css        — Full stylesheet (ancient aesthetic)
-├── app.js           — Frontend JS + in-browser API + localStorage DB
-├── server.js        — Express backend + SQLite setup + REST API
-├── package.json     — Node dependencies
-└── README.md        — This file
+├── index.html       — Main page
+├── style.css        — Full stylesheet
+├── app.js           — Frontend logic, cart, localStorage DB, EmailJS
+├── server.js        — Express backend + SQLite + REST API
+├── package.json     — Dependencies
+└── README.md
 ```
 
 ---
 
-## API Endpoints (Backend Mode)
+## Roadmap
 
-| Method | Endpoint              | Description              |
-|--------|-----------------------|--------------------------|
-| GET    | /api/products         | All products             |
-| GET    | /api/products?category=bowls | Filter by category  |
-| GET    | /api/products/:id     | Single product           |
-| POST   | /api/orders           | Place an order           |
-| GET    | /api/orders           | List all orders (admin)  |
-| POST   | /api/enquiries        | Submit contact enquiry   |
-| GET    | /api/enquiries        | List enquiries (admin)   |
+- [ ] Real product photography (replacing placeholder icons)
+- [ ] AI-powered product recommendations (Gemini API)
+- [ ] Online payment (JazzCash / Easypaisa)
+- [ ] Order tracking by order ID
+- [ ] Admin dashboard for orders and enquiries
 
 ---
 
-## Features
-
-- 🏺 8 ancient-inspired products (bowls, plates, vases, mugs)
-- 🛒 Shopping cart with localStorage persistence
-- 🔍 Category filter
-- 📋 Product detail modal with quantity selector
-- 📬 Contact / commission enquiry form
-- 🗄️ SQLite database with orders & enquiries tables
-- 📱 Responsive (mobile-friendly)
-- ✨ Animated: floating shapes, marquee, scroll indicator, toast notifications
-
----
-
-## Customisation
-
-- Edit product data in `server.js` (SEED array) or `app.js` (PRODUCT_SEED)
-- Change colours in `style.css` under `:root {}`
-- Add real images: replace emoji in `card-img-inner` with `<img>` tags
+**Built by Minahal Umar** — [GitHub](https://github.com/Minahil02) · [LinkedIn](https://linkedin.com/in/minahal-umar-69423b2a7)
