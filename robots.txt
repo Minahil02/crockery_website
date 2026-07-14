@@ -12,4 +12,4 @@ Allow: /api/products
 # Crawl delay
 Crawl-delay: 10
 
-Sitemap: https://www.desipanday.com/sitemap.xml
+Sitemap: https://desipanday.com/sitemap.xml
