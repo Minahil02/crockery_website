@@ -4,48 +4,48 @@
 
   <!-- Homepage — the only real, indexable page on this site -->
   <url>
-    <loc>https://www.desipanday.com/</loc>
+    <loc>https://desipanday.com/</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/og-image.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/og-image.jpg</image:loc>
       <image:title>Desi Panday — Handcrafted Copper Crockery Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/19.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/19.jpg</image:loc>
       <image:title>Hammered Copper Thaal 35cm — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/12.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/12.jpg</image:loc>
       <image:title>Brass Katori Set 3 Pieces — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/1.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/1.jpg</image:loc>
       <image:title>Hammered Copper Lassi Glass — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/15.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/15.jpg</image:loc>
       <image:title>Silver-Finish Katori Set — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/16.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/16.jpg</image:loc>
       <image:title>Copper Bowl Set 3 Pieces — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/20.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/20.jpg</image:loc>
       <image:title>Copper Thaal Dinner Set — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/34.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/34.jpg</image:loc>
       <image:title>Copper Tea Spoon — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/32.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/32.jpg</image:loc>
       <image:title>Copper Spoon Pair — Desi Panday Lahore</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.desipanday.com/images/37.jpg</image:loc>
+      <image:loc>https://desipanday.com/images/37.jpg</image:loc>
       <image:title>Copper Spoon Set 12 Pieces — Desi Panday Lahore</image:title>
     </image:image>
   </url>
