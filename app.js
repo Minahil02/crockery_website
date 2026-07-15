@@ -71,7 +71,7 @@ const PRODUCT_SEED = [
     name: 'Hammered Copper Glass',
     shortDesc: 'Hand-hammered pure copper, traditional lassi glass',
     fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
-    price: 1800, material: 'Pure Copper', origin: 'Lahore Workshop',
+    price: 3300, material: 'Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml'
   },
   {
