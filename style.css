@@ -1989,3 +1989,81 @@ p { font-family: var(--ff-body); }
   .nav-brand-tagline { font-size: 0.62rem; }
   .footer-utensils-img { height: 75px; }
 }
+/* ═══════════════════════════════════════════════
+   PHONE RESPONSIVENESS — added pass
+   Tightens up spacing/sizing below the existing
+   900px/860px/640px breakpoints for real phones
+   (iPhone SE/12/13/14, small Android devices).
+   ═══════════════════════════════════════════════ */
+
+/* Prevent any stray fixed-width element from causing
+   horizontal scroll on narrow screens */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, svg { max-width: 100%; }
+
+@media (max-width: 480px) {
+  html { font-size: 16px; }
+
+  /* Nav */
+  .nav { padding: 0.85rem 5vw; }
+  .nav.scrolled { padding: 0.55rem 5vw; }
+  .nav-brand-name { font-size: 1rem; }
+
+  /* Hero */
+  .hero { padding: 7rem 6vw 3.5rem; min-height: 92vh; }
+  .hero-title { font-size: 2.5rem; margin-bottom: 1.6rem; }
+  .title-line.italic { font-size: 2.1rem; }
+  .hero-eyebrow { font-size: 0.56rem; letter-spacing: 0.28em; margin-bottom: 1.2rem; }
+  .hero-desc { font-size: 1rem; margin-bottom: 2.2rem; }
+  .hero-cta-group { gap: 1rem; }
+  .btn { padding: 0.85rem 1.8rem; font-size: 0.65rem; width: 100%; text-align: center; }
+
+  /* Section rhythm — 7rem top/bottom is too much on a phone */
+  .collection, .about, .testimonials, .contact { padding: 3.5rem 6vw; }
+  .section-header { margin-bottom: 2.4rem; }
+  .section-title { font-size: 1.8rem; }
+  .section-sub { font-size: 0.95rem; }
+
+  /* Product grid */
+  .product-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+  .filter-bar { gap: 0.5rem; margin-bottom: 2rem; }
+  .filter-btn { padding: 0.5rem 1.1rem; font-size: 0.58rem; }
+
+  /* About / stats */
+  .about-stats { gap: 1.2rem; margin-top: 2rem; padding-top: 1.6rem; }
+  .stat-num { font-size: 1.6rem; }
+
+  /* Testimonials */
+  .testimonial-grid { gap: 1.2rem; }
+  .testimonial-card { padding: 1.6rem; }
+
+  /* Contact */
+  .form-group input, .form-group select, .form-group textarea { padding: 0.75rem 1rem; }
+
+  /* Footer */
+  .footer { padding: 2.6rem 6vw; }
+  .footer-brand-name { font-size: 1.6rem; }
+  .footer-bottom { flex-direction: column; gap: 0.8rem; text-align: center; }
+  .footer-links { gap: 1.4rem; flex-wrap: wrap; justify-content: center; }
+
+  /* Cart sidebar full width on phones */
+  .cart-sidebar { width: 100vw; }
+
+  /* Floating WhatsApp button — keep it clear of thumb edge */
+  .whatsapp-float { width: 50px; height: 50px; bottom: 1.2rem; right: 1.2rem; }
+}
+
+@media (max-width: 380px) {
+  .hero-title { font-size: 2.1rem; }
+  .title-line.italic { font-size: 1.8rem; }
+  .section-title { font-size: 1.55rem; }
+  .btn { padding: 0.8rem 1.4rem; font-size: 0.6rem; }
+  .nav-brand-tagline { display: none; }
+  .card-body { padding: 1.2rem; }
+  .about-stats { flex-direction: column; gap: 1rem; }
+}
+
+/* Larger tap targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .hamburger, .nav-cart, .qty-btn, .card-add, .filter-btn { min-height: 40px; }
+}
