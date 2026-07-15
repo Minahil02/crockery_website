@@ -1091,7 +1091,7 @@ a { color: inherit; text-decoration: none; }
     top:50%;
     transform:translateY(-50%);
 
-    background:#ffffff;
+    background:var(--bg-deepest);
     color:#ffffff;
     border:1px solid #d8b18a;
     border-radius:12px;
@@ -1746,7 +1746,7 @@ p { font-family: var(--ff-body); }
 }
 
 /* WhatsApp tooltip — dark slate */
-.whatsapp-tooltip { background: var(--bg-deepest); color: var(--text-primary); }
+.whatsapp-tooltip { background: var(--bg-deepest); color: #ffffff; }
 /* ═══════════════════════════════════════════════
    PARCHMENT THEME OVERRIDES — Light Mode
    ═══════════════════════════════════════════════ */

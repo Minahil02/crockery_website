@@ -59,11 +59,20 @@ const PRODUCT_SEED = [
   {
     id: 10, category: 'bottles', badge: 'Top Seller',
     image: 'images/copper-water-bottle.jpg',
-    name: 'Pure Copper Water Bottle',
-    shortDesc: 'Hand-hammered 100% pure copper bottle for daily hydration',
-    fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic.',
+    name: 'Pure Copper Water Bottle — 600ml',
+    shortDesc: 'Hand-hammered 100% pure copper bottle, perfect for daily use',
+    fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 1 Litre size.',
     price: 5000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml, also available in 1 Litre'
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity'
+  },
+  {
+    id: 11, category: 'bottles', badge: 'Top Seller',
+    image: 'images/copper-water-bottle.jpg',
+    name: 'Pure Copper Water Bottle — 1 Litre',
+    shortDesc: 'Hand-hammered 100% pure copper bottle, ideal for long hours',
+    fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',
+    price: 6500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity'
   },
   {
     id: 1, category: 'mugs', badge: 'Bestseller',
