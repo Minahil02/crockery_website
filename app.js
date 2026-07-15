@@ -57,6 +57,15 @@ const CONFIG = {
 // ═══════════════════════════════════════════════
 const PRODUCT_SEED = [
   {
+    id: 10, category: 'bottles', badge: 'Top Seller',
+    image: 'images/copper-water-bottle.jpg',
+    name: 'Pure Copper Water Bottle',
+    shortDesc: 'Hand-hammered 100% pure copper bottle for daily hydration',
+    fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic.',
+    price: 5000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml, also available in 1 Litre'
+  },
+  {
     id: 1, category: 'mugs', badge: 'Bestseller',
     image: 'images/1.jpg',
     name: 'Hammered Copper Glass',
@@ -144,7 +153,7 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 5,  // bumped — forces localStorage refresh to reload products
+  _seedVersion: 6,  // bumped — forces localStorage refresh to reload products
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;

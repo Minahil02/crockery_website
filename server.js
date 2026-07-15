@@ -49,6 +49,7 @@ async function setupDatabase() {
     const stmt = `INSERT INTO products (category,badge,image,name,short_desc,full_desc,price,material,origin,technique,era,dimensions)
                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
     const products = [
+      ['bottles','Top Seller','images/copper-water-bottle.jpg','Pure Copper Water Bottle','Hand-hammered 100% pure copper bottle for daily hydration','Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic.',5000,'99.9% Pure Copper','Lahore Workshop','Hand Hammering','Ayurvedic-Inspired','600ml, also available in 1 Litre'],
       ['mugs','Bestseller','images/1.jpg','Hammered Copper Glass','Hand-hammered pure copper, traditional lassi glass','This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',1800,'Pure Copper','Lahore Workshop','Hand Hammering','Mughal-Inspired','10cm tall, 250ml'],
       ['bowls',null,'images/12.jpg','Brass Katori Set (3 pcs)','Hammered brass katoris, silver-lined interior','A set of three traditional hammered brass katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from brass sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',3200,'Brass with Tin Lining','Lahore Workshop','Hand Hammering','Mughal-Inspired','10cm diameter each'],
       ['bowls',null,'images/15.jpg','Silver-Finish Katori Set (3 pcs)','Hammered metal katoris, pewter finish','Three katoris finished in a classic pewter-silver tone — the colour of old family heirlooms. Hand-hammered with a characteristic dimple pattern, these bowls are equally at home serving daal, achaar, or raita.',2800,'Hammered Metal, Pewter Finish','Lahore Workshop','Hand Hammering','Traditional','10cm diameter each'],
@@ -61,7 +62,7 @@ async function setupDatabase() {
     ];
     for (const p of products) db.run(stmt, p);
     saveDb();
-    console.log('Database seeded with 9 products (copper crockery)');
+    console.log('Database seeded with 10 products (copper crockery)');
   }
 }
 
