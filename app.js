@@ -50,6 +50,28 @@ const CONFIG = {
   shopName:  'Desi Panday',
   shopPhone: '+92 324 8825813',
   shopEmail: 'desipanday953@gmail.com',
+
+  // ── DELIVERY / SHIPPING ───────────────────────
+  // Fee = zone base fee + (extra Rs. per kg for weight
+  // above the zone's free allowance).
+  // Edit these numbers any time — nothing else needs to change.
+  delivery: {
+    zones: {
+      lahore: {
+        label: 'Lahore',
+        baseFee: 250,       // covers up to freeKg
+        freeKg: 1,          // kg included in baseFee
+        perKgFee: 100        // Rs. per kg beyond freeKg
+      },
+      other: {
+        label: 'Rest of Pakistan',
+        baseFee: 350,       // covers up to freeKg
+        freeKg: 1,          // kg included in baseFee
+        perKgFee: 150        // Rs. per kg beyond freeKg
+      }
+    },
+    defaultZone: 'lahore'
+  }
 };
 
 // ═══════════════════════════════════════════════
@@ -63,7 +85,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Hand-hammered 100% pure copper bottle, perfect for daily use',
     fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 1 Litre size.',
     price: 5000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity'
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity', weight: 0.3
   },
   {
     id: 11, category: 'bottles', badge: 'Top Seller',
@@ -72,7 +94,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Hand-hammered 100% pure copper bottle, ideal for long hours',
     fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',
     price: 6500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity'
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity', weight: 0.4
   },
   {
     id: 1, category: 'mugs', badge: 'Bestseller',
@@ -81,7 +103,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Hand-hammered pure copper, traditional lassi glass',
     fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
     price: 3300, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml'
+    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml', weight: 0.15
   },
   {
     id: 2, category: 'bowls', badge: null,
@@ -90,7 +112,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Hammered brass katoris, silver-lined interior',
     fullDesc: 'A set of three traditional hammered brass katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from brass sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',
     price: 3200, material: 'Brass with Tin Lining', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm diameter each'
+    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm diameter each', weight: 0.4
   },
   {
     id: 3, category: 'bowls', badge: null,
@@ -99,7 +121,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Hammered metal katoris, pewter finish',
     fullDesc: 'Three katoris finished in a classic pewter-silver tone — the colour of old family heirlooms. Hand-hammered with a characteristic dimple pattern, these bowls are equally at home serving daal, achaar, or raita.',
     price: 2800, material: 'Hammered Metal, Pewter Finish', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Traditional', dimensions: '10cm diameter each'
+    technique: 'Hand Hammering', era: 'Traditional', dimensions: '10cm diameter each', weight: 0.35
   },
   {
     id: 4, category: 'bowls', badge: 'New',
@@ -108,7 +130,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Rose copper bowls, polished interior',
     fullDesc: 'Three rose-copper bowls with a high-polish interior finish. The warm blush of polished copper transforms any dining table into a feast. Hand-beaten exteriors contrast beautifully with the gleaming inner surface.',
     price: 3500, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering & Polishing', era: 'Traditional', dimensions: '12cm diameter each'
+    technique: 'Hand Hammering & Polishing', era: 'Traditional', dimensions: '12cm diameter each', weight: 0.45
   },
   {
     id: 5, category: 'plates', badge: 'Bestseller',
@@ -117,7 +139,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Large copper serving plate, hand-hammered',
     fullDesc: 'The great thaal — centrepiece of every desi feast. This large copper plate is hand-hammered across its entire surface, creating a rippling effect that distributes light in every direction. Solid copper, built to last generations.',
     price: 6500, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '35cm diameter'
+    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '35cm diameter', weight: 0.9
   },
   {
     id: 6, category: 'plates', badge: 'Limited',
@@ -126,7 +148,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Full thaal with katori & spoon — complete set',
     fullDesc: 'The complete desi dining experience. This set includes one large hammered copper thaal, two katoris, and a matching copper spoon — everything needed for a traditional meal. A perfect heirloom gift.',
     price: 9800, material: 'Pure Copper & Brass', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Thaal: 35cm, Katoris: 10cm'
+    technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Thaal: 35cm, Katoris: 10cm', weight: 1.3
   },
   {
     id: 7, category: 'spoons', badge: null,
@@ -135,7 +157,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Single hand-finished copper spoon',
     fullDesc: 'A single copper tea spoon — slim, elegant, and finished by hand. The subtle warm glow of copper makes even the simplest ritual of stirring chai feel ceremonial.',
     price: 650, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length'
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length', weight: 0.05
   },
   {
     id: 8, category: 'spoons', badge: null,
@@ -144,7 +166,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Two matching copper-finish spoons',
     fullDesc: 'A matched pair of copper-finish spoons, ideal for serving or everyday use. The warm rose-copper tone complements any traditional thaal or modern table setting.',
     price: 1200, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length'
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length', weight: 0.1
   },
   {
     id: 9, category: 'spoons', badge: 'New',
@@ -153,7 +175,7 @@ const PRODUCT_SEED = [
     shortDesc: 'Full dozen copper-finish spoons',
     fullDesc: 'A complete set of twelve copper-finish spoons — enough for a full family gathering or formal dinner. Uniform in shape, with the signature warm rose-copper tone.',
     price: 5500, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length, set of 12'
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length, set of 12', weight: 0.5
   }
 ];
 
@@ -225,8 +247,10 @@ const API = {
   async submitEnquiry(payload) { await delay(500); DB.saveEnquiry(payload); return { ok: true }; },
   async placeOrder(items, customer) {
     await delay(300);
-    const total = items.reduce((s, i) => s + (i.price * i.qty), 0);
-    const orderId = DB.saveOrder({ items, total, customer });
+    const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
+    const deliveryFee = customer.deliveryFee || 0;
+    const total = subtotal + deliveryFee;
+    const orderId = DB.saveOrder({ items, subtotal, deliveryFee, total, customer });
     return { ok: true, orderId, total };
   }
 };
@@ -236,15 +260,18 @@ const API = {
 //    Customer sees order details, taps Send.
 //    You receive it on your WhatsApp instantly.
 // ═══════════════════════════════════════════════
-function openWhatsAppOrder(orderId, name, phone, address, note, items, total) {
+function openWhatsAppOrder(orderId, name, phone, address, note, items, total, deliveryFee, zoneLabel) {
   const itemLines = items.map(i =>
     `• ${i.name} ×${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
   ).join('\n');
+  const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
 
   const msg =
     `🏺 *New Order — Desi Panday*\n` +
     `Order ID: *${orderId}*\n\n` +
     `*Items:*\n${itemLines}\n\n` +
+    `Subtotal: Rs. ${subtotal.toLocaleString()}\n` +
+    `Delivery (${zoneLabel}): Rs. ${deliveryFee.toLocaleString()}\n` +
     `*Total: Rs. ${total.toLocaleString()}*\n\n` +
     `*Customer:*\n` +
     `Name: ${name}\n` +
@@ -259,7 +286,7 @@ function openWhatsAppOrder(orderId, name, phone, address, note, items, total) {
 // ═══════════════════════════════════════════════
 // 2. FORMSPREE — sends order details to YOUR email
 // ═══════════════════════════════════════════════
-async function notifyShopByEmail(orderId, name, phone, address, items, total) {
+async function notifyShopByEmail(orderId, name, phone, address, items, total, deliveryFee, zoneLabel) {
   if (CONFIG.formspreeEndpoint.includes('YOUR_FORM_ID')) return;
   const itemLines = items.map(i =>
     `${i.name} x${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
@@ -274,6 +301,8 @@ async function notifyShopByEmail(orderId, name, phone, address, items, total) {
         customer_name: name,
         customer_phone: phone,
         delivery_address: address,
+        delivery_zone: zoneLabel,
+        delivery_fee: `Rs. ${deliveryFee.toLocaleString()}`,
         items: itemLines,
         total: `Rs. ${total.toLocaleString()}`
       })
@@ -284,7 +313,7 @@ async function notifyShopByEmail(orderId, name, phone, address, items, total) {
 // ═══════════════════════════════════════════════
 // 3. EMAILJS — sends confirmation email to CUSTOMER
 // ═══════════════════════════════════════════════
-async function sendConfirmationEmail(orderId, name, email, phone, items, total) {
+async function sendConfirmationEmail(orderId, name, email, phone, items, total, deliveryFee, zoneLabel) {
   if (!email) return;
   if (typeof emailjs === 'undefined') { console.error('EmailJS not loaded'); return; }
 
@@ -302,6 +331,8 @@ async function sendConfirmationEmail(orderId, name, email, phone, items, total) 
         customer_phone: phone,
         order_id:       orderId,
         order_items:    itemLines,
+        delivery_zone:  zoneLabel,
+        delivery_fee:   `Rs. ${deliveryFee.toLocaleString()}`,
         order_total:    `Rs. ${total.toLocaleString()}`,
         shop_name:      CONFIG.shopName,
         shop_phone:     CONFIG.shopPhone,
@@ -310,6 +341,17 @@ async function sendConfirmationEmail(orderId, name, email, phone, items, total) 
     );
     console.log('✅ Confirmation email sent to', email);
   } catch (e) { console.error('❌ EmailJS error:', e); }
+}
+
+function cartTotalWeight(items) {
+  return items.reduce((s, i) => s + ((i.weight || 0) * i.qty), 0);
+}
+
+function calcDeliveryFee(zoneKey, totalWeight) {
+  const zone = CONFIG.delivery.zones[zoneKey] || CONFIG.delivery.zones[CONFIG.delivery.defaultZone];
+  const extraKg = Math.max(0, totalWeight - zone.freeKg);
+  const fee = zone.baseFee + Math.ceil(extraKg) * zone.perKgFee;
+  return { fee, zone };
 }
 
 // ═══════════════════════════════════════════════
@@ -376,7 +418,10 @@ function toggleCart() {
 function checkout() {
   if (!cart.length) return;
   toggleCart();
-  const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+  const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+  const totalWeight = cartTotalWeight(cart);
+  const initialZone = CONFIG.delivery.defaultZone;
+  const { fee: initialFee } = calcDeliveryFee(initialZone, totalWeight);
 
   document.getElementById('checkoutModalContent').innerHTML = `
     <div class="co-header">
@@ -392,7 +437,9 @@ function checkout() {
             <span>Rs. ${(i.price * i.qty).toLocaleString()}</span>
           </div>
         `).join('')}
-        <div class="co-total"><span>Total</span><span>Rs. ${total.toLocaleString()}</span></div>
+        <div class="co-item"><span>Subtotal</span><span id="coSubtotal">Rs. ${subtotal.toLocaleString()}</span></div>
+        <div class="co-item"><span>Delivery (<span id="coWeightLabel">${totalWeight.toFixed(2)}kg</span>)</span><span id="coDeliveryFee">Rs. ${initialFee.toLocaleString()}</span></div>
+        <div class="co-total"><span>Total</span><span id="coGrandTotal">Rs. ${(subtotal + initialFee).toLocaleString()}</span></div>
       </div>
       <div class="co-form">
         <div class="co-form-title">Your Details</div>
@@ -404,6 +451,13 @@ function checkout() {
         </div>
         <div class="form-group">
           <input type="email" id="coEmail"   placeholder="Email (for confirmation — optional)" />
+        </div>
+        <div class="form-group">
+          <select id="coZone" onchange="updateDeliveryDisplay()">
+            ${Object.entries(CONFIG.delivery.zones).map(([key, z]) =>
+              `<option value="${key}" ${key === initialZone ? 'selected' : ''}>Delivery to: ${z.label}</option>`
+            ).join('')}
+          </select>
         </div>
         <div class="form-group">
           <textarea id="coAddress" rows="2"  placeholder="Delivery Address *"></textarea>
@@ -427,10 +481,20 @@ function checkout() {
   document.getElementById('checkoutModal').classList.add('open');
 }
 
+function updateDeliveryDisplay() {
+  const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+  const totalWeight = cartTotalWeight(cart);
+  const zoneKey = document.getElementById('coZone').value;
+  const { fee } = calcDeliveryFee(zoneKey, totalWeight);
+  document.getElementById('coDeliveryFee').textContent = `Rs. ${fee.toLocaleString()}`;
+  document.getElementById('coGrandTotal').textContent = `Rs. ${(subtotal + fee).toLocaleString()}`;
+}
+
 async function confirmOrder() {
   const name    = document.getElementById('coName').value.trim();
   const phone   = document.getElementById('coPhone').value.trim();
   const email   = document.getElementById('coEmail').value.trim();
+  const zoneKey = document.getElementById('coZone').value;
   const address = document.getElementById('coAddress').value.trim();
   const note    = document.getElementById('coNote').value.trim();
 
@@ -443,8 +507,12 @@ async function confirmOrder() {
   btn.disabled = true;
   btn.innerHTML = 'Processing…';
 
+  const totalWeight = cartTotalWeight(cart);
+  const { fee: deliveryFee, zone } = calcDeliveryFee(zoneKey, totalWeight);
+
   // Save order locally
-  const res = await API.placeOrder(cart, { name, phone, email, address, note });
+  const res = await API.placeOrder(cart, { name, phone, email, address, note, zone: zone.label, deliveryFee });
+  const grandTotal = res.total;
 
   if (res.ok) {
     const orderedItems = [...cart];
@@ -453,13 +521,13 @@ async function confirmOrder() {
     updateCartUI();
 
     // 1. Notify shop via Formspree email
-    await notifyShopByEmail(res.orderId, name, phone, address, orderedItems, res.total);
+    await notifyShopByEmail(res.orderId, name, phone, address, orderedItems, grandTotal, deliveryFee, zone.label);
 
     // 2. Send confirmation email to customer (if email given)
-    await sendConfirmationEmail(res.orderId, name, email, phone, orderedItems, res.total);
+    await sendConfirmationEmail(res.orderId, name, email, phone, orderedItems, grandTotal, deliveryFee, zone.label);
 
     // 3. Open WhatsApp with pre-filled order message
-    openWhatsAppOrder(res.orderId, name, phone, address, note, orderedItems, res.total);
+    openWhatsAppOrder(res.orderId, name, phone, address, note, orderedItems, grandTotal, deliveryFee, zone.label);
 
     // Show success
     document.getElementById('coSuccess').style.display = 'block';
