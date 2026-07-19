@@ -29,8 +29,12 @@ async function setupDatabase() {
     category TEXT, badge TEXT, image TEXT, name TEXT,
     short_desc TEXT, full_desc TEXT, price INTEGER,
     material TEXT, origin TEXT, technique TEXT, era TEXT,
-    dimensions TEXT, weight REAL DEFAULT 0.3, in_stock INTEGER DEFAULT 1
+    dimensions TEXT, weight REAL DEFAULT 0.3, in_stock INTEGER DEFAULT 1,
+    original_price INTEGER
   )`);
+  // Migration: zilal.db files created before this column existed
+  // won't have it — add it if missing (SQLite has no "ADD COLUMN IF NOT EXISTS").
+  try { db.run('ALTER TABLE products ADD COLUMN original_price INTEGER'); } catch (e) { /* already exists */ }
   db.run(`CREATE TABLE IF NOT EXISTS orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     order_ref TEXT, items_json TEXT, subtotal INTEGER, delivery_zone TEXT,
@@ -50,7 +54,8 @@ async function setupDatabase() {
     const stmt = `INSERT INTO products (category,badge,image,name,short_desc,full_desc,price,material,origin,technique,era,dimensions,weight)
                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
     const products = [
-      ['bottles','Top Seller','images/copper-water-bottle.jpg','Pure Copper Water Bottle','Hand-hammered 100% pure copper bottle for daily hydration','Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic.',5000,'99.9% Pure Copper','Lahore Workshop','Hand Hammering','Ayurvedic-Inspired','600ml, also available in 1 Litre',0.3],
+      ['bottles','Top Seller','images/copper-water-bottle.jpg','Pure Copper Water Bottle — 600ml','Hand-hammered 100% pure copper bottle, perfect for daily use','Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 1 Litre size.',5000,'99.9% Pure Copper','Lahore Workshop','Hand Hammering','Ayurvedic-Inspired','600ml capacity',0.3],
+      ['bottles','Top Seller','images/copper-water-bottle.jpg','Pure Copper Water Bottle — 1 Litre','Hand-hammered 100% pure copper bottle, ideal for long hours','Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',6500,'99.9% Pure Copper','Lahore Workshop','Hand Hammering','Ayurvedic-Inspired','1 Litre capacity',0.4],
       ['mugs','Bestseller','images/1.jpg','Hammered Copper Glass','Hand-hammered pure copper, traditional lassi glass','This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',3300,'Pure Copper','Lahore Workshop','Hand Hammering','Mughal-Inspired','10cm tall, 250ml',0.15],
       ['bowls',null,'images/12.jpg','Brass Katori Set (3 pcs)','Hammered brass katoris, silver-lined interior','A set of three traditional hammered brass katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from brass sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',3200,'Brass with Tin Lining','Lahore Workshop','Hand Hammering','Mughal-Inspired','10cm diameter each',0.4],
       ['bowls',null,'images/15.jpg','Silver-Finish Katori Set (3 pcs)','Hammered metal katoris, pewter finish','Three katoris finished in a classic pewter-silver tone — the colour of old family heirlooms. Hand-hammered with a characteristic dimple pattern, these bowls are equally at home serving daal, achaar, or raita.',2800,'Hammered Metal, Pewter Finish','Lahore Workshop','Hand Hammering','Traditional','10cm diameter each',0.35],
@@ -63,8 +68,84 @@ async function setupDatabase() {
     ];
     for (const p of products) db.run(stmt, p);
     saveDb();
-    console.log('Database seeded with 10 products (copper crockery)');
+    console.log('Database seeded with 11 products (copper crockery)');
   }
+
+  // ── Bottle migration ─────────────────────────────
+  // Earlier zilal.db files only had one generic "Pure Copper Water Bottle"
+  // row. app.js (localStorage mode) has always had two separate 600ml/1L
+  // variants — this brings backend mode in line with it, without touching
+  // any zilal.db that's already been through this migration.
+  const oneLitreExists = query('SELECT id FROM products WHERE name = ?', ['Pure Copper Water Bottle — 1 Litre']);
+  if (!oneLitreExists.length) {
+    const oldBottle = query('SELECT id FROM products WHERE name = ?', ['Pure Copper Water Bottle']);
+    if (oldBottle.length) {
+      run(
+        `UPDATE products SET name=?, short_desc=?, dimensions=? WHERE id=?`,
+        [
+          'Pure Copper Water Bottle — 600ml',
+          'Hand-hammered 100% pure copper bottle, perfect for daily use',
+          '600ml capacity',
+          oldBottle[0].id
+        ]
+      );
+      db.run(
+        `INSERT INTO products (category,badge,image,name,short_desc,full_desc,price,material,origin,technique,era,dimensions,weight)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        ['bottles','Top Seller','images/copper-water-bottle.jpg','Pure Copper Water Bottle — 1 Litre','Hand-hammered 100% pure copper bottle, ideal for long hours','Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',6500,'99.9% Pure Copper','Lahore Workshop','Hand Hammering','Ayurvedic-Inspired','1 Litre capacity',0.4]
+      );
+      saveDb();
+      console.log('Migrated single bottle listing into 600ml / 1 Litre variants');
+    }
+  }
+
+  // ── 6-Person Deal bundle ─────────────────────────
+  // Added separately (not in the bulk seed above) so it also gets
+  // inserted into a zilal.db that was already seeded before this
+  // product existed. Checked by name so it only ever inserts once.
+  const dealExists = query('SELECT id FROM products WHERE name = ?', ['6-Person Pure Copper Dining Set']);
+  if (!dealExists.length) {
+    db.run(
+      `INSERT INTO products (category,badge,image,name,short_desc,full_desc,price,original_price,material,origin,technique,era,dimensions,weight)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [
+        'sets', 'Bundle Deal', 'images/6-person-deal.jpg',
+        '6-Person Pure Copper Dining Set',
+        '6 glasses, 6 dishes, 6 spoons & 6 forks — complete dining set',
+        'A complete, healthy dining set for six — hand-hammered from 100% pure copper by our Lahore artisans. Includes 6 dishes, 6 glasses, 6 spoons, and 6 forks, rooted in Ayurvedic tradition for daily use or gifting. Everything your family needs for a healthy, elegant meal, all in one bundle at a special price.',
+        59999, 65000, '99.9% Pure Copper', 'Lahore Workshop',
+        'Hand Hammering', 'Ayurvedic-Inspired',
+        'Dishes 20cm · Glasses 250ml · Spoons & Forks 14cm', 3.6
+      ]
+    );
+    saveDb();
+    console.log('Added 6-Person Dining Set deal product');
+  }
+  // Keep pricing in sync even if this row already existed with older values
+  run('UPDATE products SET price=?, original_price=? WHERE name=?', [59999, 65000, '6-Person Pure Copper Dining Set']);
+
+  // ── 4-Person Deal bundle ─────────────────────────
+  // Same idempotent pattern as the 6-Person Deal above.
+  const fourPersonExists = query('SELECT id FROM products WHERE name = ?', ['4-Person Pure Copper Dining Set']);
+  if (!fourPersonExists.length) {
+    db.run(
+      `INSERT INTO products (category,badge,image,name,short_desc,full_desc,price,original_price,material,origin,technique,era,dimensions,weight)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [
+        'sets', 'Family Deal', 'images/4-person-deal.jpg',
+        '4-Person Pure Copper Dining Set',
+        '4 glasses, 4 plates, 4 spoons & 4 forks — complete dining set',
+        'A complete, healthy dining set for four — hand-hammered from 100% pure copper by our Lahore artisans. Includes 4 plates, 4 glasses, 4 spoons, and 4 forks, rooted in Ayurvedic tradition for daily use or gifting. A perfect size for smaller households, all in one bundle at a special price.',
+        39999, 42000, '99.9% Pure Copper', 'Lahore Workshop',
+        'Hand Hammering', 'Ayurvedic-Inspired',
+        'Plates 20cm · Glasses 250ml · Spoons & Forks 14cm', 2.4
+      ]
+    );
+    saveDb();
+    console.log('Added 4-Person Dining Set deal product');
+  }
+  // Keep pricing in sync even if this row already existed with older/placeholder values
+  run('UPDATE products SET price=?, original_price=? WHERE name=?', [39999, 42000, '4-Person Pure Copper Dining Set']);
 }
 
 function saveDb() {
@@ -92,7 +173,8 @@ function formatProduct(row) {
   return {
     id: row.id, category: row.category, badge: row.badge, image: row.image,
     name: row.name, shortDesc: row.short_desc, fullDesc: row.full_desc,
-    price: row.price, material: row.material, origin: row.origin,
+    price: row.price, originalPrice: row.original_price || null,
+    material: row.material, origin: row.origin,
     technique: row.technique, era: row.era, dimensions: row.dimensions,
     weight: row.weight
   };

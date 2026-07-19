@@ -79,6 +79,24 @@ const CONFIG = {
 // ═══════════════════════════════════════════════
 const PRODUCT_SEED = [
   {
+    id: 12, category: 'sets', badge: 'Bundle Deal',
+    image: 'images/6-person-deal.jpg',
+    name: '6-Person Pure Copper Dining Set',
+    shortDesc: '6 glasses, 6 dishes, 6 spoons & 6 forks — complete dining set',
+    fullDesc: 'A complete, healthy dining set for six — hand-hammered from 100% pure copper by our Lahore artisans. Includes 6 dishes, 6 glasses, 6 spoons, and 6 forks, rooted in Ayurvedic tradition for daily use or gifting. Everything your family needs for a healthy, elegant meal, all in one bundle at a special price.',
+    price: 59999, originalPrice: 65000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: 'Dishes 20cm · Glasses 250ml · Spoons & Forks 14cm', weight: 3.6
+  },
+  {
+    id: 13, category: 'sets', badge: 'Family Deal',
+    image: 'images/4-person-deal.jpg',
+    name: '4-Person Pure Copper Dining Set',
+    shortDesc: '4 glasses, 4 plates, 4 spoons & 4 forks — complete dining set',
+    fullDesc: 'A complete, healthy dining set for four — hand-hammered from 100% pure copper by our Lahore artisans. Includes 4 plates, 4 glasses, 4 spoons, and 4 forks, rooted in Ayurvedic tradition for daily use or gifting. A perfect size for smaller households, all in one bundle at a special price.',
+    price: 39999, originalPrice: 42000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: 'Plates 20cm · Glasses 250ml · Spoons & Forks 14cm', weight: 2.4
+  },
+  {
     id: 10, category: 'bottles', badge: 'Top Seller',
     image: 'images/copper-water-bottle.jpg',
     name: 'Pure Copper Water Bottle — 600ml',
@@ -184,7 +202,7 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 6,  // bumped — forces localStorage refresh to reload products
+  _seedVersion: 10,  // bumped — updated 6-person & 4-person deal pricing
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -571,9 +589,13 @@ async function loadProducts(filter = 'all') {
         <div class="card-name">${p.name}</div>
         <div class="card-desc">${p.shortDesc}</div>
         <div class="card-footer">
-          <span class="card-price">Rs. ${p.price.toLocaleString()}</span>
+          <div class="card-price-row">
+            <span class="card-price">Rs. ${p.price.toLocaleString()}</span>
+            ${p.originalPrice ? `<span class="card-price-original">Rs. ${p.originalPrice.toLocaleString()}</span>` : ''}
+          </div>
           <button class="card-add" onclick="event.stopPropagation(); quickAdd(${p.id})">Add</button>
         </div>
+        ${p.originalPrice ? `<span class="card-savings">You save Rs. ${(p.originalPrice - p.price).toLocaleString()}</span>` : ''}
       </div>
     </div>
   `).join('');
@@ -598,7 +620,7 @@ async function openModal(id) {
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-img">
       <img src="${currentProduct.image}" alt="${currentProduct.name}"
-           style="width:100%;height:100%;object-fit:cover"
+           style="width:100%;height:100%;object-fit:contain;padding:1.5rem;box-sizing:border-box"
            onerror="this.outerHTML='<span style=font-size:6rem>🏺</span>'">
     </div>
     <div class="modal-body">
@@ -611,7 +633,7 @@ async function openModal(id) {
         <div class="modal-detail-row"><span>Dimensions</span><span>${currentProduct.dimensions}</span></div>
         <div class="modal-detail-row"><span>Origin</span><span>${currentProduct.origin}</span></div>
       </div>
-      <div class="modal-price">Rs. ${currentProduct.price.toLocaleString()}</div>
+      <div class="modal-price">${currentProduct.originalPrice ? `<span class="modal-price-original">Rs. ${currentProduct.originalPrice.toLocaleString()}</span>` : ''}Rs. ${currentProduct.price.toLocaleString()}</div>
       <div class="modal-qty">
         <button class="qty-btn" onclick="changeQty(-1)">−</button>
         <span class="qty-val" id="modalQtyDisplay">1</span>
