@@ -4,7 +4,7 @@
    Aesthetic: Heritage · Warm · Artisan · Luxurious
    ═══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&display=swap');
 
 :root {
   /* ── Warm Parchment Backgrounds — like the logo ── */
@@ -42,7 +42,7 @@
 
   /* ── Fonts ── */
   --ff-display:  'Cinzel', 'Cormorant Garamond', serif;
-  --ff-body:     'Cormorant Garamond', 'Georgia', serif;
+  --ff-body:     'Lora', 'Georgia', serif;
   --ff-accent:   'Cinzel', 'Libre Caslon Text', serif;
   --ff-script:   'Italianno', cursive;
 
