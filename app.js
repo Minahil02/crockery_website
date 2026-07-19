@@ -126,10 +126,10 @@ const PRODUCT_SEED = [
   {
     id: 2, category: 'bowls', badge: null,
     image: 'images/12.jpg',
-    name: 'Brass Katori Set (3 pcs)',
-    shortDesc: 'Hammered brass katoris, silver-lined interior',
-    fullDesc: 'A set of three traditional hammered brass katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from brass sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',
-    price: 3200, material: 'Brass with Tin Lining', origin: 'Lahore Workshop',
+    name: 'Copper Katori Set (3 pcs)',
+    shortDesc: 'Hammered copper katoris, silver-lined interior',
+    fullDesc: 'A set of three traditional hammered copper katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from copper sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',
+    price: 3200, material: 'Copper with Tin Lining', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm diameter each', weight: 0.4
   },
   {
@@ -165,7 +165,7 @@ const PRODUCT_SEED = [
     name: 'Copper Thaal Dinner Set',
     shortDesc: 'Full thaal with katori & spoon — complete set',
     fullDesc: 'The complete desi dining experience. This set includes one large hammered copper thaal, two katoris, and a matching copper spoon — everything needed for a traditional meal. A perfect heirloom gift.',
-    price: 9800, material: 'Pure Copper & Brass', origin: 'Lahore Workshop',
+    price: 9800, material: 'Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Thaal: 35cm, Katoris: 10cm', weight: 1.3
   },
   {
