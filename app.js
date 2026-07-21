@@ -23,7 +23,7 @@ const CONFIG = {
   // 1. Go to https://formspree.io → Sign Up free
   // 2. New Form → name it "Desi Panday Orders"
   // 3. Paste the endpoint below (looks like /f/xxxxxxxx)
-  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',  // ← paste here
+  formspreeEndpoint: 'https://formspree.io/f/xjgnovpn',  // ← paste here
 
   // ── EMAILJS (customer gets confirmation email) ─
   // 1. Go to https://emailjs.com → Sign Up free
