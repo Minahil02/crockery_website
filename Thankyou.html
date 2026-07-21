@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Order Confirmed — Desi Panday | Handcrafted Copper Crockery Lahore</title>
-  <meta name="description" content="Thank you for your order with Desi Panday. Your handcrafted copper crockery is being prepared with care in Lahore. We will confirm via WhatsApp shortly." />
+  <meta name="description" content="Thank you for your order with Desi Panday. Your handcrafted copper crockery is being prepared with care in Lahore. We will confirm shortly." />
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://www.desipanday.com/Thankyou.html" />
   <link rel="icon" type="image/png" href="images/utensils.png" />
@@ -14,7 +14,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Order Confirmed — Desi Panday" />
-  <meta property="og:description" content="Your handcrafted copper crockery order has been received. We will be in touch via WhatsApp shortly." />
+  <meta property="og:description" content="Your handcrafted copper crockery order has been received. We will be in touch shortly." />
   <meta property="og:image" content="https://www.desipanday.com/images/og-image.jpg" />
   <meta property="og:url" content="https://www.desipanday.com/Thankyou.html" />
 
@@ -32,74 +32,163 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    /* ── Thank You page — sits on the same copper photo as the hero,
+       framed like a hammered-copper receipt plate. ── */
+
     .ty-page {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 7rem 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(18,12,7,0.82), rgba(18,12,7,0.82)),
+        url('images/hero-background.png') center 55% / cover no-repeat,
+        var(--bg-deep);
+    }
+
+    .ty-card {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      background: var(--bg-card, #FAF6EF);
+      border: 1px solid rgba(160,98,42,0.35);
+      border-radius: 4px;
+      padding: 3.2rem clamp(1.6rem, 5vw, 3.4rem) 2.6rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: tyRise 0.7s cubic-bezier(.22,.61,.36,1) 0.1s forwards;
+    }
+    .ty-corner {
+      position: absolute; width: 26px; height: 26px;
+      border: 2px solid var(--copper, #A0622A); opacity: 0.75;
+    }
+    .ty-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+    .ty-corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+    .ty-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+    .ty-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+    @keyframes tyRise { to { opacity: 1; transform: translateY(0); } }
+
+    .ty-seal {
+      width: 66px; height: 66px; margin: 0 auto 1.4rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, var(--copper-ll,#D4956A), var(--copper,#A0622A) 60%, var(--bronze,#7A4A1E) 100%);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 22px rgba(160,98,42,0.35);
+      opacity: 0; transform: scale(0.4);
+      animation: tySeal 0.6s cubic-bezier(.34,1.56,.64,1) 0.4s forwards;
+    }
+    .ty-seal svg { width: 30px; height: 30px; }
+    @keyframes tySeal { to { opacity: 1; transform: scale(1); } }
+
+    .ty-ornament {
       text-align: center;
-      padding: 2rem;
-      background: var(--color-parchment, #f5ede0);
+      color: var(--copper, #A0622A);
+      opacity: 0.55;
+      font-size: 1rem;
+      letter-spacing: 0.5em;
+      margin-bottom: 0.9rem;
     }
-    .ty-icon {
-      font-size: 4rem;
-      margin-bottom: 1.5rem;
-      animation: fadeInDown 0.8s ease;
-    }
+
     .ty-title {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.6rem, 5vw, 2.8rem);
-      color: var(--color-copper, #a0481a);
-      margin-bottom: 1rem;
-      animation: fadeInUp 0.8s ease 0.15s both;
+      font-family: var(--ff-display, 'Cinzel', serif);
+      font-weight: 700;
+      text-align: center;
+      font-size: clamp(1.5rem, 4.2vw, 2.15rem);
+      color: var(--text-primary, #2A1A08);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.02em;
     }
     .ty-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--color-ink, #3b2a1a);
-      max-width: 520px;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-      animation: fadeInUp 0.8s ease 0.3s both;
+      font-family: var(--ff-body, 'Lora', serif);
+      text-align: center;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      color: var(--text-secondary, #6B4A2A);
+      max-width: 440px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.75;
     }
+
     .ty-ref {
-      font-family: 'Cinzel', serif;
+      display: block; text-align: center;
+      font-family: var(--ff-accent, 'Cinzel', serif);
       font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      color: var(--color-copper, #a0481a);
-      background: rgba(160,72,26,0.08);
-      border: 1px solid rgba(160,72,26,0.25);
-      padding: 0.6rem 1.4rem;
+      letter-spacing: 0.14em;
+      color: var(--copper, #A0622A);
+      background: rgba(160,98,42,0.07);
+      border: 1px solid rgba(160,98,42,0.28);
+      padding: 0.7rem 1.4rem;
       border-radius: 2px;
-      margin-bottom: 2.5rem;
-      animation: fadeInUp 0.8s ease 0.45s both;
+      margin: 0 auto 2rem;
+      max-width: 320px;
     }
+
+    /* Order summary — the "receipt" */
+    .ty-receipt {
+      border-top: 1px dashed rgba(160,98,42,0.35);
+      border-bottom: 1px dashed rgba(160,98,42,0.35);
+      padding: 1.2rem 0;
+      margin-bottom: 1.8rem;
+      display: none;
+    }
+    .ty-receipt.show { display: block; }
+    .ty-receipt-row {
+      display: flex; justify-content: space-between; gap: 1rem;
+      font-family: var(--ff-body, 'Lora', serif);
+      font-size: 0.92rem; color: var(--text-secondary, #6B4A2A);
+      padding: 0.32rem 0;
+    }
+    .ty-receipt-row.total {
+      font-family: var(--ff-accent, 'Cinzel', serif);
+      font-size: 0.95rem; color: var(--text-primary, #2A1A08);
+      font-weight: 600; letter-spacing: 0.02em;
+      border-top: 1px solid rgba(160,98,42,0.25);
+      margin-top: 0.5rem; padding-top: 0.7rem;
+    }
+
+    /* Delivery timeline — a real sequence, so numbering earns its place */
+    .ty-timeline {
+      display: flex; justify-content: space-between;
+      margin-bottom: 2.2rem; position: relative;
+    }
+    .ty-timeline::before {
+      content: ''; position: absolute; top: 13px; left: 6%; right: 6%;
+      height: 2px; background: rgba(160,98,42,0.22); z-index: 0;
+    }
+    .ty-step {
+      position: relative; z-index: 1; flex: 1; text-align: center;
+    }
+    .ty-step-dot {
+      width: 28px; height: 28px; border-radius: 50%; margin: 0 auto 0.6rem;
+      background: var(--bg-card, #FAF6EF); border: 2px solid var(--copper, #A0622A);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-accent); font-size: 0.7rem; color: var(--copper);
+    }
+    .ty-step.active .ty-step-dot {
+      background: var(--copper, #A0622A); color: #fff;
+    }
+    .ty-step-label {
+      font-family: var(--ff-accent); font-size: 0.62rem; letter-spacing: 0.08em;
+      color: var(--text-muted, #9A7A5A); text-transform: uppercase;
+    }
+    .ty-step.active .ty-step-label { color: var(--copper, #A0622A); }
+
     .ty-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeInUp 0.8s ease 0.6s both;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
     }
-    .ty-ornament {
-      color: var(--color-copper, #a0481a);
-      opacity: 0.4;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.5em;
-    }
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 520px) {
+      .ty-timeline { flex-wrap: nowrap; }
+      .ty-step-label { font-size: 0.55rem; }
+      .ty-card { padding: 2.4rem 1.3rem 2rem; }
     }
   </style>
 </head>
@@ -119,21 +208,60 @@
   </nav>
 
   <main class="ty-page" role="main">
-    <div class="ty-ornament">✦ ✦ ✦</div>
-    <div class="ty-icon" aria-hidden="true">🏺</div>
-    <h1 class="ty-title">Your Order is Confirmed</h1>
-    <p class="ty-sub">
-      Shukria for choosing Desi Panday.<br/>
-      Your order is confirmed and being prepared for dispatch.
-      We will confirm all details on WhatsApp within a few hours.
-    </p>
-    <div class="ty-ref" id="tyOrderRef">Order Reference: Loading…</div>
-    <div class="ty-actions">
-      <a href="/" class="btn btn-primary">Back to Collection</a>
-      <a href="https://wa.me/923267727448?text=Hello%20DeSi%20Paanday%2C%20I%20just%20placed%20an%20order%20and%20would%20like%20to%20confirm."
-         class="btn btn-ghost" target="_blank" rel="noopener">
-        WhatsApp Us
-      </a>
+    <div class="ty-card">
+      <div class="ty-corner tl"></div>
+      <div class="ty-corner tr"></div>
+      <div class="ty-corner bl"></div>
+      <div class="ty-corner br"></div>
+
+      <div class="ty-seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+
+      <div class="ty-ornament">✦ ✦ ✦</div>
+      <h1 class="ty-title">Your Order is Confirmed</h1>
+      <p class="ty-sub" id="tySub">
+        Shukria for choosing Desi Panday. Our craftsmen have received your order
+        and will begin preparing it with care.
+      </p>
+
+      <span class="ty-ref" id="tyOrderRef">Order Reference: Loading…</span>
+
+      <div class="ty-receipt" id="tyReceipt">
+        <div id="tyReceiptItems"></div>
+        <div class="ty-receipt-row total">
+          <span>Total</span><span id="tyReceiptTotal">—</span>
+        </div>
+      </div>
+
+      <div class="ty-timeline">
+        <div class="ty-step active">
+          <div class="ty-step-dot">✓</div>
+          <div class="ty-step-label">Placed</div>
+        </div>
+        <div class="ty-step active">
+          <div class="ty-step-dot">2</div>
+          <div class="ty-step-label">Preparing</div>
+        </div>
+        <div class="ty-step">
+          <div class="ty-step-dot">3</div>
+          <div class="ty-step-label">On the Way</div>
+        </div>
+        <div class="ty-step">
+          <div class="ty-step-dot">4</div>
+          <div class="ty-step-label">Delivered</div>
+        </div>
+      </div>
+
+      <div class="ty-actions">
+        <a href="/" class="btn btn-primary">Back to Collection</a>
+        <a href="https://wa.me/923267727448?text=Hello%20DeSi%20Paanday%2C%20I%20just%20placed%20an%20order%20and%20would%20like%20to%20confirm."
+           class="btn btn-ghost" target="_blank" rel="noopener">
+          WhatsApp Us
+        </a>
+      </div>
     </div>
   </main>
 
@@ -145,10 +273,32 @@
   </footer>
 
   <script>
-    // Pull order ref from URL params or localStorage
     const params = new URLSearchParams(window.location.search);
     const ref = params.get('ref') || localStorage.getItem('lastOrderRef') || '—';
     document.getElementById('tyOrderRef').textContent = 'Order Reference: ' + ref;
+
+    // Pull the real order (items + total) from the same localStorage DB
+    // app.js writes to, so the receipt shows actual order details.
+    try {
+      const db = JSON.parse(localStorage.getItem('desipanday_db') || '{}');
+      const order = (db.orders || []).find(o => o.id === ref);
+      if (order) {
+        const itemsHtml = order.items.map(i => `
+          <div class="ty-receipt-row">
+            <span>${i.name} ×${i.qty}</span>
+            <span>Rs. ${(i.price * i.qty).toLocaleString()}</span>
+          </div>
+        `).join('');
+        document.getElementById('tyReceiptItems').innerHTML = itemsHtml;
+        document.getElementById('tyReceiptTotal').textContent = 'Rs. ' + order.total.toLocaleString();
+        document.getElementById('tyReceipt').classList.add('show');
+        if (order.customer && order.customer.name) {
+          document.getElementById('tySub').innerHTML =
+            `Shukria, <strong>${order.customer.name}</strong> — our craftsmen have received your order ` +
+            `and will begin preparing it with care. We'll be in touch on <strong>${order.customer.phone}</strong> to confirm delivery.`;
+        }
+      }
+    } catch (e) { /* order lookup is best-effort; page still works without it */ }
 
     // Navbar scroll effect (reuse from main site)
     window.addEventListener('scroll', () => {

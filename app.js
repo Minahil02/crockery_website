@@ -23,7 +23,7 @@ const CONFIG = {
   // 1. Go to https://formspree.io → Sign Up free
   // 2. New Form → name it "Desi Panday Orders"
   // 3. Paste the endpoint below (looks like /f/xxxxxxxx)
-  formspreeEndpoint: 'https://formspree.io/f/xjgnovpn',  // ← paste here
+  formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',  // ← paste here
 
   // ── EMAILJS (customer gets confirmation email) ─
   // 1. Go to https://emailjs.com → Sign Up free
@@ -49,7 +49,7 @@ const CONFIG = {
   // ── SHOP INFO ─────────────────────────────────
   shopName:  'Desi Panday',
   shopPhone: '+92 324 8825813',
-  shopEmail: 'desipanday953@gmail.com',
+  shopEmail: 'desipanday83@gmail.com',
 
   // ── DELIVERY / SHIPPING ───────────────────────
   // Fee = zone base fee + (extra Rs. per kg for weight
@@ -329,6 +329,26 @@ async function notifyShopByEmail(orderId, name, phone, address, items, total, de
 }
 
 // ═══════════════════════════════════════════════
+// 2b. FORMSPREE — sends enquiry details to YOUR email
+// ═══════════════════════════════════════════════
+async function notifyShopOfEnquiry(name, email, type, message) {
+  if (CONFIG.formspreeEndpoint.includes('YOUR_FORM_ID')) return;
+  try {
+    await fetch(CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        _subject: `✉️ NEW ENQUIRY — Desi Panday (${type || 'General'})`,
+        enquiry_type: type || 'General',
+        customer_name: name,
+        customer_email: email,
+        message: message
+      })
+    });
+  } catch (e) { console.log('Formspree enquiry error:', e); }
+}
+
+// ═══════════════════════════════════════════════
 // 3. EMAILJS — sends confirmation email to CUSTOMER
 // ═══════════════════════════════════════════════
 async function sendConfirmationEmail(orderId, name, email, phone, items, total, deliveryFee, zoneLabel) {
@@ -468,7 +488,7 @@ function checkout() {
           <input type="tel"   id="coPhone"   placeholder="WhatsApp / Phone Number *" />
         </div>
         <div class="form-group">
-          <input type="email" id="coEmail"   placeholder="Email (for confirmation — optional)" />
+          <input type="email" id="coEmail"   placeholder="Email Address * (for your order confirmation)" />
         </div>
         <div class="form-group">
           <select id="coZone" onchange="updateDeliveryDisplay()">
@@ -520,8 +540,8 @@ async function confirmOrder() {
   const address = document.getElementById('coAddress').value.trim();
   const note    = document.getElementById('coNote').value.trim();
 
-  if (!name || !phone || !address) {
-    showToast('✦ Please fill in your name, phone and address');
+  if (!name || !phone || !email || !address) {
+    showToast('✦ Please fill in your name, phone, email and address');
     return;
   }
 
@@ -676,12 +696,14 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector('[type="submit"]');
   btn.textContent = 'Sending…'; btn.disabled = true;
-  await API.submitEnquiry({
-    name:    document.getElementById('fname').value,
-    email:   document.getElementById('femail').value,
-    type:    document.getElementById('ftype').value,
-    message: document.getElementById('fmessage').value
-  });
+  const fName    = document.getElementById('fname').value;
+  const fEmail   = document.getElementById('femail').value;
+  const fType    = document.getElementById('ftype').value;
+  const fMessage = document.getElementById('fmessage').value;
+
+  await API.submitEnquiry({ name: fName, email: fEmail, type: fType, message: fMessage });
+  await notifyShopOfEnquiry(fName, fEmail, fType, fMessage);
+
   btn.textContent = 'Send Message'; btn.disabled = false;
   document.getElementById('formSuccess').classList.add('show');
   e.target.reset();
