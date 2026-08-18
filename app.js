@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════
    Desi PanDay — app.js  (Complete Final Version)
-   WhatsApp Order + EmailJS Customer Confirmation
+   Direct Website Checkout + EmailJS Order Emails
+   (customer confirmation + shop owner notification)
    ═══════════════════════════════════════════════ */
 
 'use strict';
@@ -11,18 +12,12 @@
 // ╚══════════════════════════════════════════════╝
 const CONFIG = {
 
-  // ── YOUR WHATSAPP NUMBER ──────────────────────
-  // Customer clicks "Order via WhatsApp" and a
-  // pre-filled message opens in WhatsApp for you.
-  // No API needed — just put your number below.
-  // Format: country code + number, no + or spaces
-  // Pakistan example: 923241234567
-  whatsappNumber: '923267727448',   // ← your number
-
-  // ── FORMSPREE (you get order email) ──────────
+  // ── FORMSPREE (optional extra: you get order email) ──
   // 1. Go to https://formspree.io → Sign Up free
   // 2. New Form → name it "Desi Panday Orders"
   // 3. Paste the endpoint below (looks like /f/xxxxxxxx)
+  // Leave as-is (with YOUR_FORM_ID) to skip this — it's optional
+  // since the EmailJS owner notification below already emails you.
   formspreeEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',  // ← paste here
 
   // ── EMAILJS (customer gets confirmation email) ─
@@ -40,16 +35,38 @@ const CONFIG = {
   //    Thank you! — Desi Panday ({{shop_phone}})
   // 4. Set "To Email" field to: {{to_email}}
   // 5. Account page → copy Public Key
+  //
+  // ── EMAILJS (YOU get notified of every new order) ─
+  // Create a SECOND template on the same EmailJS service, e.g.:
+  //    Subject: "🏺 New Order {{order_id}} — Desi Panday"
+  //    Body:
+  //    New order received!
+  //    Order ID: {{order_id}}
+  //    Customer: {{customer_name}} ({{customer_phone}})
+  //    Address: {{delivery_address}}
+  //    Items: {{order_items}}
+  //    Delivery: {{delivery_zone}} — {{delivery_fee}}
+  //    Total: {{order_total}}
+  // Set "To Email" on THIS template to your own shop email
+  // (fixed value, not a variable — so it always comes to you).
+  // Paste that template's ID into ownerTemplateId below.
   emailjs: {
-    serviceId:  'service_0qomaoh',
-    templateId: 'template_v7xx188',
-    publicKey:  'uR8ppRJai5yn5p_oX',
+    serviceId:      'service_0qomaoh',
+    templateId:     'template_v7xx188',
+    ownerTemplateId:'template_5pcpkkl',
+    publicKey:      'uR8ppRJai5yn5p_oX',
   },
 
   // ── SHOP INFO ─────────────────────────────────
   shopName:  'Desi Panday',
   shopPhone: '+92 324 8825813',
   shopEmail: 'desipanday83@gmail.com',
+
+  // ── YOUR WHATSAPP NUMBER ──────────────────────
+  // Customer's order opens a pre-filled WhatsApp
+  // message to you. No API needed — just your number.
+  // Format: country code + number, no + or spaces
+  whatsappNumber: '923267727448',   // ← your number
 
   // ── DELIVERY / SHIPPING ───────────────────────
   // Fee = zone base fee + (extra Rs. per kg for weight
@@ -79,30 +96,12 @@ const CONFIG = {
 // ═══════════════════════════════════════════════
 const PRODUCT_SEED = [
   {
-    id: 12, category: 'sets', badge: 'Bundle Deal',
-    image: 'images/6-person-deal.jpg',
-    name: '6-Person Pure Copper Dining Set',
-    shortDesc: '6 glasses, 6 dishes, 6 spoons & 6 forks — complete dining set',
-    fullDesc: 'A complete, healthy dining set for six — hand-hammered from 100% pure copper by our Lahore artisans. Includes 6 dishes, 6 glasses, 6 spoons, and 6 forks, rooted in Ayurvedic tradition for daily use or gifting. Everything your family needs for a healthy, elegant meal, all in one bundle at a special price.',
-    price: 59999, originalPrice: 65000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: 'Dishes 20cm · Glasses 250ml · Spoons & Forks 14cm', weight: 3.6
-  },
-  {
-    id: 13, category: 'sets', badge: 'Family Deal',
-    image: 'images/4-person-deal.jpg',
-    name: '4-Person Pure Copper Dining Set',
-    shortDesc: '4 glasses, 4 plates, 4 spoons & 4 forks — complete dining set',
-    fullDesc: 'A complete, healthy dining set for four — hand-hammered from 100% pure copper by our Lahore artisans. Includes 4 plates, 4 glasses, 4 spoons, and 4 forks, rooted in Ayurvedic tradition for daily use or gifting. A perfect size for smaller households, all in one bundle at a special price.',
-    price: 39999, originalPrice: 42000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: 'Plates 20cm · Glasses 250ml · Spoons & Forks 14cm', weight: 2.4
-  },
-  {
     id: 10, category: 'bottles', badge: 'Top Seller',
     image: 'images/copper-water-bottle.jpg',
     name: 'Pure Copper Water Bottle — 600ml',
     shortDesc: 'Hand-hammered 100% pure copper bottle, perfect for daily use',
     fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 1 Litre size.',
-    price: 5499, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 6000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity', weight: 0.3
   },
   {
@@ -111,7 +110,7 @@ const PRODUCT_SEED = [
     name: 'Pure Copper Water Bottle — 1 Litre',
     shortDesc: 'Hand-hammered 100% pure copper bottle, ideal for long hours',
     fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',
-    price: 6999, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 7500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity', weight: 0.4
   },
   {
@@ -120,80 +119,8 @@ const PRODUCT_SEED = [
     name: 'Hammered Copper Glass',
     shortDesc: 'Hand-hammered pure copper, traditional lassi glass',
     fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
-    price: 3300, material: 'Pure Copper', origin: 'Lahore Workshop',
+    price: 3800, material: 'Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml', weight: 0.15
-  },
-  {
-    id: 2, category: 'bowls', badge: null,
-    image: 'images/12.jpg',
-    name: 'Copper Katori Set (3 pcs)',
-    shortDesc: 'Hammered copper katoris, silver-lined interior',
-    fullDesc: 'A set of three traditional hammered copper katoris — the essential vessel of the desi thaal. Each katori is hand-beaten from copper sheet with a tin-lined interior for safe food contact. Used for centuries in wedding feasts and daily meals alike.',
-    price: 3200, material: 'Copper with Tin Lining', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm diameter each', weight: 0.4
-  },
-  {
-    id: 3, category: 'bowls', badge: null,
-    image: 'images/15.jpg',
-    name: 'Silver-Finish Katori Set (3 pcs)',
-    shortDesc: 'Hammered metal katoris, pewter finish',
-    fullDesc: 'Three katoris finished in a classic pewter-silver tone — the colour of old family heirlooms. Hand-hammered with a characteristic dimple pattern, these bowls are equally at home serving daal, achaar, or raita.',
-    price: 2800, material: 'Hammered Metal, Pewter Finish', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Traditional', dimensions: '10cm diameter each', weight: 0.35
-  },
-  {
-    id: 4, category: 'bowls', badge: 'New',
-    image: 'images/16.jpg',
-    name: 'Copper Bowl Set (3 pcs)',
-    shortDesc: 'Rose copper bowls, polished interior',
-    fullDesc: 'Three rose-copper bowls with a high-polish interior finish. The warm blush of polished copper transforms any dining table into a feast. Hand-beaten exteriors contrast beautifully with the gleaming inner surface.',
-    price: 3500, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering & Polishing', era: 'Traditional', dimensions: '12cm diameter each', weight: 0.45
-  },
-  {
-    id: 5, category: 'plates', badge: 'Bestseller',
-    image: 'images/19.jpg',
-    name: 'Hammered Copper Thaal',
-    shortDesc: 'Large copper serving plate, hand-hammered',
-    fullDesc: 'The great thaal — centrepiece of every desi feast. This large copper plate is hand-hammered across its entire surface, creating a rippling effect that distributes light in every direction. Solid copper, built to last generations.',
-    price: 6500, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '35cm diameter', weight: 0.9
-  },
-  {
-    id: 6, category: 'plates', badge: 'Limited',
-    image: 'images/20.jpg',
-    name: 'Copper Thaal Dinner Set',
-    shortDesc: 'Full thaal with katori & spoon — complete set',
-    fullDesc: 'The complete desi dining experience. This set includes one large hammered copper thaal, two katoris, and a matching copper spoon — everything needed for a traditional meal. A perfect heirloom gift.',
-    price: 9800, material: 'Pure Copper', origin: 'Lahore Workshop',
-    technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Thaal: 35cm, Katoris: 10cm', weight: 1.3
-  },
-  {
-    id: 7, category: 'spoons', badge: null,
-    image: 'images/34.jpg',
-    name: 'Copper Tea Spoon',
-    shortDesc: 'Single hand-finished copper spoon',
-    fullDesc: 'A single copper tea spoon — slim, elegant, and finished by hand. The subtle warm glow of copper makes even the simplest ritual of stirring chai feel ceremonial.',
-    price: 650, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length', weight: 0.05
-  },
-  {
-    id: 8, category: 'spoons', badge: null,
-    image: 'images/32.jpg',
-    name: 'Copper Spoon Pair',
-    shortDesc: 'Two matching copper-finish spoons',
-    fullDesc: 'A matched pair of copper-finish spoons, ideal for serving or everyday use. The warm rose-copper tone complements any traditional thaal or modern table setting.',
-    price: 1200, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length', weight: 0.1
-  },
-  {
-    id: 9, category: 'spoons', badge: 'New',
-    image: 'images/37.jpg',
-    name: 'Copper Spoon Set (12 pcs)',
-    shortDesc: 'Full dozen copper-finish spoons',
-    fullDesc: 'A complete set of twelve copper-finish spoons — enough for a full family gathering or formal dinner. Uniform in shape, with the signature warm rose-copper tone.',
-    price: 5500, material: 'Copper-Finish Steel', origin: 'Lahore Workshop',
-    technique: 'Hand Finishing', era: 'Traditional', dimensions: '14cm length, set of 12', weight: 0.5
   }
 ];
 
@@ -274,7 +201,7 @@ const API = {
 };
 
 // ═══════════════════════════════════════════════
-// 1. WHATSAPP — opens pre-filled message for you
+// 0. WHATSAPP — opens pre-filled message for you
 //    Customer sees order details, taps Send.
 //    You receive it on your WhatsApp instantly.
 // ═══════════════════════════════════════════════
@@ -299,6 +226,44 @@ function openWhatsAppOrder(orderId, name, phone, address, note, items, total, de
 
   const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
+}
+
+// ═══════════════════════════════════════════════
+// 1. EMAILJS — notifies YOU (the shop) the instant
+//    a customer places an order on the website.
+// ═══════════════════════════════════════════════
+async function notifyShopOrderEmail(orderId, name, phone, email, address, note, items, total, deliveryFee, zoneLabel) {
+  if (typeof emailjs === 'undefined') { console.error('EmailJS not loaded'); return; }
+  if (!CONFIG.emailjs.ownerTemplateId || CONFIG.emailjs.ownerTemplateId.includes('YOUR_OWNER_TEMPLATE_ID')) {
+    console.warn('Owner order-notification skipped — set CONFIG.emailjs.ownerTemplateId (see comments in CONFIG).');
+    return;
+  }
+  const itemLines = items.map(i =>
+    `${i.name} x${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
+  ).join('\n');
+  const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
+
+  try {
+    await emailjs.send(
+      CONFIG.emailjs.serviceId,
+      CONFIG.emailjs.ownerTemplateId,
+      {
+        order_id:         orderId,
+        customer_name:    name,
+        customer_phone:   phone,
+        customer_email:   email || '',
+        delivery_address: address,
+        delivery_zone:    zoneLabel,
+        delivery_fee:     `Rs. ${deliveryFee.toLocaleString()}`,
+        order_items:      itemLines,
+        subtotal:         `Rs. ${subtotal.toLocaleString()}`,
+        order_total:      `Rs. ${total.toLocaleString()}`,
+        note:              note || '—',
+        shop_name:         CONFIG.shopName,
+      }
+    );
+    console.log('✅ Shop notified of new order', orderId);
+  } catch (e) { console.error('❌ EmailJS owner-notification error:', e); }
 }
 
 // ═══════════════════════════════════════════════
@@ -485,7 +450,7 @@ function checkout() {
           <input type="text"  id="coName"    placeholder="Full Name *" />
         </div>
         <div class="form-group">
-          <input type="tel"   id="coPhone"   placeholder="WhatsApp / Phone Number *" />
+          <input type="tel"   id="coPhone"   placeholder="Phone Number *" />
         </div>
         <div class="form-group">
           <input type="email" id="coEmail"   placeholder="Email Address * (for your order confirmation)" />
@@ -504,15 +469,15 @@ function checkout() {
           <textarea id="coNote"    rows="2"  placeholder="Special instructions? (optional)"></textarea>
         </div>
         <button class="btn btn-primary full" id="coBtn" onclick="confirmOrder()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"
                style="vertical-align:middle;margin-right:8px">
-            <path d="M20 6L9 17l-5-5"/>
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
           </svg>
-          Place Order
+          Order via WhatsApp
         </button>
         <p style="font-size:0.72rem;opacity:0.65;text-align:center;margin-top:0.6rem;line-height:1.5">
-          Your order is placed directly with us — no WhatsApp required.
-          We'll confirm by phone or email shortly.
+          Your order is saved with us, and WhatsApp opens next so you can
+          confirm the details with our team directly.
         </p>
         <div id="coSuccess" class="co-success" style="display:none"></div>
       </div>
@@ -562,17 +527,37 @@ async function confirmOrder() {
     saveCart();
     updateCartUI();
 
-    // 1. Notify shop via Formspree email (set CONFIG.formspreeEndpoint above)
+    localStorage.setItem('lastOrderRef', res.orderId);
+
+    // 1. Notify the shop that a new order came in (EmailJS — see CONFIG)
+    await notifyShopOrderEmail(res.orderId, name, phone, email, address, note, orderedItems, grandTotal, deliveryFee, zone.label);
+
+    // 2. Notify the shop via Formspree too, if that's set up (optional, CONFIG.formspreeEndpoint)
     await notifyShopByEmail(res.orderId, name, phone, address, orderedItems, grandTotal, deliveryFee, zone.label);
 
-    // 2. Send confirmation email to customer (if email given)
+    // 3. Send confirmation email to the customer
     await sendConfirmationEmail(res.orderId, name, email, phone, orderedItems, grandTotal, deliveryFee, zone.label);
 
-    // 3. Order is placed on the website itself — no WhatsApp redirect.
-    //    Save the order reference and take the customer to the
-    //    confirmation page.
-    localStorage.setItem('lastOrderRef', res.orderId);
-    window.location.href = 'Thankyou.html?ref=' + encodeURIComponent(res.orderId);
+    // 4. Open WhatsApp with a pre-filled order message so the
+    //    customer can confirm directly with the shop
+    openWhatsAppOrder(res.orderId, name, phone, address, note, orderedItems, grandTotal, deliveryFee, zone.label);
+
+    // Show success state in the modal instead of redirecting immediately —
+    // this gives the WhatsApp tab a moment to open before anything else happens.
+    document.getElementById('coSuccess').style.display = 'block';
+    document.getElementById('coSuccess').innerHTML = `
+      <div class="co-success-inner">
+        <div class="co-success-icon">✦</div>
+        <strong>Order ${res.orderId} Confirmed!</strong>
+        <p>WhatsApp is opening with your order details.</p>
+        <p>Just tap <strong>Send</strong> to confirm your order with us.</p>
+        ${email ? `<p style="font-size:0.85rem;opacity:0.75">A confirmation email is being sent to ${email}</p>` : ''}
+        <button class="btn btn-ghost" onclick="window.location.href='Thankyou.html?ref=${encodeURIComponent(res.orderId)}'" style="margin-top:1rem;width:100%">
+          View Order Confirmation
+        </button>
+      </div>
+    `;
+    btn.style.display = 'none';
   }
 }
 
