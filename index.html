@@ -112,7 +112,7 @@
         "item": {
           "@type": "Product", "sku": "DP-010",
           "name": "Pure Copper Water Bottle — 600ml",
-          "description": "Hand-hammered pure copper water bottle, 600ml.",
+          "description": "Hand-hammered pure copper water bottle, 600ml, with a complimentary green pouch.",
           "image": "https://www.desipanday.com/images/copper-water-bottle.jpg",
           "brand": { "@type": "Brand", "name": "Desi Panday" },
           "offers": { "@type": "Offer", "price": "6000", "priceCurrency": "PKR", "availability": "https://schema.org/InStock", "seller": { "@type": "Organization", "name": "Desi Panday" } }
@@ -123,7 +123,7 @@
         "item": {
           "@type": "Product", "sku": "DP-011",
           "name": "Pure Copper Water Bottle — 1 Litre",
-          "description": "Hand-hammered pure copper water bottle, 1 Litre.",
+          "description": "Hand-hammered pure copper water bottle, 1 Litre, with a complimentary green pouch.",
           "image": "https://www.desipanday.com/images/copper-water-bottle.jpg",
           "brand": { "@type": "Brand", "name": "Desi Panday" },
           "offers": { "@type": "Offer", "price": "7500", "priceCurrency": "PKR", "availability": "https://schema.org/InStock", "seller": { "@type": "Organization", "name": "Desi Panday" } }
@@ -133,8 +133,8 @@
         "@type": "ListItem", "position": 3,
         "item": {
           "@type": "Product", "sku": "DP-001",
-          "name": "Hammered Copper Glass",
-          "description": "Hand-hammered pure copper glass, 250ml.",
+          "name": "Hammered Copper Glass — Collared Design",
+          "description": "Hand-hammered pure copper glass with a collared rim, 250ml.",
           "image": "https://www.desipanday.com/images/1.jpg",
           "brand": { "@type": "Brand", "name": "Desi Panday" },
           "offers": { "@type": "Offer", "price": "3800", "priceCurrency": "PKR", "availability": "https://schema.org/InStock", "seller": { "@type": "Organization", "name": "Desi Panday" } }
@@ -362,23 +362,10 @@
     <div class="section-header">
       <div class="section-ornament">✦ ✦ ✦</div>
       <h2 class="section-title">Voices of Patrons</h2>
+      <button class="btn btn-ghost" onclick="openReviewModal()" style="margin-top:1.1rem">✎ Write a Review</button>
     </div>
-    <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <div class="testi-stars">★★★★★</div>
-        <p>"Ordered the copper water bottle for my dad's birthday, thought it would be small but it's actually quite solid and heavy. Delivery took 4 days but worth the wait. Will order a glass next."</p>
-        <div class="testi-author">— Ahmad Shah, Islamabad</div>
-      </div>
-      <div class="testimonial-card featured">
-        <div class="testi-stars">★★★★★</div>
-        <p>"Was skeptical ordering copper online but this is genuine quality, you can tell by the weight. The hammering pattern isn't perfectly even but that's what makes it look handmade, not factory made. Seller replied fast on WhatsApp too."</p>
-        <div class="testi-author">— Sameen Ambreen, Karachi</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testi-stars">★★★★☆</div>
-        <p>"Bought the dining set for my mother, she loved it. Only issue was one glass had a small dent on arrival but they sent a replacement without any hassle. Would recommend for gifting."</p>
-        <div class="testi-author">— Mehmood Malik, Lahore</div>
-      </div>
+    <div class="testimonial-grid" id="testimonialGrid">
+      <!-- Rendered by renderReviews() in app.js -->
     </div>
   </section>
 
@@ -480,6 +467,12 @@
   <div class="checkout-modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()"></div>
   <div class="checkout-modal" id="checkoutModal">
     <div id="checkoutModalContent"></div>
+  </div>
+
+  <!-- REVIEW MODAL -->
+  <div class="checkout-modal-overlay" id="reviewModalOverlay" onclick="closeReviewModal()"></div>
+  <div class="checkout-modal" id="reviewModal">
+    <div id="reviewModalContent" style="position:relative"></div>
   </div>
 
   <!-- TOAST -->

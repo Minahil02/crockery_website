@@ -99,8 +99,8 @@ const PRODUCT_SEED = [
     id: 10, category: 'bottles', badge: 'Top Seller',
     image: 'images/copper-water-bottle.jpg',
     name: 'Pure Copper Water Bottle — 600ml',
-    shortDesc: 'Hand-hammered 100% pure copper bottle, perfect for daily use',
-    fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 1 Litre size.',
+    shortDesc: 'Hand-hammered 100% pure copper bottle + free green pouch',
+    fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Comes with a complimentary green pouch for safe storage and travel. Also available in a 1 Litre size.',
     price: 6000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity', weight: 0.3
   },
@@ -108,19 +108,40 @@ const PRODUCT_SEED = [
     id: 11, category: 'bottles', badge: 'Top Seller',
     image: 'images/copper-water-bottle.jpg',
     name: 'Pure Copper Water Bottle — 1 Litre',
-    shortDesc: 'Hand-hammered 100% pure copper bottle, ideal for long hours',
-    fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Also available in a 600ml size.',
+    shortDesc: 'Hand-hammered 100% pure copper bottle + free green pouch',
+    fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Comes with a complimentary green pouch for safe storage and travel. Also available in a 600ml size.',
     price: 7500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity', weight: 0.4
   },
   {
     id: 1, category: 'mugs', badge: 'Bestseller',
     image: 'images/1.jpg',
-    name: 'Hammered Copper Glass',
-    shortDesc: 'Hand-hammered pure copper, traditional lassi glass',
-    fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
+    name: 'Hammered Copper Glass — Collared Design',
+    shortDesc: 'Hand-hammered pure copper glass with a collared rim',
+    fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent, finished with an elegant collared rim for a comfortable grip and a refined silhouette. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
     price: 3800, material: 'Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml', weight: 0.15
+  }
+];
+
+// ═══════════════════════════════════════════════
+// REVIEW SEED DATA (shown before any customer submits their own)
+// ═══════════════════════════════════════════════
+const REVIEW_SEED = [
+  {
+    id: 1, seed: true, rating: 5, name: 'Ahmad Shah, Islamabad',
+    text: "Ordered the copper water bottle for my dad's birthday, thought it would be small but it's actually quite solid and heavy. Delivery took 4 days but worth the wait. Will order a glass next.",
+    date: '2025-06-01T00:00:00.000Z'
+  },
+  {
+    id: 2, seed: true, rating: 5, name: 'Sameen Ambreen, Karachi',
+    text: "Was skeptical ordering copper online but this is genuine quality, you can tell by the weight. The hammering pattern isn't perfectly even but that's what makes it look handmade, not factory made. Seller replied fast on WhatsApp too.",
+    date: '2025-06-10T00:00:00.000Z'
+  },
+  {
+    id: 3, seed: true, rating: 4, name: 'Mehmood Malik, Lahore',
+    text: 'Bought a copper glass for my mother, she loved the collared design and the weight of it. The green pouch that came with my bottle order was a nice touch too. Great for gifting.',
+    date: '2025-06-18T00:00:00.000Z'
   }
 ];
 
@@ -129,7 +150,7 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 11,  // bumped — bottles & glass only, updated pricing
+  _seedVersion: 12,  // bumped — collared glass name + free pouch copy
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -143,19 +164,23 @@ const DB = {
       } catch (e) { needSeed = true; }
     }
     if (needSeed) {
-      let preserved = { orders: [], enquiries: [], nextOrderId: 1 };
+      let preserved = { orders: [], enquiries: [], nextOrderId: 1, reviews: null };
       try {
         const old = JSON.parse(existing || '{}');
         preserved = {
           orders: old.orders || [],
           enquiries: old.enquiries || [],
-          nextOrderId: old.nextOrderId || 1
+          nextOrderId: old.nextOrderId || 1,
+          reviews: old.reviews || null   // keep customer-submitted reviews across reseeds
         };
       } catch (e) {}
       localStorage.setItem(this._key, JSON.stringify({
         _seedVersion: this._seedVersion,
         products: PRODUCT_SEED,
-        ...preserved
+        reviews: preserved.reviews || REVIEW_SEED,
+        orders: preserved.orders,
+        enquiries: preserved.enquiries,
+        nextOrderId: preserved.nextOrderId
       }));
       console.log('✅ Products loaded:', PRODUCT_SEED.length);
     }
@@ -180,8 +205,19 @@ const DB = {
     db.nextOrderId++;
     this.write(db);
     return id;
+  },
+  getReviews() {
+    const db = this.read();
+    return db.reviews || [];
+  },
+  saveReview(r) {
+    const db = this.read();
+    if (!db.reviews) db.reviews = [];
+    db.reviews.unshift({ ...r, id: Date.now(), seed: false, date: new Date().toISOString() });
+    this.write(db);
   }
 };
+
 
 // ═══════════════════════════════════════════════
 // MOCK API
@@ -190,6 +226,7 @@ const API = {
   async getProducts(filter = 'all') { await delay(80); return { ok: true, data: DB.getProducts(filter) }; },
   async getProduct(id) { await delay(60); const p = DB.getProduct(id); return p ? { ok: true, data: p } : { ok: false }; },
   async submitEnquiry(payload) { await delay(500); DB.saveEnquiry(payload); return { ok: true }; },
+  async submitReview(payload) { await delay(400); DB.saveReview(payload); return { ok: true }; },
   async placeOrder(items, customer) {
     await delay(300);
     const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
@@ -206,23 +243,27 @@ const API = {
 //    You receive it on your WhatsApp instantly.
 // ═══════════════════════════════════════════════
 function openWhatsAppOrder(orderId, name, phone, address, note, items, total, deliveryFee, zoneLabel) {
+  const DIVIDER = '━━━━━━━━━━━━━━━';
   const itemLines = items.map(i =>
-    `• ${i.name} ×${i.qty} = Rs.${(i.price * i.qty).toLocaleString()}`
+    `• ${i.name} × ${i.qty}  —  Rs. ${(i.price * i.qty).toLocaleString()}`
   ).join('\n');
   const subtotal = items.reduce((s, i) => s + (i.price * i.qty), 0);
 
   const msg =
-    `🏺 *New Order — Desi Panday*\n` +
-    `Order ID: *${orderId}*\n\n` +
-    `*Items:*\n${itemLines}\n\n` +
+    `🏺 *NEW ORDER — DESI PANDAY*\n` +
+    `${DIVIDER}\n` +
+    `📦 Order ID: *${orderId}*\n\n` +
+    `🛒 *ITEMS*\n${itemLines}\n\n` +
+    `${DIVIDER}\n` +
     `Subtotal: Rs. ${subtotal.toLocaleString()}\n` +
     `Delivery (${zoneLabel}): Rs. ${deliveryFee.toLocaleString()}\n` +
-    `*Total: Rs. ${total.toLocaleString()}*\n\n` +
-    `*Customer:*\n` +
+    `💰 *TOTAL: Rs. ${total.toLocaleString()}*\n` +
+    `${DIVIDER}\n\n` +
+    `👤 *CUSTOMER DETAILS*\n` +
     `Name: ${name}\n` +
     `Phone: ${phone}\n` +
     `Address: ${address}` +
-    (note ? `\nNote: ${note}` : '');
+    (note ? `\n\n📝 *Note:* ${note}` : '');
 
   const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
@@ -737,9 +778,101 @@ function showToast(msg) {
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ═══════════════════════════════════════════════
+// CUSTOMER REVIEWS — write & display
+// ═══════════════════════════════════════════════
+function renderReviews() {
+  const grid = document.getElementById('testimonialGrid');
+  if (!grid) return;
+  const reviews = DB.getReviews();
+  if (reviews.length === 0) {
+    grid.innerHTML = `<p style="text-align:center;opacity:0.65;grid-column:1/-1">Be the first to leave a review!</p>`;
+    return;
+  }
+  grid.innerHTML = reviews.map((r, idx) => `
+    <div class="testimonial-card ${idx === 1 ? 'featured' : ''}">
+      <div class="testi-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+      <p>"${escapeHtml(r.text)}"</p>
+      <div class="testi-author">— ${escapeHtml(r.name)}</div>
+    </div>
+  `).join('');
+}
+
+let reviewRating = 5;
+
+function openReviewModal() {
+  reviewRating = 5;
+  document.getElementById('reviewModalContent').innerHTML = `
+    <button class="modal-close" onclick="closeReviewModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;cursor:pointer;opacity:0.6;line-height:1">✕</button>
+    <h3 style="font-family:var(--ff-display,'Cinzel',serif);margin-bottom:0.3rem;font-size:1.3rem">Share Your Experience</h3>
+    <p style="font-size:0.85rem;opacity:0.7;margin-bottom:1.3rem">Tell other customers what you thought of your order.</p>
+    <div class="form-group">
+      <input type="text" id="rvName" placeholder="Your Name *" />
+    </div>
+    <div class="form-group">
+      <div id="rvStars" style="font-size:1.7rem;letter-spacing:0.12em;cursor:pointer;margin-bottom:0.2rem"></div>
+      <div style="font-size:0.7rem;opacity:0.6">Tap a star to rate</div>
+    </div>
+    <div class="form-group">
+      <textarea id="rvText" rows="4" placeholder="Write your review here... *"></textarea>
+    </div>
+    <button class="btn btn-primary full" id="rvSubmitBtn" onclick="submitReview()">Submit Review</button>
+    <div id="rvSuccess" style="display:none;text-align:center;margin-top:1rem"></div>
+  `;
+  renderStars();
+  document.getElementById('reviewModalOverlay').classList.add('open');
+  document.getElementById('reviewModal').classList.add('open');
+}
+
+function renderStars() {
+  const el = document.getElementById('rvStars');
+  if (!el) return;
+  el.innerHTML = [1, 2, 3, 4, 5].map(n =>
+    `<span onclick="setReviewRating(${n})" style="color:${n <= reviewRating ? 'var(--copper,#A0622A)' : '#cbb8a0'}">★</span>`
+  ).join('');
+}
+
+function setReviewRating(n) {
+  reviewRating = n;
+  renderStars();
+}
+
+async function submitReview() {
+  const name = document.getElementById('rvName').value.trim();
+  const text = document.getElementById('rvText').value.trim();
+
+  if (!name || !text) {
+    showToast('✦ Please add your name and a short review');
+    return;
+  }
+
+  const btn = document.getElementById('rvSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  await API.submitReview({ name, rating: reviewRating, text });
+
+  document.getElementById('rvSuccess').style.display = 'block';
+  document.getElementById('rvSuccess').innerHTML = '<strong>✦ Thank you for your review!</strong>';
+  btn.style.display = 'none';
+  renderReviews();
+  setTimeout(closeReviewModal, 1600);
+}
+
+function closeReviewModal() {
+  document.getElementById('reviewModalOverlay').classList.remove('open');
+  document.getElementById('reviewModal').classList.remove('open');
+}
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    closeModal(); closeCheckoutModal();
+    closeModal(); closeCheckoutModal(); closeReviewModal();
     if (document.getElementById('cartSidebar').classList.contains('open')) toggleCart();
   }
 });
@@ -750,6 +883,7 @@ document.addEventListener('keydown', e => {
 DB.init();
 loadProducts();
 updateCartUI();
+renderReviews();
 
 // Initialize EmailJS — must run once after the script loads
 if (typeof emailjs !== 'undefined') {
