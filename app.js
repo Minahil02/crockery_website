@@ -129,7 +129,7 @@ const PRODUCT_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 10,  // bumped — updated 6-person & 4-person deal pricing
+  _seedVersion: 11,  // bumped — bottles & glass only, updated pricing
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
