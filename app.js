@@ -101,7 +101,7 @@ const PRODUCT_SEED = [
     name: 'Pure Copper Water Bottle — 600ml',
     shortDesc: 'Hand-hammered 100% pure copper bottle + free green pouch',
     fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Comes with a complimentary green pouch for safe storage and travel. Also available in a 1 Litre size.',
-    price: 6000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 6500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity', weight: 0.3
   },
   {
@@ -150,7 +150,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 12,  // bumped — collared glass name + free pouch copy
+  _seedVersion: 13,  // bumped — 600ml bottle price 6500
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -733,14 +733,14 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   btn.textContent = 'Send Message'; btn.disabled = false;
   document.getElementById('formSuccess').classList.add('show');
   e.target.reset();
-  setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 6000);
+  setTimeout(() => document.getElementById('formSuccess').classList.remove('show'), 6500);
 });
 
 // ═══════════════════════════════════════════════
 // NAV + MISC
 // ═══════════════════════════════════════════════
 window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 0);
 });
 
 function toggleMenu() {
