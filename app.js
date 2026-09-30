@@ -121,6 +121,24 @@ const PRODUCT_SEED = [
     fullDesc: 'This hand-hammered copper glass carries the ancient tradition of the subcontinent, finished with an elegant collared rim for a comfortable grip and a refined silhouette. Each dimple is struck individually by a craftsman\'s hammer, creating a surface that catches the light like a constellation. Perfect for lassi, water, or as a decorative piece.',
     price: 3800, material: 'Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Mughal-Inspired', dimensions: '10cm tall, 250ml', weight: 0.15
+  },
+  {
+    id: 20, category: 'bottles', badge: 'Premium',
+    image: 'images/copper-diamond-bottle (1).jpeg',
+    name: 'Copper Diamond Shape Premium Bottle — 600ml',
+    shortDesc: 'Diamond-faceted premium pure copper bottle',
+    fullDesc: 'A premium pure copper water bottle hand-finished with a striking diamond-faceted body. The angular, multi-faceted surface catches the light beautifully while keeping the same Ayurvedic benefits as our classic bottles — aiding digestion, boosting immunity, and naturally purifying water. A statement piece for anyone who wants their copper bottle to look as refined as it feels. Buy two for Rs. 18,000 — message us on WhatsApp to claim the pair price.',
+    price: 10000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Diamond Faceting', era: 'Contemporary Premium', dimensions: '600ml capacity', weight: 0.35
+  },
+  {
+    id: 21, category: 'mugs', badge: 'Handmade',
+    image: 'images/copper-kashmiri-glass.jpg',
+    name: 'Copper Kashmiri Glass — Handmade Engraved',
+    shortDesc: 'Hand-engraved Kashmiri-style pure copper glass',
+    fullDesc: 'A pure copper glass hand-engraved in the intricate floral style of Kashmiri metalwork. Each piece is individually etched by hand, so no two glasses are ever quite identical. Lightweight yet sturdy, it brings a touch of heritage craftsmanship to everyday water or lassi.',
+    price: 2500, material: 'Pure Copper', origin: 'Lahore Workshop, Kashmiri-Inspired Design',
+    technique: 'Hand Engraving', era: 'Kashmiri-Inspired', dimensions: '400ml capacity', weight: 0.14
   }
 ];
 
@@ -150,7 +168,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 13,  // bumped — 600ml bottle price 6500
+  _seedVersion: 14,  // bumped — added diamond bottle + Kashmiri glass
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
