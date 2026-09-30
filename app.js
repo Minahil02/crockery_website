@@ -133,7 +133,7 @@ const PRODUCT_SEED = [
   },
   {
     id: 21, category: 'mugs', badge: 'Handmade',
-    image: 'images/copper-kashmiri-glass.jpg',
+    image: 'images/kashmiri.jpeg',
     name: 'Copper Kashmiri Glass — Handmade Engraved',
     shortDesc: 'Hand-engraved Kashmiri-style pure copper glass',
     fullDesc: 'A pure copper glass hand-engraved in the intricate floral style of Kashmiri metalwork. Each piece is individually etched by hand, so no two glasses are ever quite identical. Lightweight yet sturdy, it brings a touch of heritage craftsmanship to everyday water or lassi.',
