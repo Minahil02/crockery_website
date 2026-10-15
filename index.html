@@ -200,6 +200,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Italianno&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    /* ── Welcome popup ── */
+    .welcome-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(26,15,8,0.72);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.2rem;
+      opacity: 0; pointer-events: none; transition: opacity .4s ease;
+    }
+    .welcome-overlay.open { opacity: 1; pointer-events: all; }
+    .welcome-card {
+      position: relative; width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+      background: var(--bg-card, #FAF6EF);
+      border: 1px solid rgba(160,98,42,0.4); border-radius: 4px;
+      padding: 2.8rem clamp(1.4rem, 5vw, 3rem) 2.2rem;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      transform: translateY(24px); transition: transform .5s cubic-bezier(.22,.61,.36,1);
+    }
+    .welcome-overlay.open .welcome-card { transform: translateY(0); }
+    .welcome-close {
+      position: absolute; top: .7rem; right: .9rem; background: none; border: none;
+      font-size: 1.3rem; color: var(--text-secondary, #6B4A2A); cursor: pointer; line-height: 1;
+    }
+    .welcome-orn { color: var(--copper, #A0622A); opacity: .6; letter-spacing: .5em; margin-bottom: .8rem; }
+    .welcome-intro {
+      font-family: var(--ff-body, 'Lora', serif); font-style: italic;
+      color: var(--text-secondary, #6B4A2A); line-height: 1.75; font-size: 1rem; margin-bottom: 1.3rem;
+    }
+    .welcome-metals {
+      display: flex; justify-content: center; gap: .6rem 1.6rem; flex-wrap: wrap;
+      font-family: var(--ff-accent, 'Cinzel', serif); font-size: .72rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--copper, #A0622A);
+      border-top: 1px dashed rgba(160,98,42,.35); border-bottom: 1px dashed rgba(160,98,42,.35);
+      padding: .9rem 0; margin-bottom: 1.5rem;
+    }
+    .welcome-kicker {
+      font-family: var(--ff-accent, 'Cinzel', serif); font-size: .7rem; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--copper, #A0622A); margin-bottom: .5rem;
+    }
+    .welcome-title {
+      font-family: var(--ff-display, 'Cinzel', serif); font-weight: 700;
+      font-size: clamp(1.4rem, 4.5vw, 1.9rem); color: var(--text-primary, #2A1A08); margin-bottom: .5rem;
+    }
+    .welcome-sub {
+      font-family: var(--ff-display, 'Cinzel', serif); font-size: .9rem;
+      color: var(--text-secondary, #6B4A2A); margin-bottom: 1.1rem; line-height: 1.6;
+    }
+    .welcome-story {
+      font-family: var(--ff-display, 'Cinzel', serif); font-size: 1rem; font-weight: 600;
+      color: var(--text-primary, #2A1A08); margin-bottom: .5rem;
+    }
+    .welcome-text {
+      font-family: var(--ff-body, 'Lora', serif); color: var(--text-secondary, #6B4A2A);
+      line-height: 1.8; font-size: .95rem; margin-bottom: 1.6rem;
+    }
+
+    /* ── Note on the Beauty of Heritage ── */
+    .heritage-note { padding: 4.5rem 6vw; background: var(--bg-deep, #F5EEE4); }
+    .heritage-note-inner {
+      max-width: 820px; margin: 0 auto; text-align: center;
+      border: 1px solid rgba(160,98,42,.35); border-radius: 4px; background: var(--bg-card, #FAF6EF);
+      padding: 3rem clamp(1.4rem, 5vw, 3.2rem);
+    }
+    .heritage-note h2 {
+      font-family: var(--ff-display, 'Cinzel', serif); font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      color: var(--text-primary, #2A1A08); margin: .6rem 0 1.4rem;
+    }
+    .heritage-note p {
+      font-family: var(--ff-body, 'Lora', serif); color: var(--text-secondary, #6B4A2A);
+      line-height: 1.85; font-size: 1rem; margin-bottom: 1.1rem;
+    }
+    .heritage-note .heritage-thanks { font-style: italic; margin-bottom: 0; }
+
+/* ===== HERITAGE GALLERY ===== */
+.gallery{padding:90px 24px;background:var(--bg-deep,#F5EEE4);text-align:center}
+.gallery h2{font-family:var(--ff-display,'Cinzel',serif);color:var(--text-primary,#2A1A08);font-size:clamp(1.6rem,4vw,2.4rem);margin:0 0 8px;letter-spacing:.06em}
+.gallery .gallery-sub{font-family:var(--ff-body,'Lora',serif);color:var(--copper,#A0622A);margin:0 0 36px;font-style:italic}
+.gallery-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.gallery-item{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:10px;background:var(--bg-card,#FAF6EF);border:1px solid rgba(160,98,42,.25);cursor:zoom-in;padding:0;display:block}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.gallery-item:hover img{transform:scale(1.06)}
+.lightbox{position:fixed;inset:0;background:rgba(20,10,2,.92);display:none;align-items:center;justify-content:center;z-index:10000;padding:20px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:86vh;border-radius:8px;box-shadow:0 10px 50px rgba(0,0,0,.6)}
+.lightbox button{position:absolute;background:rgba(160,98,42,.9);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb-close{top:18px;right:18px}.lb-prev{left:14px;top:50%}.lb-next{right:14px;top:50%}
+  </style>
 </head>
 <body>
 
@@ -312,6 +400,20 @@
     </div>
   </section>
 
+
+  <!-- HERITAGE GALLERY -->
+  <section class="gallery" id="gallery" style="display:none">
+    <h2 data-en="Heritage Gallery" data-ur="ہیریٹیج گیلری">Heritage Gallery</h2>
+    <p class="gallery-sub" data-en="Handcrafted brass &amp; copper, made in Lahore" data-ur="لاہور میں ہاتھ سے بنا پیتل اور تانبا">Handcrafted brass &amp; copper, made in Lahore</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+  <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <button class="lb-prev" onclick="stepLightbox(-1)" aria-label="Previous">&#8249;</button>
+    <img id="lightboxImg" alt="Desi Panday handcrafted piece">
+    <button class="lb-next" onclick="stepLightbox(1)" aria-label="Next">&#8250;</button>
+  </div>
+
   <!-- ABOUT / STORY -->
   <section class="about" id="about">
     <div class="about-inner">
@@ -417,6 +519,18 @@
     </div>
   </section>
 
+  <!-- NOTE ON THE BEAUTY OF HERITAGE -->
+  <section class="heritage-note" id="heritageNote">
+    <div class="heritage-note-inner">
+      <div class="welcome-orn">&#10022; &#10022; &#10022;</div>
+      <h2>Note on the Beauty of Heritage</h2>
+      <p>At DesiPandy, we believe that every heritage piece carries a story of its own. As these are original, old-world pieces, some may retain minor signs of age, gentle surface marks, or slight imperfections that reflect their history and character.</p>
+      <p>Although we carefully refurbish and restore each piece with great care and attention, a few natural traces of time may remain. We sincerely apologise for any such imperfections and kindly ask for your understanding.</p>
+      <p>For those who cherish heritage, we believe these subtle marks are not flaws, but reminders of the history, craftsmanship, and timeless beauty that make every piece unique.</p>
+      <p class="heritage-thanks">Thank you for appreciating the beauty of the past and trusting DesiPandy to bring it into your home.</p>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-top">
@@ -488,6 +602,26 @@
   </a>
 
   
+
+  <!-- WELCOME POPUP -->
+  <div class="welcome-overlay" id="welcomePopup" onclick="if(event.target===this)closeWelcome()">
+    <div class="welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <button class="welcome-close" onclick="closeWelcome()" aria-label="Close">&#10005;</button>
+      <div class="welcome-orn">&#10022; &#10022; &#10022;</div>
+      <p class="welcome-intro">Hand-hammered pure copper water bottles &amp; glasses, made by hand in our Lahore workshop. Solid copper, built to last for years, not just for one season.</p>
+      <div class="welcome-metals">
+        <span>Copper &mdash; gift for ever</span>
+        <span>Brass &mdash; for ever</span>
+        <span>Bronze &mdash; health for ever</span>
+      </div>
+      <div class="welcome-kicker">Heritage Collection</div>
+      <h2 class="welcome-title" id="welcomeTitle">Tradition, Reimagined. Royalty, Rediscovered.</h2>
+      <p class="welcome-sub">Bring Home the Royalty of Tradition.</p>
+      <div class="welcome-story">Every Piece Holds a Story</div>
+      <p class="welcome-text">Celebrate the artistry of generations past and the sophistication of today. Explore a world of antique brass, copper, and fine crockery that makes your home truly extraordinary.</p>
+      <button class="btn btn-primary" onclick="closeWelcome(true)">Explore the Collection</button>
+    </div>
+  </div>
 
   <!-- POLICY MODAL -->
   <div class="policy-overlay" id="policyOverlay" onclick="closePolicy()"></div>
@@ -618,15 +752,15 @@
         title: 'بین الاقوامی ترسیل — شرائط و ضوابط',
         content: `
           <h4>قیمتیں اور EXW بنیاد</h4>
-          <p>برائے مهربانی کریں کہ ہماری قیمتیں Ex Works (EXW) کے تحت بتائی جاتی ہیں۔</p>
+          <p>برائے مہربانی کریں کہ ہماری قیمتیں Ex Works (EXW) کے تحت بتائی جاتی ہیں۔</p>
           <h4>شپنگ اور کوریئر</h4>
           <p>آرڈر تیار ہونے کے بعد ہم سامان آپ کے منتخب کیے گئے شپنگ/کوریئر ایجنٹ جیسے DHL، Leopards، TCS یا کسی بھی منتخب کیریئر کے حوالے کر دیں گے۔</p>
           <h4>شپنگ چارجز</h4>
           <p>شپنگ/فریٹ چارجز آرڈر کے وزن اور سائز کے حساب سے لگائی جائیں گی، جو آپ کو ہمیں ادا کرنے ہوں گے اور ہم وہ رقم شپنگ ایجنٹ کو بھجوا دیں گے۔</p>
-          <h4>کسٹمز اور امپورٹ ۝وٹی</h4>
-          <p>منزل ملک میں لاگو تمام کسٹمز ۝وٹیز، امپورٹ ٹیکسز، کلیئرنس چارجز، VAT/GST اور کوئی بھی دیگر عائد کی ذمہ داری صرف کسٹمر/خریدار پر ہو گی۔</p>
+          <h4>کسٹمز اور امپورٹ ڈیوٹی</h4>
+          <p>منزل ملک میں لاگو تمام کسٹمز ڈیوٹیز، امپورٹ ٹیکسز، کلیئرنس چارجز، VAT/GST اور کوئی بھی دیگر عائد کی ذمہ داری صرف کسٹمر/خریدار پر ہو گی۔</p>
           <h4>ہماری ذمہ داری</h4>
-          <p>اس لیے، ہماری ذمہ داری صرف آرڈر تیار کرنے اور منتخب شپنگ ایجنٹ کو حوالے کرنے تک محدود ہے، جبکہ ترسیل کے بعد کے تمام اخراجات، بشمول امپورٹ کلیئرنس اور منزل مملکت کے ٹیکسز و ۝وٹیز، خریدار کی ذمہ داری ہوگے۔</p>
+          <p>اس لیے، ہماری ذمہ داری صرف آرڈر تیار کرنے اور منتخب شپنگ ایجنٹ کو حوالے کرنے تک محدود ہے، جبکہ ترسیل کے بعد کے تمام اخراجات، بشمول امپورٹ کلیئرنس اور منزل مملکت کے ٹیکسز و ڈیوٹیز، خریدار کی ذمہ داری ہوگی۔</p>
           <h4>رابطہ</h4>
           <p>desipanday83@gmail.com | +92 326 7727448</p>
         `
@@ -650,9 +784,101 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closePolicy();
   });
+
+  // Welcome popup — shown once per browser session on first load
+  (function () {
+    var shown = false;
+    try { shown = sessionStorage.getItem('dp_welcome_seen') === '1'; } catch (e) {}
+    if (!shown) {
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var el = document.getElementById('welcomePopup');
+          if (el) el.classList.add('open');
+        }, 600);
+      });
+    }
+  })();
+  function closeWelcome(goToCollection) {
+    var el = document.getElementById('welcomePopup');
+    if (el) el.classList.remove('open');
+    try { sessionStorage.setItem('dp_welcome_seen', '1'); } catch (e) {}
+    if (goToCollection === true) {
+      var c = document.getElementById('collection');
+      if (c) c.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeWelcome();
+  });
   </script>
 
   <script src="app.js"></script>
+  <script>
+/* ===== Heritage gallery: loads images/pics (1) ... pics (25) ===== */
+(function () {
+  var TOTAL = 25, EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'], found = [], cur = 0;
+  function candidates(n) {
+    var out = [];
+    ['pics (' + n + ')', 'pics(' + n + ')'].forEach(function (b) {
+      EXTS.forEach(function (e) { out.push('images/' + encodeURI(b) + '.' + e); });
+    });
+    return out;
+  }
+  function probe(n, done) {
+    var list = candidates(n), i = 0;
+    (function next() {
+      if (i >= list.length) return done(null);
+      var img = new Image(), src = list[i++];
+      img.onload = function () { done(src); };
+      img.onerror = next;
+      img.src = src;
+    })();
+  }
+  function build() {
+    var sec = document.getElementById('gallery'), grid = document.getElementById('galleryGrid');
+    if (!sec || !grid) return;
+    var results = new Array(TOTAL), pending = TOTAL;
+    for (var n = 1; n <= TOTAL; n++) {
+      (function (n) {
+        probe(n, function (src) {
+          results[n - 1] = src;
+          if (--pending > 0) return;
+          found = results.filter(Boolean);
+          if (!found.length) return;
+          found.forEach(function (src, idx) {
+            var b = document.createElement('button');
+            b.className = 'gallery-item'; b.type = 'button';
+            b.setAttribute('aria-label', 'View photo ' + (idx + 1));
+            b.onclick = function () { openLightbox(idx); };
+            var im = document.createElement('img');
+            im.src = src; im.loading = 'lazy';
+            im.alt = 'Desi Panday handcrafted brass and copper piece ' + (idx + 1);
+            b.appendChild(im); grid.appendChild(b);
+          });
+          sec.style.display = '';
+        });
+      })(n);
+    }
+  }
+  window.openLightbox = function (i) {
+    cur = i; document.getElementById('lightboxImg').src = found[cur];
+    document.getElementById('lightbox').classList.add('open');
+  };
+  window.closeLightbox = function () { document.getElementById('lightbox').classList.remove('open'); };
+  window.stepLightbox = function (d) {
+    cur = (cur + d + found.length) % found.length;
+    document.getElementById('lightboxImg').src = found[cur];
+  };
+  document.addEventListener('keydown', function (e) {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') stepLightbox(-1);
+    if (e.key === 'ArrowRight') stepLightbox(1);
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+  </script>
+
 
 </body>
 </html>
