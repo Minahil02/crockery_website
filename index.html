@@ -257,22 +257,6 @@
       line-height: 1.8; font-size: .95rem; margin-bottom: 1.6rem;
     }
 
-    /* ── Note on the Beauty of Heritage ── */
-    .heritage-note { padding: 4.5rem 6vw; background: var(--bg-deep, #F5EEE4); }
-    .heritage-note-inner {
-      max-width: 820px; margin: 0 auto; text-align: center;
-      border: 1px solid rgba(160,98,42,.35); border-radius: 4px; background: var(--bg-card, #FAF6EF);
-      padding: 3rem clamp(1.4rem, 5vw, 3.2rem);
-    }
-    .heritage-note h2 {
-      font-family: var(--ff-display, 'Cinzel', serif); font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-      color: var(--text-primary, #2A1A08); margin: .6rem 0 1.4rem;
-    }
-    .heritage-note p {
-      font-family: var(--ff-body, 'Lora', serif); color: var(--text-secondary, #6B4A2A);
-      line-height: 1.85; font-size: 1rem; margin-bottom: 1.1rem;
-    }
-    .heritage-note .heritage-thanks { font-style: italic; margin-bottom: 0; }
 
 /* ===== HERITAGE GALLERY ===== */
 .gallery{padding:90px 24px;background:var(--bg-deep,#F5EEE4);text-align:center}
@@ -392,6 +376,9 @@
       <button class="filter-btn active" data-filter="all">All Products</button>
       <button class="filter-btn" data-filter="bottles">Bottles</button>
       <button class="filter-btn" data-filter="mugs">Glasses</button>
+      <button class="filter-btn" data-filter="antique">Antique</button>
+      <button class="filter-btn" data-filter="bowls">Brass Bowls</button>
+      <button class="filter-btn" data-filter="new">New</button>
     </div>
 
     <!-- PRODUCT GRID -->
@@ -519,19 +506,7 @@
     </div>
   </section>
 
-  <!-- NOTE ON THE BEAUTY OF HERITAGE -->
-  <section class="heritage-note" id="heritageNote">
-    <div class="heritage-note-inner">
-      <div class="welcome-orn">&#10022; &#10022; &#10022;</div>
-      <h2>Note on the Beauty of Heritage</h2>
-      <p>At DesiPandy, we believe that every heritage piece carries a story of its own. As these are original, old-world pieces, some may retain minor signs of age, gentle surface marks, or slight imperfections that reflect their history and character.</p>
-      <p>Although we carefully refurbish and restore each piece with great care and attention, a few natural traces of time may remain. We sincerely apologise for any such imperfections and kindly ask for your understanding.</p>
-      <p>For those who cherish heritage, we believe these subtle marks are not flaws, but reminders of the history, craftsmanship, and timeless beauty that make every piece unique.</p>
-      <p class="heritage-thanks">Thank you for appreciating the beauty of the past and trusting DesiPandy to bring it into your home.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+<!-- FOOTER -->
   <footer class="footer">
     <div class="footer-top">
       <div class="footer-logo">
@@ -814,12 +789,12 @@
 
   <script src="app.js"></script>
   <script>
-/* ===== Heritage gallery: loads images/pics (1) ... pics (25) ===== */
+/* ===== Heritage gallery: loads images/pics1 (1) ... pics1 (25) ===== */
 (function () {
-  var TOTAL = 25, EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'], found = [], cur = 0;
+  var TOTAL = 25, EXTS = ['jpeg', 'jpg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'], found = [], cur = 0;
   function candidates(n) {
     var out = [];
-    ['pics (' + n + ')', 'pics(' + n + ')'].forEach(function (b) {
+    ['pics1 (' + n + ')', 'pics (' + n + ')', 'pics1(' + n + ')', 'pics(' + n + ')'].forEach(function (b) {
       EXTS.forEach(function (e) { out.push('images/' + encodeURI(b) + '.' + e); });
     });
     return out;

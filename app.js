@@ -139,6 +139,87 @@ const PRODUCT_SEED = [
     fullDesc: 'A pure copper glass hand-engraved in the intricate floral style of Kashmiri metalwork. Each piece is individually etched by hand, so no two glasses are ever quite identical. Lightweight yet sturdy, it brings a touch of heritage craftsmanship to everyday water or lassi.',
     price: 2500, material: 'Pure Copper', origin: 'Lahore Workshop, Kashmiri-Inspired Design',
     technique: 'Hand Engraving', era: 'Kashmiri-Inspired', dimensions: '400ml capacity', weight: 0.14
+  },
+  {
+    id: 30, category: 'antique', badge: 'Antique Set',
+    image: 'images/antique-tea-set-6cup.jpg.jpeg',
+    name: 'Royal Handwork Brass Tea / Kehwa / Coffee Set',
+    shortDesc: 'Tray, 6 cups, kettle & 2 sugar pots in hand-engraved brass',
+    fullDesc: 'A complete royal tea, kehwa and coffee service in hand-engraved brass: one ornate octagonal tray, six cups, one kettle and two lidded sugar pots. Every piece carries traditional handwork, making it a showpiece for the table and a gift that lasts generations.',
+    price: 50000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Engraving', era: 'Antique Heritage', dimensions: '1 tray, 6 cups, 1 kettle, 2 sugar pots', weight: 4.5
+  },
+  {
+    id: 31, category: 'new', badge: 'New',
+    image: 'images/copper-cezve.jpg.jpeg',
+    name: 'Hammered Copper Cezve (Ibrik / Jazve)',
+    shortDesc: 'Traditional hammered copper pot for Turkish, Greek & Arabic coffee',
+    fullDesc: 'A traditional hammered copper cezve, also known as an ibrik or jazve, used to brew Turkish, Greek and Arabic coffee. Hand-hammered body, wooden handle and a food-safe kalai (tin) lining inside.',
+    price: 5500, material: 'Pure Copper, kalai-lined', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Traditional', dimensions: 'Single pot with wooden handle', weight: 0.4
+  },
+  {
+    id: 32, category: 'antique', badge: 'Antique',
+    image: 'images/3mugs.jpg.jpeg',
+    name: 'Set of Three Royal Hand-Engraved Brass Mugs',
+    shortDesc: 'Three footed brass mugs with floral hand engraving',
+    fullDesc: 'A set of three royal brass mugs, each hand-engraved with a floral design and finished with a graceful handle and footed base. Rs. 7,000 per piece, Rs. 21,000 for the set of three.',
+    price: 21000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Engraving', era: 'Antique Heritage', dimensions: 'Set of 3 mugs', weight: 1.5
+  },
+  {
+    id: 33, category: 'antique', badge: 'Heavy Duty',
+    image: 'images/brass-traditional-serving-bowl.jpg.jpeg',
+    name: 'Brass Traditional Serving Bowl — Heavy Duty',
+    shortDesc: 'Heavy-duty traditional brass serving bowl',
+    fullDesc: 'A heavy-duty traditional brass serving bowl with a deep, rounded form and a polished finish. Built for generations of daily use. Price is per piece.',
+    price: 4000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Per piece', weight: 1.0
+  },
+  {
+    id: 34, category: 'bowls', badge: 'Antique',
+    image: 'images/Two-brass-bowl-with-spoons.jpg.jpeg',
+    name: 'Two-Person Brass Bowl Set with Spoons',
+    shortDesc: 'Two brass bowls with two engraved spoons',
+    fullDesc: 'A two-person brass serving set: two polished bowls with two matching hand-engraved spoons. Ideal for soups, desserts and gifting.',
+    price: 14000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: '2 bowls + 2 spoons', weight: 1.2
+  },
+  {
+    id: 35, category: 'antique', badge: 'Royal Set',
+    image: 'images/royal-brass-tea-set.jpg.jpeg',
+    name: 'Royal Brass Tea Set — Two Dallah, Six Cups & Tray',
+    shortDesc: 'Two dallahs, six cups with plates and a round tray',
+    fullDesc: 'A grand royal brass tea set: two engraved dallah coffee pots, six cups with six cup plates and one round tray. A statement set for hosting.',
+    price: 75000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Engraving', era: 'Antique Heritage', dimensions: '2 dallah, 6 cups, 6 plates, 1 round tray', weight: 6.0
+  },
+  {
+    id: 36, category: 'antique', badge: 'Royal Set',
+    image: 'images/antique-tea-set-4cup.jpg.jpeg',
+    name: 'Royal Brass Tea Set for Four Persons',
+    shortDesc: 'Two dallahs, four cups and one tray',
+    fullDesc: 'A royal brass tea set for four persons: two dallahs, four cups and one engraved tray.',
+    price: 45000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Engraving', era: 'Antique Heritage', dimensions: '2 dallah, 4 cups, 1 tray', weight: 4.0
+  },
+  {
+    id: 37, category: 'bowls', badge: 'Antique',
+    image: 'images/Two_brass_bowl.jpeg',
+    name: 'Set of Two Brass Bowls',
+    shortDesc: 'Pair of polished brass bowls',
+    fullDesc: 'A set of two polished traditional brass bowls.',
+    price: 10000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Set of 2', weight: 1.4
+  },
+  {
+    id: 38, category: 'bowls', badge: 'Antique',
+    image: 'images/brass-spoon-bowl.jpg.jpeg',
+    name: 'Brass Soup Bowl with Spoon',
+    shortDesc: 'Brass soup bowl with an engraved soup spoon',
+    fullDesc: 'A brass soup bowl with one hand-engraved soup spoon.',
+    price: 7000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: '1 bowl + 1 spoon', weight: 0.6
   }
 ];
 
@@ -168,7 +249,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 14,  // bumped — added diamond bottle + Kashmiri glass
+  _seedVersion: 17,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
