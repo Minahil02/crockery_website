@@ -220,6 +220,51 @@ const PRODUCT_SEED = [
     fullDesc: 'A brass soup bowl with one hand-engraved soup spoon.',
     price: 7000, material: 'Brass', origin: 'Lahore Workshop',
     technique: 'Hand Finishing', era: 'Traditional', dimensions: '1 bowl + 1 spoon', weight: 0.6
+  },
+  {
+    id: 39, category: 'cookware', badge: 'Heavy Duty',
+    image: 'images/2kg_patlili.jpeg',
+    name: 'Copper Patili with Inside Kalai — 2kg',
+    shortDesc: 'Pure copper patili, tin-lined, 2kg meat capacity',
+    fullDesc: 'A traditional pure copper patili with food-safe kalai (tin) lining on the inside. Holds up to 2kg of meat, ideal for slow-cooked karahi, qorma and family-size curries. Hand-finished by our Lahore artisans.',
+    price: 25000, material: 'Pure Copper, kalai-lined', origin: 'Lahore Workshop',
+    technique: 'Hand Hammering', era: 'Traditional', dimensions: '2kg meat capacity', weight: 2.0
+  },
+  {
+    id: 40, category: 'cookware', badge: 'Heavy Duty',
+    image: 'images/3kg-daig.jpeg',
+    name: 'Copper Degh — Heavy Weight, 3kg',
+    shortDesc: 'Heavy-weight pure copper degh, 3kg rice capacity',
+    fullDesc: 'A heavy-weight traditional copper degh built for cooking biryani, pulao and rice dishes for gatherings. Thick, evenly heating copper holds up to 3kg of rice. Price Rs. 45,000.',
+    price: 45000, material: 'Pure Copper', origin: 'Lahore Workshop',
+    technique: 'Hand Forming', era: 'Traditional', dimensions: '3kg rice capacity', weight: 4.0
+  },
+  {
+    id: 41, category: 'antique', badge: 'Brass',
+    image: 'images/brass.jpeg',
+    name: 'Brass Ashtray — Design 1',
+    shortDesc: 'Handcrafted solid brass ashtray',
+    fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
+    price: 2000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Single piece', weight: 0.5
+  },
+  {
+    id: 42, category: 'antique', badge: 'Brass',
+    image: 'images/brass2.jpeg',
+    name: 'Brass Ashtray — Design 2',
+    shortDesc: 'Handcrafted solid brass ashtray',
+    fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
+    price: 2000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Single piece', weight: 0.5
+  },
+  {
+    id: 43, category: 'antique', badge: 'Brass',
+    image: 'images/brass3.jpeg',
+    name: 'Brass Ashtray — Design 3',
+    shortDesc: 'Handcrafted solid brass ashtray',
+    fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
+    price: 2000, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Single piece', weight: 0.5
   }
 ];
 
@@ -249,7 +294,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 17,  // bumped — added antique brass collection + cezve
+  _seedVersion: 18,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
