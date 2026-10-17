@@ -760,10 +760,12 @@
     if (e.key === 'Escape') closePolicy();
   });
 
-  // Welcome popup — shown once per browser session on first load
+  // Welcome popup — shown on every page load
   (function () {
+    // Set ONCE_PER_SESSION to true to show the popup only once per browser tab
+    var ONCE_PER_SESSION = false;
     var shown = false;
-    try { shown = sessionStorage.getItem('dp_welcome_seen') === '1'; } catch (e) {}
+    try { shown = ONCE_PER_SESSION && sessionStorage.getItem('dp_welcome_seen') === '1'; } catch (e) {}
     if (!shown) {
       window.addEventListener('load', function () {
         setTimeout(function () {
@@ -791,10 +793,10 @@
   <script>
 /* ===== Heritage gallery: loads images/pics1 (1) ... pics1 (25) ===== */
 (function () {
-  var TOTAL = 25, EXTS = ['jpeg', 'jpg', 'png', 'webp', 'JPG', 'JPEG', 'PNG'], found = [], cur = 0;
+  var TOTAL = 30, EXTS = ['jpeg', 'jpg', 'png', 'webp'], found = [], cur = 0;
   function candidates(n) {
     var out = [];
-    ['pics1 (' + n + ')', 'pics (' + n + ')', 'pics1(' + n + ')', 'pics(' + n + ')'].forEach(function (b) {
+    ['pics1 (' + n + ')', 'pics (' + n + ')'].forEach(function (b) {
       EXTS.forEach(function (e) { out.push('images/' + encodeURI(b) + '.' + e); });
     });
     return out;
