@@ -271,6 +271,27 @@
 .lightbox img{max-width:92vw;max-height:86vh;border-radius:8px;box-shadow:0 10px 50px rgba(0,0,0,.6)}
 .lightbox button{position:absolute;background:rgba(160,98,42,.9);color:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer}
 .lb-close{top:18px;right:18px}.lb-prev{left:14px;top:50%}.lb-next{right:14px;top:50%}
+
+/* ===== PRODUCT PHOTO GALLERY ===== */
+.modal-img .pg{width:100%;height:100%;display:flex;flex-direction:column;font-size:1rem}
+.pg-main{position:relative;flex:1;min-height:260px;display:flex;align-items:center;justify-content:center}
+.pg-main img{width:100%;height:100%;max-height:420px;object-fit:contain;padding:1rem;box-sizing:border-box}
+.pg-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;background:rgba(160,98,42,.88);color:#fff;font-size:22px;line-height:1;cursor:pointer;z-index:2}
+.pg-nav[hidden]{display:none}
+.pg-prev{left:8px}.pg-next{right:8px}
+.pg-thumbs{display:flex;gap:8px;padding:8px 12px 12px;justify-content:center;flex-wrap:wrap}
+.pg-thumb{width:62px;height:62px;padding:0;border:2px solid transparent;border-radius:8px;overflow:hidden;background:#fff;cursor:pointer;opacity:.7}
+.pg-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pg-thumb.active{border-color:var(--copper,#A0622A);opacity:1}
+@media(max-width:700px){.pg-main{min-height:200px}.pg-main img{max-height:260px}}
+
+/* ===== NOTE ON THE BEAUTY OF HERITAGE ===== */
+.heritage-note-inner{max-width:780px;margin:0 auto;text-align:center}
+.gallery-grid{margin-bottom:4.5rem}
+.heritage-note-inner{border-top:1px solid var(--border);padding-top:3.5rem}
+.heritage-note-title{font-family:var(--ff-display);font-weight:400;color:var(--text-primary);font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:.04em;margin:0 0 1.6rem}
+.heritage-note-inner p{font-family:inherit;color:var(--text-secondary);line-height:1.9;font-size:1.05rem;margin:0 0 1.2rem}
+.heritage-note-inner .heritage-thanks{font-style:italic;color:var(--copper);margin-top:1.8rem}
   </style>
 </head>
 <body>
@@ -390,10 +411,20 @@
 
 
   <!-- HERITAGE GALLERY -->
-  <section class="gallery" id="gallery" style="display:none">
-    <h2 data-en="Heritage Gallery" data-ur="ہیریٹیج گیلری">Heritage Gallery</h2>
-    <p class="gallery-sub" data-en="Handcrafted brass &amp; copper, made in Lahore" data-ur="لاہور میں ہاتھ سے بنا پیتل اور تانبا">Handcrafted brass &amp; copper, made in Lahore</p>
-    <div class="gallery-grid" id="galleryGrid"></div>
+  <section class="gallery" id="gallery">
+    <div id="galleryPhotos" style="display:none">
+      <h2 class="section-title" data-en="Heritage Gallery" data-ur="ہیریٹیج گیلری">Heritage Gallery</h2>
+      <p class="gallery-sub" data-en="Handcrafted brass &amp; copper, made in Lahore" data-ur="لاہور میں ہاتھ سے بنا پیتل اور تانبا">Handcrafted brass &amp; copper, made in Lahore</p>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+    <div class="heritage-note-inner" id="heritageNote">
+      <div class="welcome-orn">&#10022; &#10022; &#10022;</div>
+      <h3 class="heritage-note-title">Note on the Beauty of Heritage</h3>
+      <p>At DesiPandy, we believe that every heritage piece carries a story of its own. As these are original, old-world pieces, some may retain minor signs of age, gentle surface marks, or slight imperfections that reflect their history and character.</p>
+      <p>Although we carefully refurbish and restore each piece with great care and attention, a few natural traces of time may remain. We sincerely apologise for any such imperfections and kindly ask for your understanding.</p>
+      <p>For those who cherish heritage, we believe these subtle marks are not flaws, but reminders of the history, craftsmanship, and timeless beauty that make every piece unique.</p>
+      <p class="heritage-thanks">Thank you for appreciating the beauty of the past and trusting DesiPandy to bring it into your home.</p>
+    </div>
   </section>
   <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
     <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
@@ -833,7 +864,7 @@
             im.alt = 'Desi Panday handcrafted brass and copper piece ' + (idx + 1);
             b.appendChild(im); grid.appendChild(b);
           });
-          sec.style.display = '';
+          var gp = document.getElementById('galleryPhotos'); if (gp) gp.style.display = '';
         });
       })(n);
     }

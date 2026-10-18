@@ -144,6 +144,7 @@ const PRODUCT_SEED = [
     id: 30, category: 'antique', badge: 'Antique Set',
     image: 'images/antique-tea-set-6cup.jpg.jpeg',
     name: 'Royal Handwork Brass Tea / Kehwa / Coffee Set',
+    images: ['images/antique-tea-set-6cup1', 'images/antique-tea-set-6cup2', 'images/antique-tea-set-6cup3'],
     shortDesc: 'Tray, 6 cups, kettle & 2 sugar pots in hand-engraved brass',
     fullDesc: 'A complete royal tea, kehwa and coffee service in hand-engraved brass: one ornate octagonal tray, six cups, one kettle and two lidded sugar pots. Every piece carries traditional handwork, making it a showpiece for the table and a gift that lasts generations.',
     price: 50000, material: 'Brass', origin: 'Lahore Workshop',
@@ -153,6 +154,7 @@ const PRODUCT_SEED = [
     id: 31, category: 'new', badge: 'New',
     image: 'images/copper-cezve.jpg.jpeg',
     name: 'Hammered Copper Cezve (Ibrik / Jazve)',
+    images: ['images/copper-cezve (1)', 'images/copper-cezve (2)', 'images/copper-cezve (3)', 'images/copper-cezve (4)'],
     shortDesc: 'Traditional hammered copper pot for Turkish, Greek & Arabic coffee',
     fullDesc: 'A traditional hammered copper cezve, also known as an ibrik or jazve, used to brew Turkish, Greek and Arabic coffee. Hand-hammered body, wooden handle and a food-safe kalai (tin) lining inside.',
     price: 5500, material: 'Pure Copper, kalai-lined', origin: 'Lahore Workshop',
@@ -162,6 +164,7 @@ const PRODUCT_SEED = [
     id: 32, category: 'antique', badge: 'Antique',
     image: 'images/3mugs.jpg.jpeg',
     name: 'Set of Three Royal Hand-Engraved Brass Mugs',
+    images: ['images/3mugs (1)', 'images/3mugs (2)'],
     shortDesc: 'Three footed brass mugs with floral hand engraving',
     fullDesc: 'A set of three royal brass mugs, each hand-engraved with a floral design and finished with a graceful handle and footed base. Rs. 7,000 per piece, Rs. 21,000 for the set of three.',
     price: 21000, material: 'Brass', origin: 'Lahore Workshop',
@@ -171,6 +174,7 @@ const PRODUCT_SEED = [
     id: 33, category: 'antique', badge: 'Heavy Duty',
     image: 'images/brass-traditional-serving-bowl.jpg.jpeg',
     name: 'Brass Traditional Serving Bowl — Heavy Duty',
+    images: ['images/brass-traditional-serving-bowl1', 'images/brass-traditional-serving-bowl2', 'images/brass-traditional-serving-bowl3'],
     shortDesc: 'Heavy-duty traditional brass serving bowl',
     fullDesc: 'A heavy-duty traditional brass serving bowl with a deep, rounded form and a polished finish. Built for generations of daily use. Price is per piece.',
     price: 4000, material: 'Brass', origin: 'Lahore Workshop',
@@ -180,6 +184,7 @@ const PRODUCT_SEED = [
     id: 34, category: 'bowls', badge: 'Antique',
     image: 'images/Two-brass-bowl-with-spoons.jpg.jpeg',
     name: 'Two-Person Brass Bowl Set with Spoons',
+    images: ['images/Two-brass-bowl-with-spoons1', 'images/Two-brass-bowl-with-spoons2', 'images/Two-brass-bowl-with-spoons3'],
     shortDesc: 'Two brass bowls with two engraved spoons',
     fullDesc: 'A two-person brass serving set: two polished bowls with two matching hand-engraved spoons. Ideal for soups, desserts and gifting.',
     price: 14000, material: 'Brass', origin: 'Lahore Workshop',
@@ -189,6 +194,7 @@ const PRODUCT_SEED = [
     id: 35, category: 'antique', badge: 'Royal Set',
     image: 'images/royal-brass-tea-set.jpg.jpeg',
     name: 'Royal Brass Tea Set — Two Dallah, Six Cups & Tray',
+    images: ['images/royal-brass-tea-set1', 'images/royal-brass-tea-set2', 'images/royal-brass-tea-set3', 'images/royal-brass-tea-set4'],
     shortDesc: 'Two dallahs, six cups with plates and a round tray',
     fullDesc: 'A grand royal brass tea set: two engraved dallah coffee pots, six cups with six cup plates and one round tray. A statement set for hosting.',
     price: 75000, material: 'Brass', origin: 'Lahore Workshop',
@@ -198,6 +204,7 @@ const PRODUCT_SEED = [
     id: 36, category: 'antique', badge: 'Royal Set',
     image: 'images/antique-tea-set-4cup.jpg.jpeg',
     name: 'Royal Brass Tea Set for Four Persons',
+    images: ['images/antique-tea-set-4cup1', 'images/antique-tea-set-4cup2', 'images/antique-tea-set-4cup3', 'images/antique-tea-set-4cup4'],
     shortDesc: 'Two dallahs, four cups and one tray',
     fullDesc: 'A royal brass tea set for four persons: two dallahs, four cups and one engraved tray.',
     price: 45000, material: 'Brass', origin: 'Lahore Workshop',
@@ -207,6 +214,7 @@ const PRODUCT_SEED = [
     id: 37, category: 'bowls', badge: 'Antique',
     image: 'images/Two_brass_bowl.jpeg',
     name: 'Set of Two Brass Bowls',
+    images: ['images/Two-brass-bowl1', 'images/Two-brass-bowl2', 'images/Two-brass-bowl3'],
     shortDesc: 'Pair of polished brass bowls',
     fullDesc: 'A set of two polished traditional brass bowls.',
     price: 10000, material: 'Brass', origin: 'Lahore Workshop',
@@ -216,6 +224,7 @@ const PRODUCT_SEED = [
     id: 38, category: 'bowls', badge: 'Antique',
     image: 'images/brass-spoon-bowl.jpg.jpeg',
     name: 'Brass Soup Bowl with Spoon',
+    images: ['images/brass-spoon-bowl1', 'images/brass-spoon-bowl2', 'images/brass-spoon-bowl3'],
     shortDesc: 'Brass soup bowl with an engraved soup spoon',
     fullDesc: 'A brass soup bowl with one hand-engraved soup spoon.',
     price: 7000, material: 'Brass', origin: 'Lahore Workshop',
@@ -225,6 +234,7 @@ const PRODUCT_SEED = [
     id: 39, category: 'cookware', badge: 'Heavy Duty',
     image: 'images/2kg_patlili.jpeg',
     name: 'Copper Patili with Inside Kalai — 2kg',
+    images: ['images/2kg_patlili (1)', 'images/2kg_patlili (2)'],
     shortDesc: 'Pure copper patili, tin-lined, 2kg meat capacity',
     fullDesc: 'A traditional pure copper patili with food-safe kalai (tin) lining on the inside. Holds up to 2kg of meat, ideal for slow-cooked karahi, qorma and family-size curries. Hand-finished by our Lahore artisans.',
     price: 25000, material: 'Pure Copper, kalai-lined', origin: 'Lahore Workshop',
@@ -234,6 +244,7 @@ const PRODUCT_SEED = [
     id: 40, category: 'cookware', badge: 'Heavy Duty',
     image: 'images/3kg-daig.jpeg',
     name: 'Copper Degh — Heavy Weight, 3kg',
+    images: ['images/3kg-daig (1)', 'images/3kg-daig (2)'],
     shortDesc: 'Heavy-weight pure copper degh, 3kg rice capacity',
     fullDesc: 'A heavy-weight traditional copper degh built for cooking biryani, pulao and rice dishes for gatherings. Thick, evenly heating copper holds up to 3kg of rice. Price Rs. 45,000.',
     price: 45000, material: 'Pure Copper', origin: 'Lahore Workshop',
@@ -243,6 +254,7 @@ const PRODUCT_SEED = [
     id: 41, category: 'antique', badge: 'Brass',
     image: 'images/brass.jpeg',
     name: 'Brass Ashtray — Design 1',
+    images: [],
     shortDesc: 'Handcrafted solid brass ashtray',
     fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
     price: 2000, material: 'Brass', origin: 'Lahore Workshop',
@@ -252,6 +264,7 @@ const PRODUCT_SEED = [
     id: 42, category: 'antique', badge: 'Brass',
     image: 'images/brass2.jpeg',
     name: 'Brass Ashtray — Design 2',
+    images: [],
     shortDesc: 'Handcrafted solid brass ashtray',
     fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
     price: 2000, material: 'Brass', origin: 'Lahore Workshop',
@@ -261,10 +274,21 @@ const PRODUCT_SEED = [
     id: 43, category: 'antique', badge: 'Brass',
     image: 'images/brass3.jpeg',
     name: 'Brass Ashtray — Design 3',
+    images: [],
     shortDesc: 'Handcrafted solid brass ashtray',
     fullDesc: 'A handcrafted solid brass ashtray with a polished finish. Heavy, stable and built to last.',
     price: 2000, material: 'Brass', origin: 'Lahore Workshop',
     technique: 'Hand Finishing', era: 'Traditional', dimensions: 'Single piece', weight: 0.5
+  },
+  {
+    id: 44, category: 'antique', badge: 'Antique',
+    image: 'images/mug (1).jpeg',
+    name: 'Royal Hand-Engraved Brass Mug',
+    images: ['images/mug (2)', 'images/mug (3)'],
+    shortDesc: 'Single royal brass mug with floral hand engraving',
+    fullDesc: 'A royal brass mug hand-engraved with a floral design and finished with a graceful handle and footed base. Sold as a single piece.',
+    price: 7500, material: 'Brass', origin: 'Lahore Workshop',
+    technique: 'Hand Engraving', era: 'Antique Heritage', dimensions: 'Single mug', weight: 0.5
   }
 ];
 
@@ -294,7 +318,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 18,  // bumped — added antique brass collection + cezve
+  _seedVersion: 24,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -581,7 +605,7 @@ function updateCartUI() {
     <div class="cart-item">
       <div class="cart-item-img">
         <img src="${item.image}" alt="${item.name}"
-             onerror="this.parentElement.innerHTML='<div style=font-size:1.8rem;text-align:center>🏺</div>'">
+             onerror="imgFallback(this,'<div style=font-size:1.8rem;text-align:center>🏺</div>')">
       </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
@@ -764,7 +788,7 @@ async function loadProducts(filter = 'all') {
     <div class="product-card" style="animation-delay:${i * 0.07}s" onclick="openModal(${p.id})">
       <div class="card-img">
         <img src="${p.image}" alt="${p.name}" loading="lazy"
-             onerror="this.outerHTML='<div style=font-size:5rem;text-align:center;padding:2rem>🏺</div>'">
+             onerror="imgFallback(this,'<div style=font-size:5rem;text-align:center;padding:2rem>🏺</div>')">
         ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
       </div>
       <div class="card-body">
@@ -782,6 +806,107 @@ async function loadProducts(filter = 'all') {
       </div>
     </div>
   `).join('');
+}
+
+// ═══════════════════════════════════════════════
+// PRODUCT PHOTO GALLERY (modal)
+// Extra photos are found automatically: for a product image "images/foo.jpeg"
+// the modal looks for "images/foo-2.jpeg", "foo-3", "foo-4", "foo-5".
+// (Or list them yourself with  images: ['images/a.jpg', 'images/b.jpg']  in PRODUCT_SEED.)
+// ═══════════════════════════════════════════════
+let pgList = [], pgIndex = 0;
+
+function pgProbe(src) {
+  return new Promise(resolve => {
+    const im = new Image();
+    im.onload = () => resolve(true);
+    im.onerror = () => resolve(false);
+    im.src = encodeURI(src);
+  });
+}
+
+async function pgResolve(entry) {
+  // entry with extension -> use as is; without -> try common extensions
+  if (/\.[A-Za-z0-9]{3,4}$/.test(entry)) return (await pgProbe(entry)) ? entry : null;
+  for (const e of ['jpeg', 'jpg', 'png', 'webp', 'JPG', 'JPEG', 'PNG']) {
+    const src = `${entry}.${e}`;
+    if (await pgProbe(src)) return src;
+  }
+  return null;
+}
+
+async function pgFindExtra(p) {
+  // 1) explicit list on the product (an empty list means "no extra photos")
+  const listed = p.images || (PRODUCT_SEED.find(s => s.name === p.name) || {}).images;
+  if (Array.isArray(listed)) {
+    return (await Promise.all(listed.map(pgResolve))).filter(Boolean);
+  }
+  // 2) automatic: images/foo.jpeg -> images/foo-2.jpeg ... foo-5
+  const m = /^(.*)\.([A-Za-z0-9]+)$/.exec(p.image || '');
+  if (!m) return [];
+  const exts = [m[2], 'jpeg', 'jpg', 'png', 'webp'].filter((e, i, arr) => arr.indexOf(e) === i);
+  const slots = [2, 3, 4, 5].map(async n => {
+    for (const e of exts) {
+      const src = `${m[1]}-${n}.${e}`;
+      if (await pgProbe(src)) return src;
+    }
+    return null;
+  });
+  return (await Promise.all(slots)).filter(Boolean);
+}
+
+async function loadProductGallery(p) {
+  pgList = [p.image]; pgIndex = 0;
+  const extra = await pgFindExtra(p);
+  if (!currentProduct || currentProduct.id !== p.id || !extra.length) return;
+  pgList = [p.image, ...extra];
+  const prev = document.getElementById('pgPrev'), next = document.getElementById('pgNext');
+  if (!prev || !next) return;
+  prev.hidden = false; next.hidden = false;
+  // swipe left/right on touch screens
+  const box = document.querySelector('.pg-main');
+  let x0 = null;
+  box.addEventListener('touchstart', ev => { x0 = ev.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', ev => {
+    if (x0 === null) return;
+    const dx = ev.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) pgStep(dx < 0 ? 1 : -1);
+    x0 = null;
+  });
+}
+
+function pgShow(i) {
+  if (!pgList.length) return;
+  pgIndex = (i + pgList.length) % pgList.length;
+  const main = document.getElementById('pgMain');
+  if (main) main.src = encodeURI(pgList[pgIndex]);
+}
+function pgStep(d) { pgShow(pgIndex + d); }
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('productModal')?.classList.contains('open') || pgList.length < 2) return;
+  if (e.key === 'ArrowLeft') pgStep(-1);
+  if (e.key === 'ArrowRight') pgStep(1);
+});
+
+// ═══════════════════════════════════════════════
+// IMAGE FALLBACK — if "images/foo.jpg.jpeg" is missing, try the same file
+// name with other common extensions before giving up and showing the icon.
+// ═══════════════════════════════════════════════
+function imgFallback(img, emojiHtml) {
+  const orig = img.dataset.orig || img.getAttribute('src');
+  img.dataset.orig = orig;
+  const tried = img.dataset.tried ? img.dataset.tried.split('|') : [];
+  const stem = decodeURI(orig).replace(/\.[^\/]*$/, '');
+  const exts = ['jpeg', 'jpg', 'png', 'webp', 'jpg.jpeg', 'JPG', 'JPEG', 'PNG'];
+  const next = exts.map(e => encodeURI(`${stem}.${e}`)).find(c => c !== orig && !tried.includes(c));
+  if (next) {
+    tried.push(next);
+    img.dataset.tried = tried.join('|');
+    img.src = next;
+  } else {
+    img.onerror = null;
+    img.outerHTML = emojiHtml;
+  }
 }
 
 function quickAdd(id) {
@@ -802,9 +927,14 @@ async function openModal(id) {
 
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-img">
-      <img src="${currentProduct.image}" alt="${currentProduct.name}"
-           style="width:100%;height:100%;object-fit:contain;padding:1.5rem;box-sizing:border-box"
-           onerror="this.outerHTML='<span style=font-size:6rem>🏺</span>'">
+      <div class="pg">
+        <div class="pg-main">
+          <img id="pgMain" src="${currentProduct.image}" alt="${currentProduct.name}"
+               onerror="imgFallback(this,'<span style=font-size:6rem>🏺</span>')">
+          <button type="button" class="pg-nav pg-prev" id="pgPrev" onclick="pgStep(-1)" aria-label="Previous photo" hidden>&#8249;</button>
+          <button type="button" class="pg-nav pg-next" id="pgNext" onclick="pgStep(1)" aria-label="Next photo" hidden>&#8250;</button>
+        </div>
+      </div>
     </div>
     <div class="modal-body">
       <div class="modal-category">${currentProduct.category} · ${currentProduct.era}</div>
@@ -826,6 +956,7 @@ async function openModal(id) {
     </div>
   `;
 
+  loadProductGallery(currentProduct);
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('productModal').classList.add('open');
 }
