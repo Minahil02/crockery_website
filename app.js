@@ -318,7 +318,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 24,  // bumped — added antique brass collection + cezve
+  _seedVersion: 25,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -944,7 +944,7 @@ async function openModal(id) {
         <div class="modal-detail-row"><span>Material</span><span>${currentProduct.material}</span></div>
         <div class="modal-detail-row"><span>Technique</span><span>${currentProduct.technique}</span></div>
         <div class="modal-detail-row"><span>Dimensions</span><span>${currentProduct.dimensions}</span></div>
-        <div class="modal-detail-row"><span>Origin</span><span>${currentProduct.origin}</span></div>
+        ${['antique', 'bowls'].includes(currentProduct.category) ? '' : `<div class="modal-detail-row"><span>Origin</span><span>${currentProduct.origin}</span></div>`}
       </div>
       <div class="modal-price">${currentProduct.originalPrice ? `<span class="modal-price-original">Rs. ${currentProduct.originalPrice.toLocaleString()}</span>` : ''}Rs. ${currentProduct.price.toLocaleString()}</div>
       <div class="modal-qty">
