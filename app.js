@@ -76,15 +76,15 @@ const CONFIG = {
     zones: {
       lahore: {
         label: 'Lahore',
-        baseFee: 250,       // covers up to freeKg
+        baseFee: 500,       // flat delivery fee
         freeKg: 1,          // kg included in baseFee
-        perKgFee: 100        // Rs. per kg beyond freeKg
+        perKgFee: 0          // flat fee — no extra charge for weight
       },
       other: {
         label: 'Rest of Pakistan',
-        baseFee: 350,       // covers up to freeKg
+        baseFee: 500,       // flat delivery fee
         freeKg: 1,          // kg included in baseFee
-        perKgFee: 150        // Rs. per kg beyond freeKg
+        perKgFee: 0          // flat fee — no extra charge for weight
       }
     },
     defaultZone: 'lahore'
@@ -318,7 +318,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 25,  // bumped — added antique brass collection + cezve
+  _seedVersion: 26,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -426,6 +426,7 @@ function openWhatsAppOrder(orderId, name, phone, address, note, items, total, de
     `Subtotal: Rs. ${subtotal.toLocaleString()}\n` +
     `Delivery (${zoneLabel}): Rs. ${deliveryFee.toLocaleString()}\n` +
     `💰 *TOTAL: Rs. ${total.toLocaleString()}*\n` +
+    `⚠️ _Advance payment is required to confirm this order._\n` +
     `${DIVIDER}\n\n` +
     `👤 *CUSTOMER DETAILS*\n` +
     `Name: ${name}\n` +
@@ -676,6 +677,10 @@ function checkout() {
         </div>
         <div class="form-group">
           <textarea id="coNote"    rows="2"  placeholder="Special instructions? (optional)"></textarea>
+        </div>
+        <div class="co-advance-note" style="margin:0 0 1rem;padding:.8rem 1rem;border:1px solid var(--border);border-left:3px solid var(--copper);border-radius:6px;background:var(--bg-card);font-size:.85rem;line-height:1.6;color:var(--text-secondary)">
+          <strong style="color:var(--text-primary)">Advance payment required.</strong>
+          Part of the payment must be paid in advance to confirm your order. Our team will share the amount and payment details with you on WhatsApp.
         </div>
         <button class="btn btn-primary full" id="coBtn" onclick="confirmOrder()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"

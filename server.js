@@ -196,8 +196,8 @@ function formatProduct(row) {
 // server-side (never trusted from the client) so it can't
 // be tampered with in a raw API request.
 const DELIVERY_ZONES = {
-  lahore: { label: 'Lahore', baseFee: 250, freeKg: 1, perKgFee: 100 },
-  other:  { label: 'Rest of Pakistan', baseFee: 350, freeKg: 1, perKgFee: 150 }
+  lahore: { label: 'Lahore', baseFee: 500, freeKg: 1, perKgFee: 0 },
+  other:  { label: 'Rest of Pakistan', baseFee: 500, freeKg: 1, perKgFee: 0 }
 };
 
 function calcDeliveryFee(zoneKey, totalWeight) {
