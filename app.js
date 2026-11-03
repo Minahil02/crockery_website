@@ -101,7 +101,7 @@ const PRODUCT_SEED = [
     name: 'Pure Copper Water Bottle — 600ml',
     shortDesc: 'Hand-hammered 100% pure copper bottle + free green pouch',
     fullDesc: 'Our signature pure copper water bottle, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Comes with a complimentary green pouch for safe storage and travel. Also available in a 1 Litre size.',
-    price: 6500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 7000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '600ml capacity', weight: 0.3
   },
   {
@@ -110,7 +110,7 @@ const PRODUCT_SEED = [
     name: 'Pure Copper Water Bottle — 1 Litre',
     shortDesc: 'Hand-hammered 100% pure copper bottle + free green pouch',
     fullDesc: 'Our signature pure copper water bottle in a larger 1 Litre size, hand-hammered by Lahore artisans into a dimpled surface that catches the light. Rooted in Ayurvedic tradition, copper vessels are believed to aid digestion, boost immunity, and naturally purify water. Eco-friendly, reusable, and built to last a lifetime — a healthier, more elegant alternative to plastic. Comes with a complimentary green pouch for safe storage and travel. Also available in a 600ml size.',
-    price: 7500, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 8000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
     technique: 'Hand Hammering', era: 'Ayurvedic-Inspired', dimensions: '1 Litre capacity', weight: 0.4
   },
   {
@@ -318,7 +318,7 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 26,  // bumped — added antique brass collection + cezve
+  _seedVersion: 27,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
