@@ -88,7 +88,21 @@ const CONFIG = {
       }
     },
     defaultZone: 'lahore'
-  }
+  },
+
+  // ── SITE-WIDE SALE ────────────────────────────
+  // Turn the sale off any time with  enabled: false
+  sale: {
+    enabled: true,
+    percent: 10,
+    excludeCategories: ['mugs'],            // no sale on these categories (Glasses)
+    excludeNameRegex: /\b(mugs?|glass(es)?)\b/i,  // ...or any product with these words in its name
+    label: '10% OFF'
+  },
+
+  // ── ONE-OF-A-KIND ITEMS ───────────────────────
+  // Only one piece exists, so customers can't add more than 1.
+  singlePieceCategories: ['antique', 'bowls']
 };
 
 // ═══════════════════════════════════════════════
@@ -316,9 +330,31 @@ const REVIEW_SEED = [
 // ═══════════════════════════════════════════════
 // DATABASE (localStorage)
 // ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// SALE + SINGLE-PIECE HELPERS
+// ═══════════════════════════════════════════════
+function isOnSale(p) {
+  const s = CONFIG.sale;
+  if (!s || !s.enabled) return false;
+  if (p.noSale || p.originalPrice) return false;                 // bundles already carry their own deal
+  if (s.excludeCategories.includes(p.category)) return false;
+  if (s.excludeNameRegex && s.excludeNameRegex.test(p.name)) return false;
+  return true;
+}
+
+function applySale(p) {
+  if (!p || !isOnSale(p)) return p;
+  const price = Math.round(p.price * (100 - CONFIG.sale.percent) / 100);
+  return { ...p, originalPrice: p.price, price, onSale: true, salePercent: CONFIG.sale.percent };
+}
+
+function maxQtyFor(p) {
+  return CONFIG.singlePieceCategories.includes(p.category) ? 1 : Infinity;
+}
+
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 27,  // bumped — added antique brass collection + cezve
+  _seedVersion: 28,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
@@ -358,9 +394,9 @@ const DB = {
   write(data) { localStorage.setItem(this._key, JSON.stringify(data)); },
   getProducts(filter = 'all') {
     const db = this.read();
-    return filter === 'all' ? db.products : db.products.filter(p => p.category === filter);
+    return (filter === 'all' ? db.products : db.products.filter(p => p.category === filter)).map(applySale);
   },
-  getProduct(id) { return this.read().products.find(p => p.id === id) || null; },
+  getProduct(id) { return applySale(this.read().products.find(p => p.id === id) || null); },
   saveEnquiry(e) {
     const db = this.read();
     db.enquiries.push({ ...e, id: Date.now(), date: new Date().toISOString() });
@@ -423,6 +459,7 @@ function openWhatsAppOrder(orderId, name, phone, address, note, items, total, de
     `📦 Order ID: *${orderId}*\n\n` +
     `🛒 *ITEMS*\n${itemLines}\n\n` +
     `${DIVIDER}\n` +
+    (items.some(i => i.onSale) ? `🏷️ ${CONFIG.sale.percent}% sale discount applied (saved Rs. ${items.reduce((s, i) => s + (i.onSale ? (i.originalPrice - i.price) * i.qty : 0), 0).toLocaleString()})\n` : '') +
     `Subtotal: Rs. ${subtotal.toLocaleString()}\n` +
     `Delivery (${zoneLabel}): Rs. ${deliveryFee.toLocaleString()}\n` +
     `💰 *TOTAL: Rs. ${total.toLocaleString()}*\n` +
@@ -574,10 +611,27 @@ let cart = JSON.parse(localStorage.getItem('desipanday_cart') || '[]');
 
 function saveCart() { localStorage.setItem('desipanday_cart', JSON.stringify(cart)); }
 
+// Re-price (and clamp quantities of) anything already in the cart,
+// so sale changes and one-piece rules apply to older saved carts too.
+function repriceCart() {
+  cart = cart.map(i => {
+    const fresh = DB.getProduct(i.id);
+    if (!fresh) return i;
+    const max = maxQtyFor(fresh);
+    return { ...i, price: fresh.price, originalPrice: fresh.originalPrice, onSale: fresh.onSale, salePercent: fresh.salePercent, qty: Math.min(i.qty, max) };
+  });
+}
+
 function addToCart(product, qty = 1) {
+  const max = maxQtyFor(product);
   const existing = cart.find(i => i.id === product.id);
-  if (existing) existing.qty += qty;
-  else cart.push({ ...product, qty });
+  if (existing) {
+    if (existing.qty >= max) {
+      showToast(`Only one piece of ${product.name} is available — it's already in your selection`);
+      return;
+    }
+    existing.qty = Math.min(existing.qty + qty, max);
+  } else cart.push({ ...product, qty: Math.min(qty, max) });
   saveCart();
   updateCartUI();
   showToast(`✦ ${product.name} added to your selection`);
@@ -590,6 +644,7 @@ function removeFromCart(productId) {
 }
 
 function updateCartUI() {
+  repriceCart();
   const count = cart.reduce((s, i) => s + i.qty, 0);
   document.getElementById('cartCount').textContent = count;
   const container = document.getElementById('cartItems');
@@ -610,7 +665,7 @@ function updateCartUI() {
       </div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">Rs. ${(item.price * item.qty).toLocaleString()} ×${item.qty}</div>
+        <div class="cart-item-price">Rs. ${(item.price * item.qty).toLocaleString()} ×${item.qty}${item.onSale ? ` <span style="text-decoration:line-through;opacity:.55;font-size:.85em">Rs. ${(item.originalPrice * item.qty).toLocaleString()}</span> <span style="color:var(--copper);font-size:.8em">${item.salePercent}% off</span>` : ''}</div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
     </div>
@@ -651,6 +706,7 @@ function checkout() {
           </div>
         `).join('')}
         <div class="co-item"><span>Subtotal</span><span id="coSubtotal">Rs. ${subtotal.toLocaleString()}</span></div>
+        ${cart.some(i => i.onSale) ? `<div class="co-item" style="color:var(--copper)"><span>${CONFIG.sale.percent}% sale discount applied</span><span>− Rs. ${cart.reduce((s, i) => s + (i.onSale ? (i.originalPrice - i.price) * i.qty : 0), 0).toLocaleString()}</span></div>` : ''}
         <div class="co-item"><span>Delivery (<span id="coWeightLabel">${totalWeight.toFixed(2)}kg</span>)</span><span id="coDeliveryFee">Rs. ${initialFee.toLocaleString()}</span></div>
         <div class="co-total"><span>Total</span><span id="coGrandTotal">Rs. ${(subtotal + initialFee).toLocaleString()}</span></div>
       </div>
@@ -795,6 +851,7 @@ async function loadProducts(filter = 'all') {
         <img src="${p.image}" alt="${p.name}" loading="lazy"
              onerror="imgFallback(this,'<div style=font-size:5rem;text-align:center;padding:2rem>🏺</div>')">
         ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
+        ${p.onSale ? `<div class="card-sale">${CONFIG.sale.label}</div>` : ''}
       </div>
       <div class="card-body">
         <div class="card-category">${p.category}</div>
@@ -951,12 +1008,15 @@ async function openModal(id) {
         <div class="modal-detail-row"><span>Dimensions</span><span>${currentProduct.dimensions}</span></div>
         ${['antique', 'bowls'].includes(currentProduct.category) ? '' : `<div class="modal-detail-row"><span>Origin</span><span>${currentProduct.origin}</span></div>`}
       </div>
+      ${currentProduct.onSale ? `<div class="modal-sale-tag">${CONFIG.sale.label} — discount applied automatically</div>` : ''}
       <div class="modal-price">${currentProduct.originalPrice ? `<span class="modal-price-original">Rs. ${currentProduct.originalPrice.toLocaleString()}</span>` : ''}Rs. ${currentProduct.price.toLocaleString()}</div>
-      <div class="modal-qty">
+      ${maxQtyFor(currentProduct) === 1
+        ? `<p class="single-piece-note">One-of-a-kind piece — only 1 available.</p>`
+        : `<div class="modal-qty">
         <button class="qty-btn" onclick="changeQty(-1)">−</button>
         <span class="qty-val" id="modalQtyDisplay">1</span>
         <button class="qty-btn" onclick="changeQty(1)">+</button>
-      </div>
+      </div>`}
       <button class="btn btn-primary full" onclick="addToCartFromModal()">Add to Selection</button>
     </div>
   `;
@@ -968,6 +1028,7 @@ async function openModal(id) {
 
 function changeQty(delta) {
   modalQty = Math.max(1, modalQty + delta);
+  if (currentProduct) modalQty = Math.min(modalQty, maxQtyFor(currentProduct));
   const el = document.getElementById('modalQtyDisplay');
   if (el) el.textContent = modalQty;
 }
