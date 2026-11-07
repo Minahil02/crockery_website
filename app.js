@@ -142,7 +142,7 @@ const PRODUCT_SEED = [
     name: 'Copper Diamond Shape Premium Bottle — 600ml',
     shortDesc: 'Diamond-faceted premium pure copper bottle',
     fullDesc: 'A premium pure copper water bottle hand-finished with a striking diamond-faceted body. The angular, multi-faceted surface catches the light beautifully while keeping the same Ayurvedic benefits as our classic bottles — aiding digestion, boosting immunity, and naturally purifying water. A statement piece for anyone who wants their copper bottle to look as refined as it feels. Buy two for Rs. 18,000 — message us on WhatsApp to claim the pair price.',
-    price: 10000, material: '99.9% Pure Copper', origin: 'Lahore Workshop',
+    price: 10000, material: '99.9% Pure Copper', origin: 'Imported',
     technique: 'Diamond Faceting', era: 'Contemporary Premium', dimensions: '600ml capacity', weight: 0.35
   },
   {
@@ -354,7 +354,7 @@ function maxQtyFor(p) {
 
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 29,  // bumped — added antique brass collection + cezve
+  _seedVersion: 30,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
