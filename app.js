@@ -102,7 +102,7 @@ const CONFIG = {
 
   // ── ONE-OF-A-KIND ITEMS ───────────────────────
   // Only one piece exists, so customers can't add more than 1.
-  singlePieceCategories: ['antique', 'bowls']
+  singlePieceCategories: ['antique']
 };
 
 // ═══════════════════════════════════════════════
@@ -354,7 +354,7 @@ function maxQtyFor(p) {
 
 const DB = {
   _key: 'desipanday_db',
-  _seedVersion: 28,  // bumped — added antique brass collection + cezve
+  _seedVersion: 29,  // bumped — added antique brass collection + cezve
   init() {
     const existing = localStorage.getItem(this._key);
     let needSeed = !existing;
